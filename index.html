@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruang Resepsi — Undangan Digital Eksklusif</title>
+<meta name="description" content="Ruang Resepsi — buat undangan pernikahan digital yang elegan. Satu tautan personal untuk setiap tamu, kirim via WhatsApp dalam satu ketukan.">
+<meta name="theme-color" content="#a565ff">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ruang Resepsi — Undangan Digital Eksklusif">
+<meta property="og:description" content="Kisah cinta, satu tautan.">
+<meta property="og:url" content="https://ruang-resepsi.vercel.app">
+<meta property="og:image" content="https://ruang-resepsi.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='8' fill='%23a565ff'/><path d='M8 3 L11.5 5.5 L11.5 10.5 L8 13 L4.5 10.5 L4.5 5.5 Z' fill='none' stroke='white' stroke-width='1.2'/><circle cx='8' cy='8' r='1.7' fill='white'/></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      'violet-pulse':'#a565ff','indigo-ink':'#5e5cff','lavender-wash':'#ebebff','iris-glow':'#e0c9ff',
+      'ledger-green':'#2e7317','paper-white':'#ffffff','bone':'#f7f7f7','fog':'#f1f1f1','silver':'#efefef',
+      'marble':'#fff6df','graphite':'#1d1d20','slate':'#42424a','iron':'#505050','steel':'#757575',
+      'smoke':'#92939e','ash':'#e5e7eb','mist':'#d1d9e4',
+    },
+    fontFamily: {
+      'sans':['Inter','TWK Lausanne','system-ui','sans-serif'],
+      'serif':['Cormorant Garamond','Moderat Serif','Georgia','serif'],
+      'mono':['JetBrains Mono','SF Mono','monospace'],
+    }
+  }}
+}
+</script>
+<style>
+:root{ --violet:#a565ff; --lav:#ebebff; --iris:#e0c9ff; --ash:#e5e7eb; --mist:#d1d9e4; --graphite:#1d1d20; --iron:#505050; --steel:#757575; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){ *,*::before,*::after{ animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease; }
+.reveal.in{ opacity:1; transform:none; }
+.d1{ transition-delay:.08s; } .d2{ transition-delay:.16s; } .d3{ transition-delay:.24s; }
+@keyframes floatY{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-7px); } }
+.float-card{ animation: floatY 6s ease-in-out infinite; }
+@keyframes shimmerLine{ 0%{ background-position:-200% 0; } 100%{ background-position:200% 0; } }
+.shimmer{ background:linear-gradient(90deg,#a565ff 0%,#9492ff 45%,#e0c9ff 55%,#a565ff 100%); background-size:200% 100%; animation:shimmerLine 2.8s linear infinite; }
+.btn-primary{ position:relative; overflow:hidden; background:#a565ff; border-radius:9999px; padding:11px 22px; color:#fff; font-size:14px; font-weight:500; font-family:'Inter',system-ui,sans-serif; box-shadow:rgba(58,58,64,.1) 0 0 0 1px, rgba(0,0,0,.1) 0 1px 3px, rgba(99,102,241,.18) 0 0 10px 3px; transition:all .18s; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+.btn-primary:hover{ background:#9a52ff; transform:translateY(-1px); }
+.btn-primary::after{ content:''; position:absolute; inset:0; background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.22) 50%,transparent 70%); transform:translateX(-120%); transition:transform .6s; }
+.btn-primary:hover::after{ transform:translateX(120%); }
+.btn-secondary{ background:#fff; border:1px solid #efefef; border-radius:9999px; padding:11px 20px; color:#1d1d20; font-size:14px; font-weight:500; font-family:'Inter',system-ui,sans-serif; box-shadow:rgba(29,29,32,.08) 0 0 0 1px; transition:all .15s; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+.btn-secondary:hover{ background:#f7f7f7; }
+.input-field{ background:#fff; border:1px solid #d1d9e4; border-radius:4px; padding:10px 14px; font-family:'Inter',system-ui,sans-serif; font-size:14px; color:#1d1d20; width:100%; outline:none; transition:all .15s; }
+.input-field::placeholder{ color:#92939e; }
+.input-field:focus{ border-color:#a565ff; box-shadow:0 0 0 3px #ebebff; }
+.card{ background:#fff; border:1px solid #e5e7eb; border-radius:8px; }
+.card-elevated{ background:#fff; border:1px solid #e5e7eb; border-radius:16px; box-shadow:rgb(239,239,239) 0 0 0 2px, rgba(0,0,0,.01) 0 22px 9px, rgba(0,0,0,.04) 0 12px 7px, rgba(0,0,0,.06) 0 5px 5px; }
+.eyebrow{ font-family:'Inter',system-ui,sans-serif; font-size:11px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:#757575; }
+.hover-lift{ transition:transform .25s, box-shadow .25s, border-color .25s; }
+.hover-lift:hover{ transform:translateY(-3px); box-shadow:rgba(58,58,64,.06) 0 8px 24px; border-color:#e0c9ff !important; }
+.radial-wash{ background:radial-gradient(ellipse 900px 600px at 15% 10%, rgba(186,217,249,.55), transparent 60%), radial-gradient(ellipse 800px 500px at 85% 15%, rgba(234,234,255,.85), transparent 60%), radial-gradient(ellipse 700px 400px at 50% 100%, rgba(224,201,255,.25), transparent 60%); }
+.fade-in{ animation:fadeIn .5s ease; }
+@keyframes fadeIn{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
+@keyframes pulseDot{ 0%,100%{ transform:scale(1); opacity:1; } 50%{ transform:scale(1.35); opacity:.7; } }
+.dot-pulse{ animation:pulseDot 1.8s ease-in-out infinite; }
+.nav-link{ color:#505050; transition:color .2s, text-decoration-color .2s; }
+.nav-link:hover{ color:#1d1d20; }
+.nav-link.active{ color:#1d1d20; text-decoration:underline; text-decoration-color:#a565ff; text-underline-offset:4px; text-decoration-thickness:2px; }
+.timeline-line{ position:relative; }
+.timeline-line::before{ content:''; position:absolute; left:19px; top:0; bottom:0; width:1px; background:#e5e7eb; }
+.ampop-card:hover{ background:#f7f7f7; transform:scale(1.02); transition:all .2s; }
+</style>
+</head>
+<body class="bg-white text-graphite font-sans antialiased min-h-screen">
+
+<!-- ===== LANDING ===== -->
+<div id="landing" class="hidden">
+<div id="announcement" class="bg-marble border-b border-ash w-full text-center py-2 px-4">
+  <p class="font-sans text-[13px]">Ruang Resepsi — Undangan digital elegan, tanpa ribet. <span onclick="document.getElementById('cara-kerja')?.scrollIntoView({behavior:'smooth'})" class="text-indigo-ink font-medium ml-1 cursor-pointer hover:underline">Pelajari →</span></p>
+</div>
+<nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-ash">
+  <div class="max-w-[1200px] mx-auto px-6 h-14 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-graphite flex items-center justify-center">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2 L12 5 L12 11 L8 14 L4 11 L4 5 Z" stroke="white" stroke-width="1.3" fill="none"/><circle cx="8" cy="8" r="2" fill="#a565ff"/></svg>
+      </div>
+      <span class="font-medium text-[18px] tracking-[-0.02em]">Ruang Resepsi</span>
+    </div>
+    <div class="hidden md:flex items-center gap-6 text-[14px] font-medium text-iron">
+      <a href="#beranda" id="nav-beranda" class="nav-link text-graphite">Beranda</a>
+      <a href="#cara-kerja" id="nav-cara" class="nav-link text-iron hover:text-graphite transition underline decoration-transparent underline-offset-4 hover:decoration-graphite">Cara Kerja</a>
+      <a href="#contoh-undangan" id="nav-contoh" class="nav-link text-iron hover:text-graphite transition underline decoration-transparent underline-offset-4 hover:decoration-graphite">Contoh</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="hidden sm:inline text-[13px] text-steel">Kisah cinta, satu tautan</span>
+      <div class="w-2 h-2 rounded-full bg-ledger-green dot-pulse"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO / BERANDA (display penuh sesuai DESIGN.md) ===== -->
+<section id="beranda" class="radial-wash relative overflow-hidden">
+  <div class="max-w-[1200px] mx-auto px-6 py-20 sm:py-28 text-center">
+    <span class="eyebrow reveal">Undangan Digital Pernikahan</span>
+    <h1 class="font-serif font-light text-[46px] sm:text-[56px] leading-none tracking-[-0.025em] text-graphite mt-5 reveal d1">
+      Satu ruang untuk <em class="italic" style="color:#a565ff;">kisah cinta</em>
+    </h1>
+    <p class="font-sans text-[16px] leading-[1.63] text-iron max-w-[560px] mx-auto mt-5 reveal d2">
+      Buat undangan pernikahan yang elegan dan personal — satu tautan unik untuk setiap tamu, dikirim langsung lewat WhatsApp dalam satu ketukan.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mt-9 reveal d2">
+      <button onclick="scrollToSetup()" class="btn-primary">
+        Mulai Buat Undangan
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+      </button>
+      <a href="#contoh-undangan" class="btn-secondary">Lihat Contoh</a>
+    </div>
+    <p class="font-mono text-[11px] text-smoke mt-6 reveal d3">tanpa akun • tanpa database • tanpa ribet</p>
+  </div>
+</section>
+
+<!-- Social proof strip -->
+<section class="bg-bone border-t border-ash">
+  <div class="max-w-[1200px] mx-auto px-6 py-8">
+    <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-[13px] font-medium text-steel">
+      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span>Link taruna personal</span>
+      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span>Countdown live</span>
+      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span>Galeri & kisah</span>
+      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span>RSVP & amplop digital</span>
+      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span>Musik & peta</span>
+    </div>
+  </div>
+</section>
+
+<!-- Cara Kerja -->
+<section id="cara-kerja" class="bg-white border-t border-ash scroll-mt-14">
+  <div class="max-w-[1200px] mx-auto px-6 py-16">
+    <div class="max-w-[720px] mx-auto text-center mb-10 reveal">
+      <span class="eyebrow">Cara Kerja</span>
+      <h2 class="font-serif font-light text-[32px] sm:text-[40px] leading-none tracking-[-0.025em] mt-3">Tiga langkah, undangan <span class="italic" style="color:#a565ff;">siap disebar</span></h2>
+      <p class="font-sans text-[14px] text-iron mt-4">Tanpa akun, tanpa password. Cukup isi sekali, lalu undang sebanyak yang kamu mau.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[960px] mx-auto">
+      <div class="card p-6 hover-lift reveal">
+        <div class="w-9 h-9 rounded-full bg-lavender-wash border border-iris-glow flex items-center justify-center mb-4"><span class="text-[13px] font-semibold text-indigo-ink">1</span></div>
+        <h3 class="font-medium text-[16px]">Isi Detail Mempelai</h3>
+        <p class="text-[13px] text-steel mt-2 leading-[1.6]">Masukkan nama, tanggal, jam, dan lokasi. Data tersimpan aman di browser kamu.</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 bg-bone border border-ash rounded-full px-2.5 py-1"><span class="w-1.5 h-1.5 rounded-full bg-violet-pulse dot-pulse"></span><span class="text-[11px] text-steel">30 detik</span></div>
+      </div>
+      <div class="card p-6 hover-lift reveal d1">
+        <div class="w-9 h-9 rounded-full bg-lavender-wash border border-iris-glow flex items-center justify-center mb-4"><span class="text-[13px] font-semibold text-indigo-ink">2</span></div>
+        <h3 class="font-medium text-[16px]">Buat Link Personal</h3>
+        <p class="text-[13px] text-steel mt-2 leading-[1.6]">Setiap tamu mendapat tautan unik dengan namanya — rapi, personal, dan anti-salah kirim.</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 bg-bone border border-ash rounded-full px-2.5 py-1"><span class="w-1.5 h-1.5 rounded-full bg-ledger-green dot-pulse"></span><span class="text-[11px] text-steel">Tautan personal</span></div>
+      </div>
+      <div class="card p-6 hover-lift reveal d2">
+        <div class="w-9 h-9 rounded-full bg-violet-pulse flex items-center justify-center mb-4"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M22 16.5a3 3 0 0 1-3 3H9l-4 4v-16a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3v9Z"/></svg></div>
+        <h3 class="font-medium text-[16px]">Kirim via WhatsApp</h3>
+        <p class="text-[13px] text-steel mt-2 leading-[1.6]">Satu klik membuka WhatsApp dengan pesan jadi. Kirim, lanjut tamu berikutnya — tanpa reload.</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 bg-ledger-green/10 border border-ledger-green/15 rounded-full px-2.5 py-1"><span class="text-[11px] font-medium text-ledger-green">Satu ketuk — langsung terkirim</span></div>
+      </div>
+    </div>
+    <div class="flex justify-center mt-8"><a href="#" onclick="scrollToSetup(event)" class="btn-primary">Mulai Buat Undangan</a></div>
+  </div>
+</section>
+
+<!-- Contoh -->
+<section id="contoh-undangan" class="bg-bone border-t border-ash scroll-mt-14">
+  <div class="max-w-[1100px] mx-auto px-6 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      <div class="reveal">
+        <span class="eyebrow">Contoh Undangan</span>
+        <h2 class="font-serif font-light text-[32px] sm:text-[40px] leading-none tracking-[-0.025em] mt-3">Pratinjau yang <span class="italic" style="color:#a565ff;">diterima tamu</span></h2>
+        <p class="text-[14px] text-iron mt-4 leading-[1.6]">Bersih, editorial, dan elegan — lengkap dengan countdown, galeri, RSVP, dan amplop digital.</p>
+        <div class="mt-6 flex gap-3">
+          <button onclick="bukaContoh()" class="btn-primary">Lihat Contoh Live</button>
+          <a href="#cara-kerja" class="btn-secondary">Pelajari cara kerja</a>
+        </div>
+      </div>
+      <div class="max-w-[440px] mx-auto w-full">
+        <div class="card-elevated overflow-hidden float-card">
+          <div class="h-[3px] w-full shimmer"></div>
+          <div class="p-8 text-center">
+            <p class="text-[10px] tracking-[0.12em] uppercase text-steel mb-2">Kepada Yth.</p>
+            <div class="inline-flex items-center gap-2 bg-bone border border-ash rounded-full px-3 py-1.5 mb-4"><span class="w-2 h-2 rounded-full bg-violet-pulse"></span><span class="text-[13px] font-medium">Bapak Budi & Keluarga</span></div>
+            <h3 class="font-serif font-light text-[30px] leading-none tracking-[-0.02em]">Andi <span class="text-violet-pulse">&</span> Sinta</h3>
+            <div class="flex items-center justify-center gap-2 my-4 text-center">
+              <span class="text-[11px] text-steel">Countdown</span>
+              <span class="text-[11px] text-steel">•</span><span class="text-[11px] text-steel">Galeri</span>
+              <span class="text-[11px] text-steel">•</span><span class="text-[11px] text-steel">RSVP</span>
+              <span class="text-[11px] text-steel">•</span><span class="text-[11px] text-steel">Amplop</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 mb-5">
+              <div class="bg-bone border border-ash rounded-lg p-2.5"><p class="eyebrow text-[10px]">Tanggal</p><p class="text-[12px] font-medium mt-1">20 Sep 2026</p></div>
+              <div class="bg-bone border border-ash rounded-lg p-2.5"><p class="eyebrow text-[10px]">Jam</p><p class="text-[12px] font-medium mt-1">19:00</p></div>
+              <div class="bg-bone border border-ash rounded-lg p-2.5"><p class="eyebrow text-[10px]">Lokasi</p><p class="text-[11px] font-medium mt-1">Gedung Melati</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+<!-- ===== END LANDING ===== -->
+
+<!-- ===== INVITATION (STATE 3) ===== -->
+<section id="state-invitation" class="hidden">
+<div id="msc" class="fixed bottom-5 right-5 z-50"><button onclick="toggleMusic()" id="btn-msc" aria-label="Musik" class="w-11 h-11 rounded-full bg-violet-pulse text-white flex items-center justify-center shadow-lg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button></div>
+<audio id="audio-bg" loop preload="none"></audio>
+
+<!-- Cover -->
+<div id="cover" class="min-h-screen flex flex-col justify-center items-center radial-wash px-6 text-center relative">
+  <div class="max-w-md w-full fade-in">
+    <div class="mb-6 flex justify-center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#a565ff" stroke-width="1.5" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#1d1d20" stroke-width="1.3" fill="white"/></svg></div>
+    <p class="eyebrow mb-3">The Wedding of</p>
+    <h1 class="font-serif font-light text-[40px] sm:text-[46px] leading-none tracking-[-0.025em] text-graphite"><span id="cover-pria">—</span> <span class="text-violet-pulse">&</span> <span id="cover-wanita">—</span></h1>
+    <div class="w-16 h-px bg-ash mx-auto my-5"></div>
+    <p class="font-sans text-[14px] text-iron mb-2">Kepada Yth.</p>
+    <p class="font-serif italic text-[20px] text-graphite mb-8" id="cover-tamu">Tamu Undangan</p>
+    <button onclick="bukaUndangan(true)" class="btn-primary mx-auto">
+      Buka Undangan
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M9 2v5h6V2"/></svg>
+    </button>
+    <p class="text-[11px] text-smoke mt-4">Mohon maaf apabila kehadiran Bapak/Ibu/Saudara/i sangat kami harapkan</p>
+  </div>
+</div>
+
+<!-- Main invitation body -->
+<div id="invite" class="hidden">
+  <div class="radial-wash">
+    <!-- Title -->
+    <div class="max-w-[1200px] mx-auto px-6 pt-16 pb-6 text-center">
+      <span class="eyebrow">Undangan Pernikahan</span>
+      <div class="flex items-center justify-center gap-3 mt-4">
+        <div class="h-px w-12 bg-ash"></div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#a565ff" stroke-width="1.5" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#1d1d20" stroke-width="1.2" fill="white"/></svg>
+        <div class="h-px w-12 bg-ash"></div>
+      </div>
+      <h1 class="font-serif font-light text-[40px] sm:text-[46px] leading-none tracking-[-0.025em] mt-4">
+        <span id="inv-pria">—</span> <span class="text-violet-pulse text-[28px] sm:text-[32px]">&</span> <span id="inv-wanita">—</span>
+      </h1>
+      <p class="font-serif italic text-[18px] text-steel mt-3">"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya." <span class="not-italic text-[14px] text-smoke">(QS. Ar-Rum: 21)</span></p>
+    </div>
+
+    <!-- Guest -->
+    <div class="max-w-[1200px] mx-auto px-6 text-center">
+      <div class="inline-flex items-center gap-2 bg-white border border-ash rounded-full px-5 py-2.5 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span>
+        <span class="text-[14px] font-medium">Kepada Yth.</span>
+        <span class="text-[14px] font-medium text-violet-pulse" id="inv-tamu"></span>
+      </div>
+    </div>
+
+    <!-- Info & Countdown -->
+    <div class="max-w-[680px] mx-auto px-6 py-10">
+      <div class="card-elevated p-7 rounded-2xl">
+        <p class="text-[14px] text-iron text-center leading-[1.7] mb-6">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu pada hari bahagia kami.</p>
+        <div class="grid grid-cols-3 gap-3 text-center mb-6">
+          <div class="card bg-bone p-3"><p class="eyebrow mb-1">Sabtu</p><p class="text-[13px] font-medium" id="inv-tanggal">—</p></div>
+          <div class="card bg-bone p-3"><p class="eyebrow mb-1">Jam</p><p class="text-[13px] font-medium" id="inv-jam">—</p></div>
+          <div class="card bg-bone p-3"><p class="eyebrow mb-1">Lokasi</p><p class="text-[13px] font-medium leading-tight" id="inv-lokasi">—</p></div>
+        </div>
+        <div class="border-t border-ash pt-6">
+          <p class="eyebrow text-center mb-4">Menuju Hari Bahagia</p>
+          <div class="grid grid-cols-4 gap-2 text-center">
+            <div class="bg-lavender-wash border border-iris-glow rounded-lg p-3"><p class="font-serif text-[24px] text-indigo-ink font-light" id="cd-d">0</p><p class="text-[10px] uppercase tracking-wide text-steel">Hari</p></div>
+            <div class="bg-lavender-wash border border-iris-glow rounded-lg p-3"><p class="font-serif text-[24px] text-indigo-ink font-light" id="cd-h">0</p><p class="text-[10px] uppercase tracking-wide text-steel">Jam</p></div>
+            <div class="bg-lavender-wash border border-iris-glow rounded-lg p-3"><p class="font-serif text-[24px] text-indigo-ink font-light" id="cd-m">0</p><p class="text-[10px] uppercase tracking-wide text-steel">Menit</p></div>
+            <div class="bg-lavender-wash border border-iris-glow rounded-lg p-3"><p class="font-serif text-[24px] text-indigo-ink font-light" id="cd-s">0</p><p class="text-[10px] uppercase tracking-wide text-steel">Detik</p></div>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 mt-6">
+          <a id="inv-maps" href="#" target="_blank" class="btn-secondary flex-1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1d1d20" stroke-width="1.6"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Buka Google Maps</a>
+          <button onclick="konfirmasiWA()" class="btn-primary flex-1">Konfirmasi Kehadiran</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Maps embed -->
+    <div class="max-w-[680px] mx-auto px-6 pb-10">
+      <div class="card-elevated overflow-hidden">
+        <div class="h-[3px] w-full shimmer"></div>
+        <iframe id="inv-mapframe" title="Peta Lokasi" src="about:blank" class="w-full h-[280px] block" loading="lazy" style="filter:saturate(.9);"></iframe>
+        <div class="p-4 text-center flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a id="inv-maps2" href="#" target="_blank" class="text-indigo-ink font-medium text-[14px] hover:underline">Buka peta di Google Maps →</a>
+          <span class="text-smoke text-[12px]">atau</span>
+          <span class="text-[12px] text-steel">Scan QR untuk navigasi</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- QR Navigasi -->
+    <div class="max-w-[600px] mx-auto px-6 pb-10">
+      <div class="card-elevated p-7 text-center">
+        <p class="eyebrow text-center mb-2">Navigasi Lokasi</p>
+        <p class="text-[13px] text-steel mb-4">Scan kode QR untuk membuka peta lokasi di ponsel Anda.</p>
+        <div id="qrcode" class="mx-auto flex justify-center mb-4"></div>
+        <a id="inv-qrlink" href="#" target="_blank" class="text-indigo-ink font-medium text-[13px] hover:underline">Buka lokasi →</a>
+      </div>
+    </div>
+
+    <!-- Susunan Acara (hanya jika diisi) -->
+    <div id="acara-wrap" class="hidden max-w-[600px] mx-auto px-6 pb-10">
+      <div class="card-elevated p-7">
+        <p class="eyebrow text-center mb-5">Susunan Acara</p>
+        <div id="acara-list" class="space-y-3"></div>
+      </div>
+    </div>
+
+    <!-- Amplop digital -->
+    <div class="max-w-[600px] mx-auto px-6 pb-10">
+      <div class="card-elevated p-7 text-center">
+        <span class="text-[34px]">💌</span>
+        <p class="eyebrow text-center mt-2 mb-2">Amplop Digital</p>
+        <p class="text-[13px] text-steel mb-5">Jika memberi adalah tanda kasih, kirim hadiah Anda melalui:</p>
+        <div id="ampop-list" class="space-y-3">
+          <div class="ampop-card bg-bone border border-ash rounded-lg p-4 flex items-center justify-between cursor-not-allowed opacity-60">
+            <div class="text-left"><p class="font-medium text-[14px]">Rekening</p><p class="font-mono text-[13px] text-steel">Rekening belum diisi oleh mempelai</p></div>
+            <span class="badge inline-flex items-center gap-1 bg-fog text-smoke rounded-full px-2.5 py-1 text-[11px] border border-ash cursor-not-allowed">Salin</span>
+          </div>
+        </div>
+        <a id="inv-food" href="#" onclick="konfirmasiWA();return false;" class="inline-flex items-center gap-2 mt-5 text-indigo-ink font-medium text-[13px] hover:underline">Kirim ucapan & doa via WhatsApp →</a>
+      </div>
+    </div>
+
+    <!-- Footer invitation -->
+    <div class="max-w-[600px] mx-auto px-6 pb-16 text-center">
+      <p class="font-serif italic text-[15px] text-steel">Atas doa dan kehadiran Anda, kami ucapkan terima kasih.</p>
+      <p class="text-[12px] text-smoke mt-4">Ruang Resepsi • <span id="inv-couple-footer"></span></p>
+    </div>
+  </div>
+</div>
+</section>
+<!-- ===== END INVITATION ===== -->
+
+<!-- ===== SETUP (STATE 1) ===== -->
+<section id="state-setup" class="hidden">
+  <div class="radial-wash">
+    <div class="max-w-[640px] mx-auto px-6 py-16">
+      <div class="text-center mb-8 reveal">
+        <div class="inline-flex items-center gap-2 bg-lavender-wash border border-iris-glow/60 rounded-full px-3 py-1 mb-5"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span><span class="text-[11px] font-medium text-indigo-ink">✦ Mulai Kisah Baru</span></div>
+        <h1 class="font-serif font-light text-[40px] leading-none tracking-[-0.025em]">Buat ruang <span class="italic text-violet-pulse">resepsi</span> Anda</h1>
+        <p class="text-[15px] text-iron mt-3">Atur detail pernikahan sekali, lalu kirim undangan personal ke setiap tamu.</p>
+      </div>
+      <form id="setup-form" class="card-elevated p-6 sm:p-8 fade-in">
+        <div class="flex items-center justify-between mb-6"><h2 class="font-medium text-[18px]">Detail Mempelai</h2><span class="text-[10px] tracking-[0.06em] text-smoke bg-bone border border-ash rounded-full px-2.5 py-1">✦ Detail</span></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Panggilan Pria <span class="text-violet-pulse">*</span></label><input id="setup-pria" class="input-field" placeholder="Contoh: Andi" required></div>
+          <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Panggilan Wanita <span class="text-violet-pulse">*</span></label><input id="setup-wanita" class="input-field" placeholder="Contoh: Sinta" required></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+          <div><label class="text-[12px] font-medium text-slate block mb-1.5">Tanggal Acara <span class="text-violet-pulse">*</span></label><input id="setup-tanggal" type="date" class="input-field" required></div>
+          <div><label class="text-[12px] font-medium text-slate block mb-1.5">Jam Acara <span class="text-violet-pulse">*</span></label><input id="setup-jam" type="time" class="input-field" required></div>
+        </div>
+        <div class="mt-4"><label class="text-[12px] font-medium text-slate block mb-1.5">Lokasi / Gedung <span class="text-violet-pulse">*</span></label><input id="setup-lokasi" class="input-field" placeholder="Contoh: Gedung Serbaguna Melati, Jakarta Selatan" required></div>
+        <div class="mt-4">
+          <label class="text-[12px] font-medium text-slate block mb-1.5">Link Google Maps <span class="text-violet-pulse">*</span></label>
+          <input id="setup-maps" class="input-field" placeholder="Tempel link Google Maps di sini, contoh: https://maps.app.goo.gl/xxxx" required inputmode="url">
+          <p class="text-[11px] text-smoke mt-1.5 leading-[1.5]">
+            <span class="font-medium text-graphite">Cara ambil link:</span> buka Google Maps → cari lokasi → ketuk <span class="font-medium text-indigo-ink">Bagikan</span> → <span class="font-medium text-indigo-ink">Salin tautan</span> → tempel di sini.
+          </p>
+        </div>
+        <div class="mt-4">
+          <label class="text-[12px] font-medium text-slate block mb-1.5">Daftar Acara <span class="text-smoke">(opsional — isi manual)</span></label>
+          <textarea id="setup-acara" class="input-field resize-y min-h-[88px]" placeholder="Satu acara per baris. Format: Nama Acara | Jam&#10;Contoh:&#10;Akad Nikah | 09:00&#10;Resepsi | 11:00 - 14:00"></textarea>
+          <p class="text-[11px] text-smoke mt-1.5">Kosongkan bila tidak perlu — susunan acara tidak akan tampil ke tamu.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+          <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Bank (Amplop)</label><input id="setup-bank" class="input-field" placeholder="Contoh: BCA"></div>
+          <div><label class="text-[12px] font-medium text-slate block mb-1.5">No. Rekening (Amplop)</label><input id="setup-rek" class="input-field" placeholder="Contoh: 1234567890"></div>
+        </div>
+        <div class="divider my-6"></div>
+        <button type="submit" class="btn-primary w-full">Simpan & Lanjut ke Pengiriman</button>
+        <p class="text-center text-[11px] text-smoke mt-3">Hanya di perangkat ini — tetap privat dan aman.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SENDER (STATE 2) ===== -->
+<section id="state-sender" class="hidden">
+  <div class="radial-wash min-h-screen">
+    <div class="max-w-[860px] mx-auto px-6 py-10">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div>
+          <div class="flex items-center gap-2 mb-2"><span class="badge bg-ledger-green/10 text-ledger-green border border-ledger-green/15 rounded-full px-3 py-1 text-[11px] font-medium">✦ Siap Mengundang</span></div>
+          <h1 class="text-[24px] font-light">Dashboard <span class="font-medium" id="sender-couple"></span></h1>
+          <p class="text-[13px] text-steel mt-1" id="sender-meta"></p>
+        </div>
+        <button id="btn-edit" class="btn-secondary text-[13px]">Edit Data Mempelai</button>
+        <button onclick="exportCSV()" class="btn-secondary text-[13px]">📄 Export Tamu (CSV)</button>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6">
+        <form id="sender-form" class="card-elevated p-6">
+          <div class="flex items-center gap-2 mb-1"><div class="w-7 h-7 rounded-full bg-violet-pulse flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M22 16.5a3 3 0 0 1-3 3H9l-4 4v-16a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3v9Z"/></svg></div><h2 class="font-medium text-[16px]">Kirim Undangan Personal</h2></div>
+          <p class="text-[13px] text-steel mb-5">Setiap tamu mendapat link unik dengan namanya. Loop tanpa reload.</p>
+          <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Tamu <span class="text-violet-pulse">*</span></label><input id="sender-nama" class="input-field" placeholder="Contoh: Bapak Budi & Keluarga" required></div>
+          <div class="mt-4"><label class="text-[12px] font-medium text-slate block mb-1.5">Nomor WhatsApp <span class="text-violet-pulse">*</span></label><div class="flex gap-2"><span class="inline-flex items-center px-3 bg-bone border border-ash rounded px-3 text-[13px] text-steel shrink-0">+62</span><input id="sender-wa" class="input-field" inputmode="numeric" placeholder="81234567890 (format 628...)" required pattern="^628[0-9]{7,12}$"></div></div>
+          <div id="preview-wrap" class="hidden mt-5 bg-bone border border-ash rounded-lg p-3"><p class="text-[11px] uppercase tracking-wide text-steel mb-1.5 font-medium">Pratinjau Link Tamu</p><p id="preview-url" class="font-mono text-[11px] text-indigo-ink break-all"></p></div>
+          <button type="submit" class="btn-primary w-full mt-6">Kirim via WhatsApp</button>
+          <div id="sender-toast" class="hidden mt-4 bg-ledger-green/10 border border-ledger-green/20 rounded-lg p-3 text-[12px] text-ledger-green">Terkirim! Link untuk <span id="toast-nama" class="font-medium"></span> sudah dibuat. Lanjut tamu berikutnya.</div>
+        </form>
+        <div class="space-y-4">
+          <div class="card p-5">
+            <h3 class="text-[13px] font-medium mb-3">Peta & Lokasi</h3>
+            <iframe id="snd-map" title="Peta" src="about:blank" class="w-full h-[220px] rounded-lg border border-ash" loading="lazy"></iframe>
+          </div>
+          <div class="card p-5">
+            <h3 class="text-[13px] font-medium mb-3">Rekap Kehadiran (RSVP)</h3>
+            <div class="flex gap-3">
+              <div class="flex-1 bg-bone border border-ash rounded-lg p-3 text-center"><p class="text-[22px] font-light text-ledger-green" id="stat-hadir">0</p><p class="text-[10px] uppercase text-steel">Hadir</p></div>
+              <div class="flex-1 bg-bone border border-ash rounded-lg p-3 text-center"><p class="text-[22px] font-light text-steel" id="stat-tidak">0</p><p class="text-[10px] uppercase text-steel">Tidak</p></div>
+              <div class="flex-1 bg-bone border border-ash rounded-lg p-3 text-center"><p class="text-[22px] font-light text-steel" id="stat-ragu">0</p><p class="text-[10px] uppercase text-steel">Ragu</p></div>
+            </div>
+            <p class="text-[11px] text-smoke mt-3">Konfirmasi terkumpul di perangkat ini (per tamu, per browser).</p>
+          </div>
+          <div class="card p-5">
+            <h3 class="text-[13px] font-medium mb-3">Terkirim Baru-baru ini</h3>
+            <div id="recent-items" class="space-y-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-ash bg-white">
+  <div class="max-w-[1200px] mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <p class="text-[12px] text-steel">© Ruang Resepsi — Merangkai momen bahagia menjadi kenangan abadi.</p>
+    <p class="font-mono text-[11px] text-smoke">Sequence editorial • Violet Pulse #a565ff</p>
+  </div>
+</footer>
+
+<script>
+const LS_KEY='ruang_resepsi_data', RECENT_KEY='ruang_resepsi_recent', RSVP_KEY='ruang_resepsi_rsvp';
+function b64enc(s){ try{return btoa(unescape(encodeURIComponent(s)));}catch(_){return btoa(s);} }
+function b64dec(s){ try{return decodeURIComponent(escape(atob(s)));}catch(_){try{return atob(s);}catch(e){return s;}} }
+function safeDecode(v){ if(!v) return ''; try{ var d=b64dec(v); if(b64enc(d).replace(/=+$/,'')===v.replace(/=+$/,'')) return d; }catch(_){} try{return decodeURIComponent(v);}catch(_){return v;} }
+function loadData(){ try{return JSON.parse(localStorage.getItem(LS_KEY)||'null');}catch(_){return null;} }
+function saveData(d){ localStorage.setItem(LS_KEY,JSON.stringify(d)); }
+function fmtTanggal(iso){ if(!iso) return '—'; try{ var d=new Date(iso+'T00:00:00'); return d.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'}); }catch(_){ return iso; } }
+function fmtDay(iso){ try{ return new Date(iso+'T00:00:00').toLocaleDateString('id-ID',{weekday:'long'}); }catch(_){ return ''; } }
+function buildGuestUrl(nama){ var d=loadData(); if(!d) return location.origin+location.pathname; var p=new URLSearchParams(); p.set('tamu',b64enc(nama)); p.set('p',b64enc(d.pria)); p.set('w',b64enc(d.wanita)); p.set('t',b64enc(d.tanggal)); p.set('j',b64enc(d.jam)); p.set('l',b64enc(d.lokasi)); if(d.bank)p.set('bank',b64enc(d.bank)); if(d.rek)p.set('rek',b64enc(d.rek)); if(d.maps)p.set('maps',b64enc(d.maps)); if(d.acara)p.set('acara',b64enc(d.acara)); return location.origin+location.pathname+'?'+p.toString(); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ===== Reveal =====
+const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{threshold:.12});
+function observeReveals(){ document.querySelectorAll('.reveal:not(.in)').forEach(el=>ro.observe(el)); }
+function triggerVisible(){ document.querySelectorAll('.reveal:not(.in)').forEach(el=>{ var r=el.getBoundingClientRect(); if(r.top<window.innerHeight*.92) el.classList.add('in'); }); }
+
+// ===== State routing =====
+function showState(){
+  var params=new URLSearchParams(location.search), hasGuest=params.has('tamu')||params.has('p')||params.has('w');
+  var inv=document.getElementById('state-invitation'), setup=document.getElementById('state-setup'), snd=document.getElementById('state-sender'), land=document.getElementById('landing');
+  inv.classList.add('hidden'); setup.classList.add('hidden'); snd.classList.add('hidden'); if(land)land.classList.add('hidden');
+  if(hasGuest){ initInvitation(params); inv.classList.remove('hidden'); }
+  else { var d=loadData(); if(d&&d.pria){ snd.classList.remove('hidden'); renderSender(d); } else { setup.classList.remove('hidden'); } land.classList.remove('hidden'); }
+  setTimeout(observeReveals,50); setTimeout(triggerVisible,150);
+}
+
+// ===== Invitation init =====
+var _invData=null, _cdTimer=null, _audio=null;
+function initInvitation(params){
+  var tamu=safeDecode(params.get('tamu')||''), p=safeDecode(params.get('p')||''), w=safeDecode(params.get('w')||''), t=safeDecode(params.get('t')||''), j=safeDecode(params.get('j')||''), l=safeDecode(params.get('l')||'');
+  var bank=safeDecode(params.get('bank')||''), rek=safeDecode(params.get('rek')||''), maps=safeDecode(params.get('maps')||''), acara=safeDecode(params.get('acara')||'');
+  var d=loadData();
+  var pria=p||(d&&d.pria)||'Andi', wanita=w||(d&&d.wanita)||'Sinta', tanggal=t||(d&&d.tanggal)||'', jam=j||(d&&d.jam)||'', lokasi=l||(d&&d.lokasi)||'Gedung Melati';
+  bank=bank||(d&&d.bank)||''; rek=rek||(d&&d.rek)||''; maps=maps||(d&&d.maps)||''; acara=acara||(d&&d.acara)||'';
+  _invData={pria:pria,wanita:wanita,tamu:tamu||'Tamu Undangan',tanggal:tanggal,jam:jam,lokasi:lokasi,bank:bank,rek:rek,maps:maps,acara:acara};
+  document.title=pria+' & '+wanita+' — Undangan untuk '+(tamu||'Tamu');
+  // cover + body
+  document.getElementById('cover-pria').textContent=pria;
+  document.getElementById('cover-wanita').textContent=wanita;
+  document.getElementById('cover-tamu').textContent=tamu||'Tamu Undangan';
+  document.getElementById('inv-pria').textContent=pria;
+  document.getElementById('inv-wanita').textContent=wanita;
+  document.getElementById('inv-tamu').textContent=tamu||'';
+  document.getElementById('inv-couple-footer').textContent=pria+' & '+wanita;
+  var mapQuery=encodeURIComponent(lokasi + (pria+' & '+wanita));
+  document.getElementById('inv-tanggal').textContent=fmtTanggal(tanggal);
+  document.getElementById('inv-jam').textContent=jam?jam+' WIB':'—';
+  document.getElementById('inv-lokasi').textContent=lokasi||'—';
+  // Lokasi = nama tempat saja; link GMaps wajib dipakai bila ada (field maps), else fallback nama (seharusnya tak terjadi karena wajib)
+  var mapsLink = (maps && /^https?:\/\//.test(maps)) ? maps : (lokasi ? 'https://www.google.com/maps/search/?api=1&query='+mapQuery : '#');
+  var embedSrc = (maps && /^https?:\/\//.test(maps)) ? embedFromMapsLink(maps) : ('https://maps.google.com/maps?q='+mapQuery+'&z=15&output=embed');
+  document.getElementById('inv-maps').href=mapsLink;
+  document.getElementById('inv-maps2').href=mapsLink;
+  document.getElementById('inv-qrlink').href=mapsLink;
+  document.getElementById('inv-mapframe').src=embedSrc;
+  // QR code
+  try{ document.getElementById('qrcode').innerHTML=''; if(typeof QRCode!=='undefined'){ new QRCode(document.getElementById('qrcode'),{text:mapsLink,width:160,height:160,colorDark:'#1d1d20',colorLight:'#ffffff'}); } }catch(_){}
+  // Susunan acara (hanya jika diisi)
+  renderAcara(acara);
+  // countdown
+  clearInterval(_cdTimer);
+  var target=null;
+  if(tanggal){ target=new Date(tanggal+'T'+(jam||'00:00')+':00'); }
+  function tick(){ if(!target){document.getElementById('cd-d').textContent='—';return;} var diff=target-new Date(); if(diff<0){diff=0;} var s=Math.floor(diff/1000); document.getElementById('cd-d').textContent=Math.floor(s/86400); document.getElementById('cd-h').textContent=Math.floor(s%86400/3600); document.getElementById('cd-m').textContent=Math.floor(s%3600/60); document.getElementById('cd-s').textContent=s%60; }
+  tick(); _cdTimer=setInterval(tick,1000);
+  // amplop — hanya tampil bila bank & rekening keduanya valid, jika tidak tetap placeholder nonaktif
+  var ampop=document.getElementById('ampop-list');
+  if(bank&&rek){ ampop.outerHTML='<div id="ampop-list" class="space-y-3"><div class="ampop-card bg-bone border border-ash rounded-lg p-4 flex items-center justify-between cursor-pointer" onclick="salinRek(event,\''+esc(bank)+'\',\''+esc(rek)+'\',\''+esc(pria+" & "+wanita)+'\')"><div class="text-left"><p class="font-medium text-[14px]">'+esc(bank)+'</p><p class="font-mono text-[13px] text-steel">'+esc(rek)+' a.n. '+esc(pria+' & '+wanita)+'</p></div><span class="badge inline-flex items-center gap-1 bg-lavender-wash text-indigo-ink rounded-full px-2.5 py-1 text-[11px] border border-iris-glow/60">Salin</span></div></div>'; }
+  // music (autoplay muted attempt after cover open)
+  var musicURL='https://www.bensound.com/bensound-music/bensound-romantic.mp3';
+  _audio=document.getElementById('audio-bg'); _audio.src=musicURL;
+  // cover: skip bila tamu sudah pernah membuka (per device)
+  var opened=false; try{ opened=localStorage.getItem('ruang_resepsi_opened_'+(tamu||''))==='1'; }catch(_){}
+  if(opened){ document.getElementById('cover').classList.add('hidden'); document.getElementById('invite').classList.remove('hidden'); }
+  else { resetCover(); }
+}
+function resetCover(){ document.getElementById('cover').classList.remove('hidden'); document.getElementById('invite').classList.add('hidden'); window.scrollTo(0,0); }
+// Ubah link Google Maps (maps.app.goo.gl / google.com/maps/place) jadi src iframe embed
+function embedFromMapsLink(url){
+  // short link goo.gl -> redirect tak bisa langsung; fallback pakai pencarian nama lokasi
+  if(/maps\.app\.goo\.gl/.test(url) || /goo\.gl\/maps/.test(url)){ return 'https://maps.google.com/maps?q='+encodeURIComponent((_invData&&_invData.lokasi)||'')+'&z=15&output=embed'; }
+  // jika sudah berupa output=embed
+  if(/output=embed/.test(url)) return url;
+  // google.com/maps/place/... atau maps?q=...
+  var q=null;
+  var m=url.match(/[?&]q=([^&]+)/); if(m) q=decodeURIComponent(m[1]);
+  if(!q){ var pm=url.match(/maps\/place\/([^/?]+)/); if(pm) q=decodeURIComponent(pm[1]); }
+  if(q) return 'https://maps.google.com/maps?q='+encodeURIComponent(q)+'&z=15&output=embed';
+  return url;
+}
+// Render susunan acara dari teks "Nama | Jam" per baris
+function renderAcara(acara){
+  var wrap=document.getElementById('acara-wrap'), list=document.getElementById('acara-list');
+  if(!acara||!acara.trim()){ wrap.classList.add('hidden'); return; }
+  var lines=acara.split('\n').map(function(x){return x.trim();}).filter(Boolean);
+  if(!lines.length){ wrap.classList.add('hidden'); return; }
+  list.innerHTML=lines.map(function(line){
+    var parts=line.split('|').map(function(s){return s.trim();});
+    var nama=parts[0]||'', jam=parts[1]||'';
+    return '<div class="flex items-center justify-between border-b border-ash pb-3 mb-3 last:border-0 last:mb-0 last:pb-0"><div class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span><p class="font-medium text-[14px]">'+esc(nama)+'</p></div><p class="font-mono text-[13px] text-steel">'+esc(jam)+'</p></div>';
+  }).join('');
+  wrap.classList.remove('hidden');
+}
+function bukaUndangan(){
+  document.getElementById('cover').classList.add('hidden');
+  var invite=document.getElementById('invite'); invite.classList.remove('hidden');
+  try{ localStorage.setItem('ruang_resepsi_opened_'+(_invData&&_invData.tamu||''),'1'); }catch(_){}
+  setTimeout(function(){ document.getElementById('invite').scrollIntoView({behavior:'smooth'}); },50);
+  try{ var a=document.getElementById('audio-bg'); a.volume=.35; var pr=a.play(); if(pr) pr.catch(function(){}); document.getElementById('btn-msc').style.background='#2e7317'; }catch(_){}
+}
+function toggleMusic(){ var a=document.getElementById('audio-bg'); if(a.paused){ a.play().catch(function(){}); document.getElementById('btn-msc').style.background='#2e7317'; } else { a.pause(); document.getElementById('btn-msc').style.background='#a565ff'; } }
+function konfirmasiWA(){ var d=_invData; var txt='Halo '+d.pria+' & '+d.wanita+', saya '+d.tamu+' mengkonfirmasi kehadiran saya pada acara pernikahan Anda, '+fmtTanggal(d.tanggal)+'. Terima kasih atas undangannya!'; window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank'); }
+function salinRek(e,n,b,a){ e.stopPropagation(); if(!n||!b) return; var t=b+' ('+n+') a.n. '+a; navigator.clipboard.writeText(t).then(function(){ e.currentTarget.querySelector('.badge').textContent='✓ Tersalin'; setTimeout(function(){ e.currentTarget.querySelector('.badge').textContent='Salin'; },1500); }); }
+// Export rekap tamu (nama, WA, link) ke CSV
+function exportCSV(){
+  var list=JSON.parse(localStorage.getItem(RECENT_KEY)||'[]');
+  if(!list.length){ alert('Belum ada tamu yang dikirim.'); return; }
+  var rows=[['Nama','Nomor WA','Link Undangan']];
+  list.forEach(function(r){ rows.push([r.nama, r.wa, r.link]); });
+  var csv=rows.map(function(r){ return r.map(function(c){ return '"'+String(c).replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
+  var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='daftar-tamu-ruang-resepsi.csv'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+function bukaUndanganDemo(){}
+
+// RSVP (per guest stored by nameless bucket keyed by guest + device)
+function rsvp(status){
+  var d=_invData; if(!d) return;
+  var key='rsvp-'+d.tamu;
+  var all=JSON.parse(localStorage.getItem(RSVP_KEY)||'{}'); all[key]=status; localStorage.setItem(RSVP_KEY,JSON.stringify(all));
+  var m=document.getElementById('rsvp-msg'); m.classList.remove('hidden');
+}
+function getRsvpStats(){
+  try{ var all=JSON.parse(localStorage.getItem(RSVP_KEY)||'{}'); var h=0,t=0,r=0; Object.keys(all).forEach(function(k){ if(all[k]==='Hadir')h++; else if(all[k]==='Tidak Hadir')t++; else r++; }); return {h:h,t:t,r:r}; }catch(_){return {h:0,t:0,r:0};}
+}
+
+// ===== Setup =====
+document.getElementById('setup-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  var data={pria:document.getElementById('setup-pria').value.trim(),wanita:document.getElementById('setup-wanita').value.trim(),tanggal:document.getElementById('setup-tanggal').value,jam:document.getElementById('setup-jam').value,lokasi:document.getElementById('setup-lokasi').value.trim(),maps:document.getElementById('setup-maps').value.trim(),acara:document.getElementById('setup-acara').value.trim(),bank:document.getElementById('setup-bank').value.trim(),rek:document.getElementById('setup-rek').value.trim()};
+  if(!data.pria||!data.wanita||!data.tanggal||!data.jam||!data.lokasi||!data.maps){ alert('Mohon lengkapi semua field yang wajib.'); return; }
+  if(!/^https?:\/\//.test(data.maps)){ alert('Link Google Maps harus diawali https://'); return; }
+  saveData(data); document.getElementById('state-setup').classList.add('hidden'); document.getElementById('state-sender').classList.remove('hidden'); renderSender(data); // tetap di dashboard pengiriman
+});
+
+// ===== Sender =====
+function renderSender(data){
+  document.getElementById('sender-couple').textContent=data.pria+' & '+data.wanita;
+  document.getElementById('sender-meta').textContent=fmtTanggal(data.tanggal)+' • '+data.jam+' • '+data.lokasi;
+  var mq=encodeURIComponent(data.lokasi + ' ' + data.pria + ' ' + data.wanita);
+  var mSrc = (data.maps && /^https?:\/\//.test(data.maps)) ? embedFromMapsLink(data.maps) : 'https://maps.google.com/maps?q='+mq+'&z=14&output=embed';
+  document.getElementById('snd-map').src=mSrc;
+  var s=getRsvpStats(); document.getElementById('stat-hadir').textContent=s.h; document.getElementById('stat-tidak').textContent=s.t; document.getElementById('stat-ragu').textContent=s.r;
+  renderRecent();
+}
+var senderNama=document.getElementById('sender-nama'), senderWA=document.getElementById('sender-wa');
+function updatePreview(){ var nama=senderNama.value.trim(); var w=document.getElementById('preview-wrap'); if(!nama){w.classList.add('hidden');return;} document.getElementById('preview-url').textContent=buildGuestUrl(nama); w.classList.remove('hidden'); }
+senderNama.addEventListener('input',updatePreview);
+document.getElementById('sender-form').addEventListener('submit',function(e){
+  e.preventDefault(); var nama=senderNama.value.trim(); var wa=senderWA.value.trim().replace(/\D/g,'');
+  if(wa.startsWith('0'))wa='62'+wa.slice(1); else if(wa.startsWith('8'))wa='62'+wa;
+  if(!nama){alert('Nama tamu wajib diisi.');return;} if(!/^628[0-9]{7,12}$/.test(wa)){alert('Nomor WA tidak valid. Gunakan format 6281234567890.');return;}
+  var guestUrl=buildGuestUrl(nama); var text='Kepada Yth. '+nama+', kami mengundang Anda ke pernikahan '+((loadData()||{}).pria||'')+' & '+((loadData()||{}).wanita||'')+'. Detail dan undangan digital: '+guestUrl;
+  var recent=JSON.parse(localStorage.getItem(RECENT_KEY)||'[]'); recent.unshift({nama:nama,wa:wa,link:guestUrl}); localStorage.setItem(RECENT_KEY,JSON.stringify(recent.slice(0,20)));
+  renderRecent();
+  window.open('https://wa.me/'+wa+'?text='+encodeURIComponent(text),'_blank');
+  document.getElementById('toast-nama').textContent=nama; var t=document.getElementById('sender-toast'); t.classList.remove('hidden'); setTimeout(function(){t.classList.add('hidden');},4000);
+  senderNama.value=''; senderWA.value=''; document.getElementById('preview-wrap').classList.add('hidden'); senderNama.focus();
+});
+function renderRecent(){ var list=JSON.parse(localStorage.getItem(RECENT_KEY)||'[]'); var c=document.getElementById('recent-items'); if(!list.length){c.innerHTML='<p class="text-[12px] text-smoke">Belum ada tamu dikirim.</p>';return;} c.innerHTML=list.slice(0,4).map(function(r){return '<div class="flex items-center justify-between bg-bone border border-ash rounded-lg px-3 py-2"><div><p class="text-[13px] font-medium">'+esc(r.nama)+'</p><p class="font-mono text-[11px] text-steel">'+esc(r.wa)+'</p></div><a href="'+esc(r.link)+'" target="_blank" class="text-[11px] font-medium text-indigo-ink hover:underline">Lihat →</a></div>';}).join(''); }
+document.getElementById('btn-edit').addEventListener('click',function(){ if(confirm('Edit data mempelai? Data saat ini akan dihapus dan kembali ke form setup.')){ localStorage.removeItem(LS_KEY); document.getElementById('state-sender').classList.add('hidden'); document.getElementById('state-setup').classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); } });
+
+// ===== Landing helpers =====
+function scrollToSetup(e){ if(e)e.preventDefault(); var d=loadData(); var t=document.getElementById((d&&d.pria)?'state-sender':'state-setup'); if(t){t.scrollIntoView({behavior:'smooth'}); setTimeout(function(){var i=t.querySelector('input');if(i)i.focus();},600);} }
+function bukaContoh(){ var origin=location.origin+location.pathname; var p=new URLSearchParams(); p.set('tamu',b64enc('Bapak Budi & Keluarga')); p.set('p',b64enc('Andi')); p.set('w',b64enc('Sinta')); p.set('t',b64enc('2026-09-20')); p.set('j',b64enc('19:00')); p.set('l',b64enc('Gedung Serbaguna Melati, Jakarta Selatan')); p.set('bank',b64enc('Bank BCA')); p.set('rek',b64enc('1234567890')); window.open(origin+'?'+p.toString(),'_blank'); }
+
+// ===== Nav smooth =====
+document.querySelectorAll('a[href^="#"]').forEach(function(a){ a.addEventListener('click',function(e){ var h=a.getAttribute('href'); /* set active instantly */ setNavActive(h); if(h==='#'||h==='#beranda'){if(e)e.preventDefault(); document.getElementById('beranda')?.scrollIntoView({behavior:'smooth'}); return;} var t=document.querySelector(h); if(t){if(e)e.preventDefault(); t.scrollIntoView({behavior:'smooth'});} }); });
+
+// ===== Nav aktif (scroll-spy) =====
+function setNavActive(id){
+  document.querySelectorAll('.nav-link').forEach(function(a){ a.classList.remove('active'); if('#'+a.id.substr(4)===id || (id==='#beranda' && a.id==='nav-beranda')) a.classList.add('active'); });
+}
+(function(){
+  var sections=['beranda','cara-kerja','contoh-undangan'];
+  var spy=document.getElementById('beranda') ? new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ setNavActive('#'+e.target.id); } });
+  },{ rootMargin:'-45% 0px -50% 0px', threshold:0 }) : null;
+  sections.forEach(function(id){ var el=document.getElementById(id); if(el&&spy) spy.observe(el); });
+  window.addEventListener('scroll',function(){ if(window.scrollY<120) setNavActive('#beranda'); },{passive:true});
+})();
+
+// ===== Init =====
+showState();
+window.addEventListener('popstate',showState);
+window.addEventListener('load',function(){ setTimeout(observeReveals,100); setTimeout(triggerVisible,200); });
+</script>
+</body>
+</html>
