@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-    const { pria, wanita, tanggal, jam, lokasi, maps, acara, fotoDataUrl } = body || {};
+    const { pria, wanita, tanggal, jam, lokasi, maps, acara, kisah, fotoDataUrl } = body || {};
 
     if (!pria || !wanita || !tanggal || !jam || !lokasi || !maps) {
       return res.status(400).json({ error: 'Field wajib belum lengkap' });
@@ -37,12 +37,12 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Format foto tidak valid' });
       }
       // batasi ~120KB base64 (~90KB file) biar aman
-      if (fotoDataUrl.length > 140_000) return res.status(400).json({ error: 'Foto terlalu besar setelah kompres (max ~90KB). Coba foto lain.' });
+      if (fotoDataUrl.length > 300_000) return res.status(400).json({ error: 'Foto terlalu besar setelah kompres (max ~220KB). Coba foto lain.' });
       const m = fotoDataUrl.match(/^data:(.+);base64,(.+)$/);
       if (!m) return res.status(400).json({ error: 'Foto base64 tidak valid' });
       const contentType = m[1];
       const buf = Buffer.from(m[2], 'base64');
-      if (buf.length > 120_000) return res.status(400).json({ error: 'File foto kebesaran' });
+      if (buf.length > 230_000) return res.status(400).json({ error: 'File foto kebesaran' });
       fotoPath = `prewed/${id}.jpg`;
       const blob = await put(fotoPath, buf, { access: 'public', contentType: contentType || 'image/jpeg', addRandomSuffix: false });
       fotoUrl = blob.url;
@@ -54,6 +54,7 @@ export default async function handler(req, res) {
     const bundle = {
       id, pria, wanita, tanggal, jam, lokasi, maps,
       acara: acara || '',
+      kisah: kisah || '',
       fotoUrl, fotoPath, createdAt, expiresAt
     };
 

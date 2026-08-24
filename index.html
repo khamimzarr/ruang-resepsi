@@ -18,7 +18,10 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&family=Great+Vibes&family=Philosopher:wght@400;700&family=Baskervville:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 <script>
 tailwind.config = {
   theme: { extend: {
@@ -71,6 +74,43 @@ html{ scroll-behavior:smooth; }
 .nav-link.active{ color:#1d1d20; text-decoration:underline; text-decoration-color:#a565ff; text-underline-offset:4px; text-decoration-thickness:2px; }
 .timeline-line{ position:relative; }
 .timeline-line::before{ content:''; position:absolute; left:19px; top:0; bottom:0; width:1px; background:#e5e7eb; }
+/* ===== Mildness — State 3 only (undangan) ===== */
+#state-invitation{ --inv:#4B6B99; --inv-hover:#5d7697; --inv-light:#d6e1f1; --inv-bg:#ffffff; }
+#state-invitation .font-title{ font-family:'Great Vibes',cursive !important; }
+#state-invitation .font-philo{ font-family:'Philosopher',sans-serif !important; }
+#state-invitation .inv-card{ background:rgba(255,255,255,.88); border-radius:30px; box-shadow:0 0 20px rgba(0,0,0,.13); border:1px solid rgba(226,234,246,.9); }
+#state-invitation .inv-page{ background:#fff; }
+.cover-bleed{ position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#eef2f8; }
+.cover-bleed-bg{ position:absolute; inset:0; background-size:cover; background-position:center; background-repeat:no-repeat; }
+.cover-bleed-overlay{ position:absolute; inset:0; background:linear-gradient(to bottom, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 38%, var(--inv-bg) 78%, var(--inv-bg) 100%); }
+.cover-corner-tl{ position:absolute; top:0; left:0; width:55%; max-width:360px; opacity:.95; pointer-events:none; }
+.cover-corner-br{ position:absolute; bottom:0; right:0; width:55%; max-width:360px; opacity:.95; pointer-events:none; transform:scaleY(-1) scaleX(-1); }
+.cover-date{ display:flex; align-items:center; justify-content:center; gap:0; }
+.cover-date-num{ border-left:2px solid #1d1d20; border-right:2px solid #1d1d20; padding:2px 14px; margin:0 12px; line-height:1; }
+.btn-inv{ background:var(--inv); color:#fff; border-radius:9999px; padding:10px 22px; font-size:13px; font-weight:600; display:inline-flex; align-items:center; gap:8px; transition:.18s; box-shadow:0 4px 14px rgba(75,107,153,.28); }
+.btn-inv:hover{ background:var(--inv-hover); transform:translateY(-1px); }
+.count-box{ background:var(--inv); color:#fff; border-radius:10px; padding:10px 6px; }
+.count-box p:first-child{ color:#fff !important; }
+.count-box p:last-child{ color:rgba(255,255,255,.85) !important; }
+.inv-nav{ position:fixed; bottom:18px; left:50%; transform:translateX(-50%); z-index:40; background:rgba(255,255,255,.96); backdrop-filter:blur(8px); border:1px solid #e2eaf6; border-radius:9999px; padding:6px 10px; box-shadow:0 8px 24px rgba(75,107,153,.18); display:flex; gap:4px; }
+.inv-nav a{ width:38px; height:38px; display:flex; align-items:center; justify-content:center; border-radius:9999px; color:var(--inv); transition:.15s; }
+.inv-nav a:hover{ background:var(--inv-light); }
+@media(prefers-reduced-motion:reduce){ [data-aos]{ transition:none !important; transform:none !important; opacity:1 !important; } }
+.inv-page::before{ content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image: url('mildness-assets/flower-1.png');
+  background-size: 78% auto; background-position: center top; background-repeat: no-repeat;
+  opacity:.16; }
+/* Mildness watercolor corner wash */
+.inv-page::after{ content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image: url('mildness-assets/watercolor-4.png'), url('mildness-assets/watercolor-3.png');
+  background-size: 45% auto, 45% auto; background-repeat: no-repeat, no-repeat;
+  background-position: top right, bottom left; opacity:.35; }
+/* Kisah Cinta timeline */
+.kisah-card{ background:rgba(255,255,255,.9); border-radius:18px; overflow:hidden; box-shadow:0 0 14px rgba(75,107,153,.10); }
+.kisah-card img{ width:100%; height:150px; object-fit:cover; }
+.kisah-pill{ display:inline-flex; align-items:center; gap:6px; }
+#state-invitation{ position:relative; }
+#state-invitation .inv-body-wrap{ position:relative; z-index:2; }
 </style>
 </head>
 <body class="bg-white text-graphite font-sans antialiased min-h-screen">
@@ -208,7 +248,7 @@ html{ scroll-behavior:smooth; }
 
 <!-- ===== INVITATION (STATE 3) ===== -->
 <section id="state-invitation" class="hidden">
-<div id="msc" class="fixed bottom-5 right-5 z-50"><button onclick="toggleMusic()" id="btn-msc" aria-label="Musik" class="w-11 h-11 rounded-full bg-violet-pulse text-white flex items-center justify-center shadow-lg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button></div>
+<div id="msc" class="fixed bottom-5 right-5 z-50" style="bottom:78px"><button onclick="toggleMusic()" id="btn-msc" style="background:#4B6B99" aria-label="Musik" class="w-11 h-11 rounded-full bg-violet-pulse text-white flex items-center justify-center shadow-lg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button></div>
 <audio id="audio-bg" loop preload="auto" playsinline crossorigin="anonymous"></audio>
 
 <!-- Expired (A2: lewat 7 hari = link kadaluarsa total) -->
@@ -221,114 +261,150 @@ html{ scroll-behavior:smooth; }
   </div>
 </div>
 
-<!-- Cover -->
-<div id="cover" class="min-h-screen flex flex-col justify-center items-center radial-wash px-6 text-center relative">
-  <div class="max-w-md w-full fade-in">
-    <div class="mb-6 flex justify-center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#a565ff" stroke-width="1.5" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#1d1d20" stroke-width="1.3" fill="white"/></svg></div>
-    <div id="cover-foto-wrap" class="hidden mb-5"><img id="cover-foto" alt="Foto prewed" class="w-[220px] h-[220px] object-cover rounded-2xl mx-auto border border-ash shadow-sm block" loading="lazy" referrerpolicy="no-referrer"></div>
-    <p class="eyebrow mb-3">The Wedding of</p>
-    <h1 class="font-serif font-light text-[40px] sm:text-[46px] leading-none tracking-[-0.025em] text-graphite"><span id="cover-pria">—</span> <span class="text-violet-pulse">&</span> <span id="cover-wanita">—</span></h1>
-    <div class="w-16 h-px bg-ash mx-auto my-5"></div>
-    <p class="font-sans text-[14px] text-iron mb-2">Kepada Yth.</p>
-    <p class="font-serif italic text-[20px] text-graphite mb-8" id="cover-tamu">Tamu Undangan</p>
-    <button onclick="bukaUndangan(true)" class="btn-primary mx-auto">
-      Buka Undangan
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M9 2v5h6V2"/></svg>
-    </button>
-    <p class="text-[11px] text-smoke mt-4">Mohon maaf apabila kehadiran Bapak/Ibu/Saudara/i sangat kami harapkan</p>
+<!-- Cover — Mildness full-bleed -->
+<div id="cover" class="cover-bleed">
+  <div id="cover-bg" class="cover-bleed-bg"></div>
+  <div class="cover-bleed-overlay"></div>
+  <div class="cover-corner-tl" aria-hidden="true" style="background:radial-gradient(ellipse 380px 280px at 0% 0%, rgba(75,107,153,.14), transparent 68%), radial-gradient(ellipse 260px 200px at 20% 15%, rgba(188,151,201,.18), transparent 70%); border-radius:0 0 120px 0;"></div>
+  <div class="cover-corner-br" aria-hidden="true" style="background:radial-gradient(ellipse 380px 280px at 100% 100%, rgba(75,107,153,.13), transparent 68%), radial-gradient(ellipse 260px 200px at 80% 85%, rgba(188,151,201,.15), transparent 70%);"></div>
+  <div class="relative z-10 w-full max-w-[420px] mx-auto px-6 py-10 text-center animate__animated animate__zoomIn">
+    <p class="font-philo text-[12px] tracking-[.16em] uppercase" style="color:var(--inv)" data-aos="fade-up">Undangan Pernikahan</p>
+    <h1 class="font-title text-[44px] sm:text-[50px] leading-none mt-3" style="color:var(--inv)" data-aos="fade-up" data-aos-delay="80"><span id="cover-pria">—</span> <span style="font-family:'Philosopher',sans-serif; font-size:20px; font-weight:400; vertical-align:middle; margin:0 4px;">&</span> <span id="cover-wanita">—</span></h1>
+    <div class="cover-date mt-8" data-aos="fade-up" data-aos-delay="160">
+      <span id="cover-day" class="font-philo text-[13px] flex-1 text-right pr-2">Sabtu</span>
+      <span class="cover-date-num"><span id="cover-day-num" class="font-philo font-bold text-[22px] leading-none block">28</span><span id="cover-year" class="font-philo text-[11px] tracking-wide block mt-1">2026</span></span>
+      <span id="cover-month" class="font-philo text-[13px] flex-1 text-left pl-2">Maret</span>
+    </div>
+    <div id="cover-countdown" class="grid grid-cols-4 gap-2 mt-6 max-w-[320px] mx-auto" data-aos="fade-up" data-aos-delay="200">
+      <div class="count-box text-center"><p class="font-philo text-[18px] font-bold leading-none" id="cover-cd-d">0</p><p class="text-[9px] uppercase tracking-wide mt-1">Hari</p></div>
+      <div class="count-box text-center"><p class="font-philo text-[18px] font-bold leading-none" id="cover-cd-h">0</p><p class="text-[9px] uppercase tracking-wide mt-1">Jam</p></div>
+      <div class="count-box text-center"><p class="font-philo text-[18px] font-bold leading-none" id="cover-cd-m">0</p><p class="text-[9px] uppercase tracking-wide mt-1">Menit</p></div>
+      <div class="count-box text-center"><p class="font-philo text-[18px] font-bold leading-none" id="cover-cd-s">0</p><p class="text-[9px] uppercase tracking-wide mt-1">Detik</p></div>
+    </div>
+    <div class="mt-8" data-aos="fade-up" data-aos-delay="260">
+      <p class="font-philo text-[12px]" style="color:var(--inv); opacity:.7">Kepada:</p>
+      <p id="cover-tamu" class="font-philo font-bold text-[16px] mt-1" style="color:var(--inv)">Tamu Undangan</p>
+      <button onclick="bukaUndangan(true)" class="btn-inv mt-5"><i class="bi bi-envelope-open"></i> Buka Undangan</button>
+    </div>
   </div>
+  <img id="cover-foto" alt="Foto prewed" class="hidden" referrerpolicy="no-referrer">
+  <div id="cover-foto-wrap" class="hidden"></div>
 </div>
 
-<!-- Main invitation body -->
+<!-- Main invitation body — Mildness -->
 <div id="invite" class="hidden">
-  <div class="radial-wash">
-    <!-- Foto hero invitation (hanya jika ada foto 7-hari dari server) -->
-    <div id="inv-foto-wrap" class="hidden max-w-[680px] mx-auto px-6 pt-8"><div class="card-elevated overflow-hidden p-0"><img id="inv-foto" alt="Foto prewed" class="w-full h-[360px] object-cover block" loading="lazy" referrerpolicy="no-referrer"></div></div>
-    <!-- Title -->
-    <div class="max-w-[1200px] mx-auto px-6 pt-16 pb-6 text-center">
-      <span class="eyebrow">Undangan Pernikahan</span>
-      <div class="flex items-center justify-center gap-3 mt-4">
-        <div class="h-px w-12 bg-ash"></div>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#a565ff" stroke-width="1.5" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#1d1d20" stroke-width="1.2" fill="white"/></svg>
-        <div class="h-px w-12 bg-ash"></div>
-      </div>
-      <h1 class="font-serif font-light text-[40px] sm:text-[46px] leading-none tracking-[-0.025em] mt-4">
-        <span id="inv-pria">—</span> <span class="text-violet-pulse text-[28px] sm:text-[32px]">&</span> <span id="inv-wanita">—</span>
-      </h1>
-      <p class="font-serif italic text-[18px] text-steel mt-3">"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya." <span class="not-italic text-[14px] text-smoke">(QS. Ar-Rum: 21)</span></p>
+  <div class="inv-page min-h-screen" style="background-color:var(--inv-bg);">
+    <!-- watercolor wash -->
+    <div class="fixed inset-0 pointer-events-none" aria-hidden="true" style="background: radial-gradient(ellipse 700px 420px at 95% 0%, rgba(75,107,153,.07), transparent 65%), radial-gradient(ellipse 600px 380px at 5% 100%, rgba(188,151,201,.08), transparent 65%), url('') ;"></div>
+    <div class="relative z-10 max-w-[560px] mx-auto px-4 sm:px-6 py-10">
+
+    <!-- Quote — card transparan -->
+    <div id="quote" class="inv-card p-8 sm:p-10 text-center" data-aos="fade-up">
+      <p class="font-philo italic text-[15px] leading-relaxed" style="color:var(--inv)">"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya." <span class="not-italic text-[12px] opacity-70">(QS. Ar-Rum: 21)</span></p>
+      <p class="font-philo font-bold text-[12px] mt-4" style="color:var(--inv)">Ar Rum: 21</p>
     </div>
 
-    <!-- Guest -->
-    <div class="max-w-[1200px] mx-auto px-6 text-center">
-      <div class="inline-flex items-center gap-2 bg-white border border-ash rounded-full px-5 py-2.5 shadow-sm">
-        <span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span>
-        <span class="text-[14px] font-medium">Kepada Yth.</span>
-        <span class="text-[14px] font-medium text-violet-pulse" id="inv-tamu"></span>
+    <!-- Mempelai + Foto prewed hero full-bleed -->
+    <div id="detail" class="inv-card mt-8 sm:mt-10 overflow-hidden" data-aos="fade-up">
+      <div id="inv-hero-wrap" class="hidden relative h-[380px] sm:h-[440px] bg-cover bg-center" style="background-image:linear-gradient(to bottom, transparent 55%, rgba(255,255,255,.88) 82%, #fff 100%);"></div>
+      <img id="inv-foto" alt="Foto prewed" class="hidden" referrerpolicy="no-referrer">
+      <div id="inv-foto-wrap" class="hidden"></div>
+      <div class="p-7 sm:p-8 text-center">
+        <p class="font-philo text-[13px]" style="color:var(--inv); opacity:.7">Kami mohon do'a & restunya atas pernikahan kami</p>
+        <div class="mt-6 flex flex-col items-center gap-1" data-aos="fade-up">
+          <p class="font-title text-[34px] leading-none" style="color:var(--inv)"><span id="inv-pria">—</span></p>
+          <p class="font-philo text-[11px] opacity-60">Putra kebanggaan keluarga</p>
+        </div>
+        <p class="font-title text-[26px] my-2" style="color:var(--inv)" data-aos="fade-up">&</p>
+        <div class="flex flex-col items-center gap-1" data-aos="fade-up">
+          <p class="font-title text-[34px] leading-none" style="color:var(--inv)"><span id="inv-wanita">—</span></p>
+          <p class="font-philo text-[11px] opacity-60">Putri kebanggaan keluarga</p>
+        </div>
       </div>
     </div>
 
-    <!-- Info & Countdown -->
-    <div class="max-w-[680px] mx-auto px-6 py-10">
-      <div class="card-elevated p-7 rounded-2xl">
-        <p class="text-[14px] text-iron text-center leading-[1.7] mb-6">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu pada hari bahagia kami.</p>
-        <div class="grid grid-cols-3 gap-3 text-center mb-6">
-          <div class="card bg-bone p-3"><p class="eyebrow mb-1">Sabtu</p><p class="text-[13px] font-medium" id="inv-tanggal">—</p></div>
-          <div class="card bg-bone p-3"><p class="eyebrow mb-1">Jam</p><p class="text-[13px] font-medium" id="inv-jam">—</p></div>
-          <div class="card bg-bone p-3"><p class="eyebrow mb-1">Lokasi</p><p class="text-[13px] font-medium leading-tight" id="inv-lokasi">—</p></div>
-        </div>
-        <div class="border-t border-ash pt-6">
-          <p class="eyebrow text-center mb-4">Menuju Hari Bahagia</p>
-          <div class="grid grid-cols-4 gap-2 text-center">
-            <div class="bg-lavender-wash border border-iris-glow rounded-lg p-3"><p class="font-serif text-[24px] text-indigo-ink font-light" id="cd-d">0</p><p class="text-[10px] uppercase tracking-wide text-steel">Hari</p></div>
-            <div class="bg-lavender-wash border border-iris-glow rounded-lg p-3"><p class="font-serif text-[24px] text-indigo-ink font-light" id="cd-h">0</p><p class="text-[10px] uppercase tracking-wide text-steel">Jam</p></div>
-            <div class="bg-lavender-wash border border-iris-glow rounded-lg p-3"><p class="font-serif text-[24px] text-indigo-ink font-light" id="cd-m">0</p><p class="text-[10px] uppercase tracking-wide text-steel">Menit</p></div>
-            <div class="bg-lavender-wash border border-iris-glow rounded-lg p-3"><p class="font-serif text-[24px] text-indigo-ink font-light" id="cd-s">0</p><p class="text-[10px] uppercase tracking-wide text-steel">Detik</p></div>
-          </div>
-        </div>
-        <div class="flex flex-col sm:flex-row gap-3 mt-6">
-          <a id="inv-maps" href="#" target="_blank" class="btn-secondary flex-1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1d1d20" stroke-width="1.6"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Buka Google Maps</a>
-          <button onclick="konfirmasiWA()" class="btn-primary flex-1">Konfirmasi Kehadiran</button>
+    <!-- Info & Countdown — 3 kotak + countdown dusty-blue -->
+    <div class="inv-card mt-8 p-6 sm:p-7" data-aos="fade-up">
+      <p class="font-philo text-[13px] text-center leading-relaxed" style="color:var(--inv); opacity:.75">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu pada hari bahagia kami.</p>
+      <div class="grid grid-cols-3 gap-2 text-center mt-6">
+        <div class="rounded-xl border p-3" style="border-color:var(--inv-light); background:rgba(214,225,241,.35)"><p class="font-philo text-[11px] tracking-wide uppercase" style="color:var(--inv); opacity:.6">Tanggal</p><p class="font-philo font-bold text-[12px] mt-1" style="color:var(--inv)" id="inv-tanggal">—</p></div>
+        <div class="rounded-xl border p-3" style="border-color:var(--inv-light); background:rgba(214,225,241,.35)"><p class="font-philo text-[11px] tracking-wide uppercase" style="color:var(--inv); opacity:.6">Jam</p><p class="font-philo font-bold text-[12px] mt-1" style="color:var(--inv)" id="inv-jam">—</p></div>
+        <div class="rounded-xl border p-3" style="border-color:var(--inv-light); background:rgba(214,225,241,.35)"><p class="font-philo text-[11px] tracking-wide uppercase" style="color:var(--inv); opacity:.6">Lokasi</p><p class="font-philo font-bold text-[11px] leading-tight mt-1" style="color:var(--inv)" id="inv-lokasi">—</p></div>
+      </div>
+      <div class="border-t mt-6 pt-6" style="border-color:var(--inv-light)">
+        <p class="font-philo text-[11px] tracking-[.14em] uppercase text-center" style="color:var(--inv); opacity:.55">Menuju Hari Bahagia</p>
+        <div class="grid grid-cols-4 gap-2 text-center mt-4">
+          <div class="count-box"><p class="font-philo text-[22px] font-bold leading-none" id="cd-d">0</p><p class="text-[9px] uppercase tracking-wide">Hari</p></div>
+          <div class="count-box"><p class="font-philo text-[22px] font-bold leading-none" id="cd-h">0</p><p class="text-[9px] uppercase tracking-wide">Jam</p></div>
+          <div class="count-box"><p class="font-philo text-[22px] font-bold leading-none" id="cd-m">0</p><p class="text-[9px] uppercase tracking-wide">Menit</p></div>
+          <div class="count-box"><p class="font-philo text-[22px] font-bold leading-none" id="cd-s">0</p><p class="text-[9px] uppercase tracking-wide">Detik</p></div>
         </div>
       </div>
+      <div class="flex flex-col sm:flex-row gap-3 mt-6">
+        <a id="inv-maps" href="#" target="_blank" class="flex-1 inline-flex items-center justify-center gap-2 rounded-full border px-5 py-2.5 text-[13px] font-medium" style="border-color:var(--inv); color:var(--inv); background:#fff"><i class="bi bi-geo-alt"></i>Buka Google Maps</a>
+        <button onclick="konfirmasiWA()" class="btn-inv flex-1 justify-center">Konfirmasi Kehadiran</button>
+      </div>
+      <div class="mt-4 flex justify-center">
+        <div class="inline-flex items-center gap-2 rounded-full border px-4 py-2" style="border-color:var(--inv-light); background:rgba(214,225,241,.4)"><span class="w-2 h-2 rounded-full" style="background:var(--inv)"></span><span class="font-philo text-[12px]" style="color:var(--inv)">Kepada Yth. <b id="inv-tamu"></b></span></div>
+      </div>
+    </div>
+
+    <!-- Schedule list (Susunan Acara) — Mildness sparator-line -->
+    <div id="acara-wrap" class="hidden inv-card mt-8 p-6 sm:p-7" data-aos="fade-up">
+      <p class="font-title text-[26px] text-center" style="color:var(--inv)">Acara</p>
+      <p class="font-philo text-[12px] text-center mt-1" style="color:var(--inv); opacity:.6">Kami bermaksud mengundang saudara/(i) dalam acara pernikahan kami pada:</p>
+      <div id="acara-list" class="mt-6 space-y-0"></div>
     </div>
 
     <!-- Maps embed -->
-    <div class="max-w-[680px] mx-auto px-6 pb-10">
-      <div class="card-elevated overflow-hidden">
-        <div class="h-[3px] w-full shimmer"></div>
-        <iframe id="inv-mapframe" title="Peta Lokasi" src="about:blank" class="w-full h-[280px] block" loading="lazy" style="filter:saturate(.9);"></iframe>
-        <div class="p-4 text-center flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a id="inv-maps2" href="#" target="_blank" class="text-indigo-ink font-medium text-[14px] hover:underline">Buka peta di Google Maps →</a>
-          <span class="text-smoke text-[12px]">atau</span>
-          <span class="text-[12px] text-steel">Scan QR untuk navigasi</span>
-        </div>
+    <div class="inv-card mt-8 overflow-hidden" data-aos="fade-up">
+      <iframe id="inv-mapframe" title="Peta Lokasi" src="about:blank" class="w-full h-[280px] block" loading="lazy" style="filter:saturate(.95);"></iframe>
+      <div class="p-4 text-center flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a id="inv-maps2" href="#" target="_blank" class="font-philo font-bold text-[13px] hover:underline" style="color:var(--inv)">Buka peta di Google Maps →</a>
+        <span class="text-[12px]" style="color:var(--inv); opacity:.4">atau</span>
+        <span class="font-philo text-[12px]" style="color:var(--inv); opacity:.6">Scan QR untuk navigasi</span>
       </div>
     </div>
 
     <!-- QR Navigasi -->
-    <div class="max-w-[600px] mx-auto px-6 pb-10">
-      <div class="card-elevated p-7 text-center">
-        <p class="eyebrow text-center mb-2">Navigasi Lokasi</p>
-        <p class="text-[13px] text-steel mb-4">Scan kode QR untuk membuka peta lokasi di ponsel Anda.</p>
-        <div id="qrcode" class="mx-auto flex justify-center mb-4"></div>
-        <a id="inv-qrlink" href="#" target="_blank" class="text-indigo-ink font-medium text-[13px] hover:underline">Buka lokasi →</a>
+    <div class="inv-card mt-8 p-7 text-center" data-aos="fade-up">
+      <p class="font-philo text-[11px] tracking-[.14em] uppercase" style="color:var(--inv); opacity:.55">Navigasi Lokasi</p>
+      <p class="font-philo text-[13px] mt-2" style="color:var(--inv); opacity:.6">Scan kode QR untuk membuka peta lokasi di ponsel Anda.</p>
+      <div id="qrcode" class="mx-auto flex justify-center my-4"></div>
+      <a id="inv-qrlink" href="#" target="_blank" class="font-philo font-bold text-[13px] hover:underline" style="color:var(--inv)">Buka lokasi →</a>
+    </div>
+
+    <!-- Kisah Cinta (timeline) — Mildness -->
+    <div id="kisah" class="inv-card mt-8 p-6 sm:p-7" data-aos="fade-up">
+      <p class="font-title text-[28px] text-center" style="color:var(--inv)">Kisah Cinta</p>
+      <div id="kisah-list" class="mt-6 relative">
+        <div class="absolute left-[19px] top-0 bottom-0 w-px" style="background:var(--inv-light)"></div>
+        <div id="kisah-items" class="space-y-5"></div>
       </div>
     </div>
 
-    <!-- Susunan Acara (hanya jika diisi) -->
-    <div id="acara-wrap" class="hidden max-w-[600px] mx-auto px-6 pb-10">
-      <div class="card-elevated p-7">
-        <p class="eyebrow text-center mb-5">Susunan Acara</p>
-        <div id="acara-list" class="space-y-3"></div>
-      </div>
+    <!-- Closing -->
+    <div id="closing" class="inv-card mt-8 p-8 sm:p-10 text-center" data-aos="zoom-in">
+      <p class="font-philo text-[13px]" style="color:var(--inv); opacity:.7">Atas kehadiran saudara/(i) & Do'a restunya, kami ucapkan terimakasih</p>
+      <p class="font-philo text-[11px] tracking-[.14em] uppercase mt-6" style="color:var(--inv); opacity:.5">Hormat Kami</p>
+      <p class="font-title text-[28px] mt-1" style="color:var(--inv)" id="closing-title">—</p>
     </div>
 
     <!-- Footer invitation -->
-    <div class="max-w-[600px] mx-auto px-6 pb-16 text-center">
-      <p class="font-serif italic text-[15px] text-steel">Atas doa dan kehadiran Anda, kami ucapkan terima kasih.</p>
-      <p class="text-[12px] text-smoke mt-4">Ruang Resepsi • <span id="inv-couple-footer"></span></p>
+    <div class="text-center py-8" data-aos="fade-up">
+      <p class="font-philo italic text-[13px]" style="color:var(--inv); opacity:.55">Atas doa dan kehadiran Anda, kami ucapkan terima kasih.</p>
+      <p class="font-philo text-[11px] mt-3" style="color:var(--inv); opacity:.4">Ruang Resepsi • <span id="inv-couple-footer"></span></p>
+    </div>
     </div>
   </div>
+  <!-- bottom nav Mildness — muncul hanya saat invite terbuka -->
+  <nav id="inv-nav" class="inv-nav hidden">
+    <a href="#cover" title="Cover"><i class="bi bi-file-earmark-text"></i></a>
+    <a href="#detail" title="Mempelai"><i class="bi bi-heart"></i></a>
+    <a href="#acara-wrap" title="Acara"><i class="bi bi-calendar-event"></i></a>
+    <a href="#inv-mapframe" title="Peta"><i class="bi bi-geo-alt"></i></a>
+    <a href="#qrcode" title="QR"><i class="bi bi-qr-code"></i></a>
+  </nav>
 </div>
 </section>
 <!-- ===== END INVITATION ===== -->
@@ -361,7 +437,11 @@ html{ scroll-behavior:smooth; }
           </p>
         </div>
         <div class="mt-4">
-          <label class="text-[12px] font-medium text-slate block mb-1.5">Daftar Acara <span class="text-smoke">(opsional — isi manual)</span></label>
+          <label class="text-[12px] font-medium text-slate block mb-1.5">Kisah Cinta <span class="text-smoke">(opsional)</span></label>
+          <textarea id="setup-kisah" class="input-field resize-y min-h-[100px]" placeholder="Satu cerita per baris. Format: Judul | Tgl&#10;Cerita di baris berikutnya.&#10;Contoh:&#10;Pertemuan Pertama | 2019&#10;Kami bertemu saat organisasi kampus..."></textarea>
+          <p class="text-[11px] text-smoke mt-1.5">Kosongkan bila tidak perlu — timeline tidak akan tampil.</p>
+        </div>
+ <span class="text-smoke">(opsional — isi manual)</span></label>
           <textarea id="setup-acara" class="input-field resize-y min-h-[88px]" placeholder="Satu acara per baris. Format: Nama Acara | Jam&#10;Contoh:&#10;Akad Nikah | 09:00&#10;Resepsi | 11:00 - 14:00"></textarea>
           <p class="text-[11px] text-smoke mt-1.5">Kosongkan bila tidak perlu — susunan acara tidak akan tampil ke tamu.</p>
         </div>
@@ -474,13 +554,35 @@ async function handleFotoFile(file){
   var st=document.getElementById('setup-status'), pv=document.getElementById('setup-foto-preview'), img=document.getElementById('setup-foto-img'), info=document.getElementById('setup-foto-info');
   try{
     if(st){ st.classList.remove('hidden'); st.className='text-center text-[11px] mt-2 text-steel'; st.textContent='Mengompres foto...'; }
-    var out=await compressImage(file,900,0.6);
-    if(out.length>70000){ out=await compressImage(file,700,0.55); }
-    if(out.length>140000){ alert('Hasil kompres masih kebesaran ('+Math.round(out.length/1024)+'KB). Coba foto lain yang lebih kecil.'); if(st) st.classList.add('hidden'); return; }
+    // Balanced (A): maks 300KB dataURL (~220KB file). Resolusi tinggi biar tajam di full-bleed.
+    var MAX=300000;
+    // ukuran asli; lewati kompresi jika sudah cukup kecil? tetap normalisasi ke <=1500px
+    var out=await compressAdaptive(file, MAX);
+    if(!out){ alert('Foto terlalu kompleks untuk dikompres di bawah 220KB. Coba foto yang lebih sederhana.'); if(st) st.classList.add('hidden'); return; }
     _fotoDataUrl=out; _fotoPendingInfo=file.name+' • '+(out.length>1024?Math.round(out.length/1024)+'KB':out.length+'B')+' (auto-kompres)';
     if(img){ img.src=out; } if(info) info.textContent=_fotoPendingInfo; if(pv) pv.classList.remove('hidden');
-    if(st){ st.classList.remove('hidden'); st.className='text-center text-[11px] mt-2 text-ledger-green'; st.textContent='Foto siap — akan disimpan 7 hari di server'; setTimeout(function(){ st.classList.add('hidden'); },2500); }
+    if(st){ st.classList.remove('hidden'); st.className='text-center text-[11px] mt-2 text-ledger-green'; st.textContent='Foto siap — tajam & ringan, disimpan 7 hari di server'; setTimeout(function(){ st.classList.add('hidden'); },3000); }
   }catch(e){ console.warn(e); alert('Gagal memproses foto. Coba file lain.'); if(st) st.classList.add('hidden'); }
+}
+// Kompresi adaptif: mulai resolusi tinggi + kualitas mantap, turunkan quality bertahap (jaga resolusi),
+// baru kecilkan resolusi di kualitas minimal. Hasil tajam tanpa artefak banding.
+async function compressAdaptive(file, maxLen){
+  const START_Q=0.82, MIN_Q=0.62;
+  var out=await compressImage(file, 1500, START_Q);
+  if(out.length<=maxLen) return out;
+  // turunkan quality bertahap, tetap resolusi 1500
+  var q=0.78;
+  while(q>=MIN_Q){
+    out=await compressImage(file, 1500, q);
+    if(out.length<=maxLen) return out;
+    q-=0.05;
+  }
+  // masih besar? kecilkan resolusi, cycle quality lagi
+  for(var side of [1300,1100,950]){
+    out=await compressImage(file, side, 0.75);
+    if(out.length<=maxLen) return out;
+  }
+  return null; // gagal
 }
 (function(){
   var inp=document.getElementById('setup-foto'), rm=document.getElementById('setup-foto-remove');
@@ -537,24 +639,37 @@ async function initInvitation(params, shortIdOpt){
   }
   // bundle dari server override p/w/t/j/l/maps/acara/fotoUrl; tamu tetap dari URL personal
   var pria=(bundle&&bundle.pria)||p||(d&&d.pria)||'Andi', wanita=(bundle&&bundle.wanita)||w||(d&&d.wanita)||'Sinta', tanggal=(bundle&&bundle.tanggal)||t||(d&&d.tanggal)||'', jam=(bundle&&bundle.jam)||j||(d&&d.jam)||'', lokasi=(bundle&&bundle.lokasi)||l||(d&&d.lokasi)||'Gedung Melati';
-  maps=(bundle&&bundle.maps)||maps||(d&&d.maps)||''; acara=(bundle&&bundle.acara)||acara||(d&&d.acara)||'';
+  maps=(bundle&&bundle.maps)||maps||(d&&d.maps)||''; acara=(bundle&&bundle.acara)||acara||(d&&d.acara)||''; var kisah=(bundle&&bundle.kisah)||safeDecode(params.get('kisah')||'')||(d&&d.kisah)||'';
   var fotoUrl=(bundle&&bundle.fotoUrl)||fotoUrlFromParam||(d&&d.fotoUrl)||'';
-  _invData={pria:pria,wanita:wanita,tamu:tamu||'Tamu Undangan',tanggal:tanggal,jam:jam,lokasi:lokasi,maps:maps,acara:acara,fotoUrl:fotoUrl,shortId:shortId||(bundle&&bundle.id)||(d&&d.id)||''};
+  _invData={pria:pria,wanita:wanita,tamu:tamu||'Tamu Undangan',tanggal:tanggal,jam:jam,lokasi:lokasi,maps:maps,acara:acara,kisah:kisah,fotoUrl:fotoUrl,shortId:shortId||(bundle&&bundle.id)||(d&&d.id)||''};
   document.title=pria+' & '+wanita+' — Undangan untuk '+(tamu||'Tamu');
-  // foto hero (A) — cover + section, hanya jika ada foto 7-hari dari server (atau legacy foto param)
+  // foto full-bleed — cover-bg + inv-hero-wrap (Mildness). Tanpa foto tetap elegan (gradient wash)
   try{
-    var cfWrap=document.getElementById('cover-foto-wrap'), cf=document.getElementById('cover-foto'), invWrap=document.getElementById('inv-foto-wrap'), invFoto=document.getElementById('inv-foto');
-    if(fotoUrl){ if(cf){ cf.src=fotoUrl; cf.onerror=function(){ if(cfWrap) cfWrap.classList.add('hidden'); }; } if(invFoto){ invFoto.src=fotoUrl; invFoto.onerror=function(){ if(invWrap) invWrap.classList.add('hidden'); }; } if(cfWrap) cfWrap.classList.remove('hidden'); if(invWrap) invWrap.classList.remove('hidden'); }
-    else { if(cfWrap) cfWrap.classList.add('hidden'); if(invWrap) invWrap.classList.add('hidden'); }
+    var coverBg=document.getElementById('cover-bg'), heroWrap=document.getElementById('inv-hero-wrap');
+    if(fotoUrl){
+      if(coverBg) coverBg.style.backgroundImage='url("'+fotoUrl.replace(/"/g,'')+'")';
+      if(heroWrap){ heroWrap.style.backgroundImage='linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(255,255,255,.92) 78%, #fff 100%), url("'+fotoUrl.replace(/"/g,'')+'")'; heroWrap.style.backgroundSize='cover, cover'; heroWrap.style.backgroundPosition='center'; heroWrap.classList.remove('hidden'); }
+    } else {
+      if(coverBg) coverBg.style.backgroundImage='';
+      if(heroWrap) heroWrap.classList.add('hidden');
+    }
   }catch(_){}
-  // cover + body
+  // cover + body — Mildness date layout  Sabtu | 28 | Maret
   document.getElementById('cover-pria').textContent=pria;
   document.getElementById('cover-wanita').textContent=wanita;
-  document.getElementById('cover-tamu').textContent=tamu||'Tamu Undangan';
+  var _ct=document.getElementById('cover-tamu'); if(_ct) _ct.textContent=tamu||'Tamu Undangan';
   document.getElementById('inv-pria').textContent=pria;
   document.getElementById('inv-wanita').textContent=wanita;
-  document.getElementById('inv-tamu').textContent=tamu||'';
+  var _it=document.getElementById('inv-tamu'); if(_it) _it.textContent=tamu||'Tamu Undangan';
+  var _ct2=document.getElementById('closing-title'); if(_ct2) _ct2.textContent=pria+' & '+wanita;
   document.getElementById('inv-couple-footer').textContent=pria+' & '+wanita;
+  // parse tanggal untuk cover: day / num / month / year
+  try{
+    if(tanggal){ var d=new Date(tanggal+'T00:00:00'); var days=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu']; var months=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+      var elD=document.getElementById('cover-day'), elN=document.getElementById('cover-day-num'), elM=document.getElementById('cover-month'), elY=document.getElementById('cover-year');
+      if(elD) elD.textContent=days[d.getDay()]||''; if(elN) elN.textContent=String(d.getDate()); if(elM) elM.textContent=months[d.getMonth()]||''; if(elY) elY.textContent=String(d.getFullYear());
+    }
+  }catch(_){}
   var mapQuery=encodeURIComponent(lokasi + (pria+' & '+wanita));
   document.getElementById('inv-tanggal').textContent=fmtTanggal(tanggal);
   document.getElementById('inv-jam').textContent=jam?jam+' WIB':'—';
@@ -564,15 +679,19 @@ async function initInvitation(params, shortIdOpt){
   var embedSrc = (maps && /^https?:\/\//.test(maps)) ? embedFromMapsLink(maps) : ('https://maps.google.com/maps?q='+mapQuery+'&z=15&output=embed');
   var a1=document.getElementById('inv-maps'), a2=document.getElementById('inv-maps2'), aq=document.getElementById('inv-qrlink'), fr=document.getElementById('inv-mapframe');
   if(a1) a1.href=mapsLink; if(a2) a2.href=mapsLink; if(aq) aq.href=mapsLink; if(fr) fr.src=embedSrc;
-  // QR code
-  try{ document.getElementById('qrcode').innerHTML=''; if(typeof QRCode!=='undefined'){ new QRCode(document.getElementById('qrcode'),{text:mapsLink,width:160,height:160,colorDark:'#1d1d20',colorLight:'#ffffff'}); } }catch(_){}
+  // QR code — dusty-blue Mildness
+  try{ document.getElementById('qrcode').innerHTML=''; if(typeof QRCode!=='undefined'){ new QRCode(document.getElementById('qrcode'),{text:mapsLink,width:160,height:160,colorDark:'#4B6B99',colorLight:'#ffffff'}); } }catch(_){}
+  // AOS refresh untuk card baru
+  try{ if(window.AOS) AOS.refresh(); }catch(_){}
   // Susunan acara (hanya jika diisi)
   renderAcara(acara);
-  // countdown
+  renderKisah(kisah);
+  // countdown — sinkron cover + body (Mildness)
   clearInterval(_cdTimer);
   var target=null;
   if(tanggal){ target=new Date(tanggal+'T'+(jam||'00:00')+':00'); }
-  function tick(){ if(!target){document.getElementById('cd-d').textContent='—';return;} var diff=target-new Date(); if(diff<0){diff=0;} var s=Math.floor(diff/1000); document.getElementById('cd-d').textContent=Math.floor(s/86400); document.getElementById('cd-h').textContent=Math.floor(s%86400/3600); document.getElementById('cd-m').textContent=Math.floor(s%3600/60); document.getElementById('cd-s').textContent=s%60; }
+  function setCd(id,val){ var el=document.getElementById(id); if(el) el.textContent=val; }
+  function tick(){ if(!target){ setCd('cd-d','—'); setCd('cover-cd-d','—'); return;} var diff=target-new Date(); if(diff<0){diff=0;} var s=Math.floor(diff/1000); var d=Math.floor(s/86400), h=Math.floor(s%86400/3600), m=Math.floor(s%3600/60), sc=s%60; setCd('cd-d',d); setCd('cd-h',h); setCd('cd-m',m); setCd('cd-s',sc); setCd('cover-cd-d',d); setCd('cover-cd-h',h); setCd('cover-cd-m',m); setCd('cover-cd-s',sc); }
   tick(); _cdTimer=setInterval(tick,1000);
   // music — source wajib CORS-friendly (bensound lama 403)
   var musicURL='https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
@@ -580,10 +699,10 @@ async function initInvitation(params, shortIdOpt){
   _audio.addEventListener('error',function(){ console.warn('audio error',_audio.error); });
   // cover: skip bila tamu sudah pernah membuka (per device)
   var opened=false; try{ opened=localStorage.getItem('ruang_resepsi_opened_'+(tamu||''))==='1'; }catch(_){}
-  if(opened){ document.getElementById('cover').classList.add('hidden'); document.getElementById('invite').classList.remove('hidden'); }
+  if(opened){ document.getElementById('cover').classList.add('hidden'); document.getElementById('invite').classList.remove('hidden'); var nav=document.getElementById('inv-nav'); if(nav) nav.classList.remove('hidden'); try{ if(window.AOS) AOS.refresh(); }catch(_){} }
   else { resetCover(); }
 }
-function resetCover(){ document.getElementById('cover').classList.remove('hidden'); document.getElementById('invite').classList.add('hidden'); window.scrollTo(0,0); }
+function resetCover(){ document.getElementById('cover').classList.remove('hidden'); document.getElementById('invite').classList.add('hidden'); var nav=document.getElementById('inv-nav'); if(nav) nav.classList.add('hidden'); window.scrollTo(0,0); }
 // Embed sinkron 1 sumber: peta iframe diturunkan dari mapsLink yang sama — bukan dari nama lokasi terpisah
 function embedFromMapsLink(url){
   if(!url) return 'about:blank';
@@ -611,21 +730,45 @@ function renderAcara(acara){
   if(!acara||!acara.trim()){ wrap.classList.add('hidden'); return; }
   var lines=acara.split('\n').map(function(x){return x.trim();}).filter(Boolean);
   if(!lines.length){ wrap.classList.add('hidden'); return; }
-  list.innerHTML=lines.map(function(line){
+  list.innerHTML=lines.map(function(line, idx){
     var parts=line.split('|').map(function(s){return s.trim();});
     var nama=parts[0]||'', jam=parts[1]||'';
-    return '<div class="flex items-center justify-between border-b border-ash pb-3 mb-3 last:border-0 last:mb-0 last:pb-0"><div class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span><p class="font-medium text-[14px]">'+esc(nama)+'</p></div><p class="font-mono text-[13px] text-steel">'+esc(jam)+'</p></div>';
+    var mapsLink = (_invData&&_invData.maps&&/^https?:\/\//.test(_invData.maps)) ? _invData.maps : '#';
+    var showBtn = mapsLink!=='#' ? '<a href="'+esc(mapsLink)+'" target="_blank" class="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[11px] font-medium mt-2" style="background:var(--inv); color:#fff"><i class="bi bi-geo-alt"></i> Navigasi Map</a>' : '';
+    var sep = idx < lines.length-1 ? '<div class="my-5" style="border-bottom:1px dashed var(--inv); opacity:.35"></div>' : '';
+    return '<div class="text-center" data-aos="fade-up"><div class="font-philo font-bold text-[14px]" style="color:var(--inv)">'+esc(nama)+'</div>'+(jam?'<div class="font-philo text-[12px] mt-1" style="color:var(--inv); opacity:.6">'+esc(jam)+'</div>':'')+showBtn+'</div>'+sep;
   }).join('');
   wrap.classList.remove('hidden');
 }
+
+// Render kisah cinta timeline — format "Judul | Tgl" baris, cerita baris berikutnya
+function renderKisah(kisah){
+  var items=document.getElementById('kisah-items'), wrap=document.getElementById('kisah');
+  if(!kisah||!kisah.trim()||!items){ if(wrap) wrap.classList.add('hidden'); return; }
+  var blocks=kisah.split('\n\n').map(function(x){return x.trim();}).filter(Boolean);
+  if(!blocks.length){ if(wrap) wrap.classList.add('hidden'); return; }
+  var html='';
+  blocks.forEach(function(blk){
+    var lines=blk.split('\n').map(function(x){return x.trim();}).filter(Boolean);
+    var head=lines[0]||''; var parts=head.split('|').map(function(x){return x.trim();});
+    var judul=parts[0]||'', tgl=parts[1]||'';
+    var cerita=lines.slice(1).join(' ');
+    html+='<div class="relative pl-10" data-aos="fade-up"><span class="absolute left-[3px] top-1 w-8 h-8 rounded-full flex items-center justify-center" style="background:var(--inv); color:#fff"><i class="bi bi-heart" style="font-size:12px"></i></span><div class="kisah-card p-4"><div class="font-philo font-bold text-[14px]" style="color:var(--inv)">'+esc(judul)+(tgl?' <span class="font-normal text-[11px] opacity-60" style="color:var(--inv)">• '+esc(tgl)+'</span>':'')+'</div>'+(cerita?'<p class="font-philo text-[12px] mt-2 leading-relaxed" style="color:var(--inv); opacity:.65">'+esc(cerita)+'</p>':'')+'</div></div>';
+  });
+  items.innerHTML=html;
+  wrap.classList.remove('hidden');
+  try{ if(window.AOS) AOS.refresh(); }catch(_){}
+}
+
 function bukaUndangan(){
   document.getElementById('cover').classList.add('hidden');
   var invite=document.getElementById('invite'); invite.classList.remove('hidden');
+  var nav=document.getElementById('inv-nav'); if(nav) nav.classList.remove('hidden');
   try{ localStorage.setItem('ruang_resepsi_opened_'+(_invData&&_invData.tamu||''),'1'); }catch(_){}
-  setTimeout(function(){ document.getElementById('invite').scrollIntoView({behavior:'smooth'}); },50);
-  try{ var a=document.getElementById('audio-bg'); a.volume=.35; a.muted=false; var pr=a.play(); if(pr) pr.catch(function(e){ console.warn('play blocked',e); }); document.getElementById('btn-msc').style.background='#2e7317'; }catch(e){ console.warn(e); }
+  setTimeout(function(){ document.getElementById('invite').scrollIntoView({behavior:'smooth'}); try{ if(window.AOS) AOS.refresh(); }catch(_){} },80);
+  try{ var a=document.getElementById('audio-bg'); a.volume=.35; a.muted=false; var pr=a.play(); if(pr) pr.catch(function(e){ console.warn('play blocked',e); }); var bm=document.getElementById('btn-msc'); if(bm) bm.style.background='#4B6B99'; }catch(e){ console.warn(e); }
 }
-function toggleMusic(){ var a=document.getElementById('audio-bg'); if(a.paused){ a.muted=false; var pr=a.play(); if(pr) pr.catch(function(e){ console.warn('play blocked',e); alert('Tap sekali lagi untuk putar musik — browser memblokir autoplay.'); }); document.getElementById('btn-msc').style.background='#2e7317'; } else { a.pause(); document.getElementById('btn-msc').style.background='#a565ff'; } }
+function toggleMusic(){ var a=document.getElementById('audio-bg'); if(a.paused){ a.muted=false; var pr=a.play(); if(pr) pr.catch(function(e){ console.warn('play blocked',e); alert('Tap sekali lagi untuk putar musik — browser memblokir autoplay.'); }); var bm=document.getElementById('btn-msc'); if(bm) bm.style.background='#4B6B99'; } else { a.pause(); var bm2=document.getElementById('btn-msc'); if(bm2){ bm2.style.background='#4B6B99'; bm2.style.opacity='.55'; setTimeout(function(){ if(bm2) bm2.style.opacity='1'; },200); } } }
 function konfirmasiWA(){ var d=_invData; var txt='Halo '+d.pria+' & '+d.wanita+', saya '+d.tamu+' mengkonfirmasi kehadiran saya pada acara pernikahan Anda, '+fmtTanggal(d.tanggal)+'. Terima kasih atas undangannya!'; window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank'); }
 // Export rekap tamu (nama, WA, link) ke CSV
 function exportCSV(){
@@ -654,10 +797,10 @@ function getRsvpStats(){
 document.getElementById('setup-form').addEventListener('submit',async function(e){
   e.preventDefault();
   var btn=document.getElementById('setup-submit'), st=document.getElementById('setup-status');
-  var data={pria:document.getElementById('setup-pria').value.trim(),wanita:document.getElementById('setup-wanita').value.trim(),tanggal:document.getElementById('setup-tanggal').value,jam:document.getElementById('setup-jam').value,lokasi:document.getElementById('setup-lokasi').value.trim(),maps:document.getElementById('setup-maps').value.trim(),acara:document.getElementById('setup-acara').value.trim()};
+  var data={pria:document.getElementById('setup-pria').value.trim(),wanita:document.getElementById('setup-wanita').value.trim(),tanggal:document.getElementById('setup-tanggal').value,jam:document.getElementById('setup-jam').value,lokasi:document.getElementById('setup-lokasi').value.trim(),maps:document.getElementById('setup-maps').value.trim(),acara:document.getElementById('setup-acara').value.trim(),kisah:document.getElementById('setup-kisah')?document.getElementById('setup-kisah').value.trim():''};
   if(!data.pria||!data.wanita||!data.tanggal||!data.jam||!data.lokasi||!data.maps){ alert('Mohon lengkapi semua field yang wajib.'); return; }
   if(!/^https?:\/\//.test(data.maps)){ alert('Link Google Maps harus diawali https://'); return; }
-  if(_fotoDataUrl && _fotoDataUrl.length>140000){ alert('Foto masih kebesaran setelah kompres. Coba foto lain.'); return; }
+  if(_fotoDataUrl && _fotoDataUrl.length>300000){ alert('Foto masih kebesaran setelah kompres. Coba foto lain.'); return; }
   var payload={...data}; if(_fotoDataUrl) payload.fotoDataUrl=_fotoDataUrl;
   if(btn){ btn.disabled=true; btn.textContent='Menyimpan...'; }
   if(st){ st.classList.remove('hidden'); st.className='text-center text-[11px] mt-2 text-steel'; st.textContent=_fotoDataUrl?'Mengupload foto & membuat link pendek...':'Membuat link pendek...'; }
@@ -741,5 +884,7 @@ showState();
 window.addEventListener('popstate',showState);
 window.addEventListener('load',function(){ setTimeout(observeReveals,100); setTimeout(triggerVisible,200); });
 </script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>try{AOS.init({duration:700, once:true, offset:60});}catch(_){}</script>
 </body>
 </html>
