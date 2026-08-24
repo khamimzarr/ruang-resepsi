@@ -71,7 +71,6 @@ html{ scroll-behavior:smooth; }
 .nav-link.active{ color:#1d1d20; text-decoration:underline; text-decoration-color:#a565ff; text-underline-offset:4px; text-decoration-thickness:2px; }
 .timeline-line{ position:relative; }
 .timeline-line::before{ content:''; position:absolute; left:19px; top:0; bottom:0; width:1px; background:#e5e7eb; }
-.ampop-card:hover{ background:#f7f7f7; transform:scale(1.02); transition:all .2s; }
 </style>
 </head>
 <body class="bg-white text-graphite font-sans antialiased min-h-screen">
@@ -324,22 +323,6 @@ html{ scroll-behavior:smooth; }
       </div>
     </div>
 
-    <!-- Amplop digital -->
-    <div class="max-w-[600px] mx-auto px-6 pb-10">
-      <div class="card-elevated p-7 text-center">
-        <span class="text-[34px]">💌</span>
-        <p class="eyebrow text-center mt-2 mb-2">Amplop Digital</p>
-        <p class="text-[13px] text-steel mb-5">Jika memberi adalah tanda kasih, kirim hadiah Anda melalui:</p>
-        <div id="ampop-list" class="space-y-3">
-          <div class="ampop-card bg-bone border border-ash rounded-lg p-4 flex items-center justify-between cursor-not-allowed opacity-60">
-            <div class="text-left"><p class="font-medium text-[14px]">Rekening</p><p class="font-mono text-[13px] text-steel">Rekening belum diisi oleh mempelai</p></div>
-            <span class="badge inline-flex items-center gap-1 bg-fog text-smoke rounded-full px-2.5 py-1 text-[11px] border border-ash cursor-not-allowed">Salin</span>
-          </div>
-        </div>
-        <a id="inv-food" href="#" onclick="konfirmasiWA();return false;" class="inline-flex items-center gap-2 mt-5 text-indigo-ink font-medium text-[13px] hover:underline">Kirim ucapan & doa via WhatsApp →</a>
-      </div>
-    </div>
-
     <!-- Footer invitation -->
     <div class="max-w-[600px] mx-auto px-6 pb-16 text-center">
       <p class="font-serif italic text-[15px] text-steel">Atas doa dan kehadiran Anda, kami ucapkan terima kasih.</p>
@@ -381,10 +364,6 @@ html{ scroll-behavior:smooth; }
           <label class="text-[12px] font-medium text-slate block mb-1.5">Daftar Acara <span class="text-smoke">(opsional — isi manual)</span></label>
           <textarea id="setup-acara" class="input-field resize-y min-h-[88px]" placeholder="Satu acara per baris. Format: Nama Acara | Jam&#10;Contoh:&#10;Akad Nikah | 09:00&#10;Resepsi | 11:00 - 14:00"></textarea>
           <p class="text-[11px] text-smoke mt-1.5">Kosongkan bila tidak perlu — susunan acara tidak akan tampil ke tamu.</p>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-          <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Bank (Amplop)</label><input id="setup-bank" class="input-field" placeholder="Contoh: BCA"></div>
-          <div><label class="text-[12px] font-medium text-slate block mb-1.5">No. Rekening (Amplop)</label><input id="setup-rek" class="input-field" placeholder="Contoh: 1234567890"></div>
         </div>
         <div class="mt-4">
           <label class="text-[12px] font-medium text-slate block mb-1.5">Foto Prewed (opsional) — max 10MB, auto-kompres</label>
@@ -469,7 +448,7 @@ function loadData(){ try{return JSON.parse(localStorage.getItem(LS_KEY)||'null')
 function saveData(d){ localStorage.setItem(LS_KEY,JSON.stringify(d)); }
 function fmtTanggal(iso){ if(!iso) return '—'; try{ var d=new Date(iso+'T00:00:00'); return d.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'}); }catch(_){ return iso; } }
 function fmtDay(iso){ try{ return new Date(iso+'T00:00:00').toLocaleDateString('id-ID',{weekday:'long'}); }catch(_){ return ''; } }
-function buildGuestUrl(nama){ var d=loadData(); if(!d) return location.origin+location.pathname; var p=new URLSearchParams(); p.set('tamu',b64enc(nama)); p.set('p',b64enc(d.pria)); p.set('w',b64enc(d.wanita)); p.set('t',b64enc(d.tanggal)); p.set('j',b64enc(d.jam)); p.set('l',b64enc(d.lokasi)); if(d.bank)p.set('bank',b64enc(d.bank)); if(d.rek)p.set('rek',b64enc(d.rek)); if(d.maps)p.set('maps',b64enc(d.maps)); if(d.acara)p.set('acara',b64enc(d.acara)); return location.origin+location.pathname+'?'+p.toString(); }
+function buildGuestUrl(nama){ var d=loadData(); if(!d) return location.origin+location.pathname; var p=new URLSearchParams(); p.set('tamu',b64enc(nama)); p.set('p',b64enc(d.pria)); p.set('w',b64enc(d.wanita)); p.set('t',b64enc(d.tanggal)); p.set('j',b64enc(d.jam)); p.set('l',b64enc(d.lokasi)); if(d.maps)p.set('maps',b64enc(d.maps)); if(d.acara)p.set('acara',b64enc(d.acara)); return location.origin+location.pathname+'?'+p.toString(); }
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 // ===== Foto prewed 7-hari (A) =====
 var _fotoDataUrl=null, _fotoPendingInfo='';
@@ -540,7 +519,7 @@ var _invData=null, _cdTimer=null, _audio=null, _inviteBundle=null;
 async function initInvitation(params, shortIdOpt){
   var shortId=shortIdOpt || getShortIdFromPath() || params.get('id') || '';
   var tamu=safeDecode(params.get('tamu')||''), p=safeDecode(params.get('p')||''), w=safeDecode(params.get('w')||''), t=safeDecode(params.get('t')||''), j=safeDecode(params.get('j')||''), l=safeDecode(params.get('l')||'');
-  var bank=safeDecode(params.get('bank')||''), rek=safeDecode(params.get('rek')||''), maps=safeDecode(params.get('maps')||''), acara=safeDecode(params.get('acara')||'');
+  var maps=safeDecode(params.get('maps')||''), acara=safeDecode(params.get('acara')||'');
   var fotoUrlFromParam=safeDecode(params.get('foto')||'');
   var d=loadData();
   // A2: jika ada shortId (/u/xxx) → fetch dari backend (sumber kebenaran, 7 hari). Sebelum 7 hari tetap bisa dibuka, lewat 7 hari => 404/410 => expired total
@@ -556,11 +535,11 @@ async function initInvitation(params, shortIdOpt){
       else { showExpired('Gagal memuat undangan'); return; }
     }catch(e){ console.warn('invite fetch fail',e); showExpired('Gagal memuat undangan'); return; }
   }
-  // bundle dari server override p/w/t/j/l/maps/acara/bank/rek/fotoUrl; tamu tetap dari URL personal
+  // bundle dari server override p/w/t/j/l/maps/acara/fotoUrl; tamu tetap dari URL personal
   var pria=(bundle&&bundle.pria)||p||(d&&d.pria)||'Andi', wanita=(bundle&&bundle.wanita)||w||(d&&d.wanita)||'Sinta', tanggal=(bundle&&bundle.tanggal)||t||(d&&d.tanggal)||'', jam=(bundle&&bundle.jam)||j||(d&&d.jam)||'', lokasi=(bundle&&bundle.lokasi)||l||(d&&d.lokasi)||'Gedung Melati';
-  bank=(bundle&&bundle.bank)||bank||(d&&d.bank)||''; rek=(bundle&&bundle.rek)||rek||(d&&d.rek)||''; maps=(bundle&&bundle.maps)||maps||(d&&d.maps)||''; acara=(bundle&&bundle.acara)||acara||(d&&d.acara)||'';
+  maps=(bundle&&bundle.maps)||maps||(d&&d.maps)||''; acara=(bundle&&bundle.acara)||acara||(d&&d.acara)||'';
   var fotoUrl=(bundle&&bundle.fotoUrl)||fotoUrlFromParam||(d&&d.fotoUrl)||'';
-  _invData={pria:pria,wanita:wanita,tamu:tamu||'Tamu Undangan',tanggal:tanggal,jam:jam,lokasi:lokasi,bank:bank,rek:rek,maps:maps,acara:acara,fotoUrl:fotoUrl,shortId:shortId||(bundle&&bundle.id)||(d&&d.id)||''};
+  _invData={pria:pria,wanita:wanita,tamu:tamu||'Tamu Undangan',tanggal:tanggal,jam:jam,lokasi:lokasi,maps:maps,acara:acara,fotoUrl:fotoUrl,shortId:shortId||(bundle&&bundle.id)||(d&&d.id)||''};
   document.title=pria+' & '+wanita+' — Undangan untuk '+(tamu||'Tamu');
   // foto hero (A) — cover + section, hanya jika ada foto 7-hari dari server (atau legacy foto param)
   try{
@@ -595,9 +574,6 @@ async function initInvitation(params, shortIdOpt){
   if(tanggal){ target=new Date(tanggal+'T'+(jam||'00:00')+':00'); }
   function tick(){ if(!target){document.getElementById('cd-d').textContent='—';return;} var diff=target-new Date(); if(diff<0){diff=0;} var s=Math.floor(diff/1000); document.getElementById('cd-d').textContent=Math.floor(s/86400); document.getElementById('cd-h').textContent=Math.floor(s%86400/3600); document.getElementById('cd-m').textContent=Math.floor(s%3600/60); document.getElementById('cd-s').textContent=s%60; }
   tick(); _cdTimer=setInterval(tick,1000);
-  // amplop — hanya tampil bila bank & rekening keduanya valid, jika tidak tetap placeholder nonaktif
-  var ampop=document.getElementById('ampop-list');
-  if(bank&&rek){ ampop.outerHTML='<div id="ampop-list" class="space-y-3"><div class="ampop-card bg-bone border border-ash rounded-lg p-4 flex items-center justify-between cursor-pointer" onclick="salinRek(event,\''+esc(bank)+'\',\''+esc(rek)+'\',\''+esc(pria+" & "+wanita)+'\')"><div class="text-left"><p class="font-medium text-[14px]">'+esc(bank)+'</p><p class="font-mono text-[13px] text-steel">'+esc(rek)+' a.n. '+esc(pria+' & '+wanita)+'</p></div><span class="badge inline-flex items-center gap-1 bg-lavender-wash text-indigo-ink rounded-full px-2.5 py-1 text-[11px] border border-iris-glow/60">Salin</span></div></div>'; }
   // music — source wajib CORS-friendly (bensound lama 403)
   var musicURL='https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
   _audio=document.getElementById('audio-bg'); _audio.src=musicURL; try{_audio.load();}catch(_){}
@@ -651,7 +627,6 @@ function bukaUndangan(){
 }
 function toggleMusic(){ var a=document.getElementById('audio-bg'); if(a.paused){ a.muted=false; var pr=a.play(); if(pr) pr.catch(function(e){ console.warn('play blocked',e); alert('Tap sekali lagi untuk putar musik — browser memblokir autoplay.'); }); document.getElementById('btn-msc').style.background='#2e7317'; } else { a.pause(); document.getElementById('btn-msc').style.background='#a565ff'; } }
 function konfirmasiWA(){ var d=_invData; var txt='Halo '+d.pria+' & '+d.wanita+', saya '+d.tamu+' mengkonfirmasi kehadiran saya pada acara pernikahan Anda, '+fmtTanggal(d.tanggal)+'. Terima kasih atas undangannya!'; window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank'); }
-function salinRek(e,n,b,a){ e.stopPropagation(); if(!n||!b) return; var t=b+' ('+n+') a.n. '+a; navigator.clipboard.writeText(t).then(function(){ e.currentTarget.querySelector('.badge').textContent='✓ Tersalin'; setTimeout(function(){ e.currentTarget.querySelector('.badge').textContent='Salin'; },1500); }); }
 // Export rekap tamu (nama, WA, link) ke CSV
 function exportCSV(){
   var list=JSON.parse(localStorage.getItem(RECENT_KEY)||'[]');
@@ -679,7 +654,7 @@ function getRsvpStats(){
 document.getElementById('setup-form').addEventListener('submit',async function(e){
   e.preventDefault();
   var btn=document.getElementById('setup-submit'), st=document.getElementById('setup-status');
-  var data={pria:document.getElementById('setup-pria').value.trim(),wanita:document.getElementById('setup-wanita').value.trim(),tanggal:document.getElementById('setup-tanggal').value,jam:document.getElementById('setup-jam').value,lokasi:document.getElementById('setup-lokasi').value.trim(),maps:document.getElementById('setup-maps').value.trim(),acara:document.getElementById('setup-acara').value.trim(),bank:document.getElementById('setup-bank').value.trim(),rek:document.getElementById('setup-rek').value.trim()};
+  var data={pria:document.getElementById('setup-pria').value.trim(),wanita:document.getElementById('setup-wanita').value.trim(),tanggal:document.getElementById('setup-tanggal').value,jam:document.getElementById('setup-jam').value,lokasi:document.getElementById('setup-lokasi').value.trim(),maps:document.getElementById('setup-maps').value.trim(),acara:document.getElementById('setup-acara').value.trim()};
   if(!data.pria||!data.wanita||!data.tanggal||!data.jam||!data.lokasi||!data.maps){ alert('Mohon lengkapi semua field yang wajib.'); return; }
   if(!/^https?:\/\//.test(data.maps)){ alert('Link Google Maps harus diawali https://'); return; }
   if(_fotoDataUrl && _fotoDataUrl.length>140000){ alert('Foto masih kebesaran setelah kompres. Coba foto lain.'); return; }
@@ -743,7 +718,7 @@ document.getElementById('btn-edit').addEventListener('click',function(){ if(conf
 
 // ===== Landing helpers =====
 function scrollToSetup(e){ if(e)e.preventDefault(); var d=loadData(); var t=document.getElementById((d&&d.pria)?'state-sender':'state-setup'); if(t){t.scrollIntoView({behavior:'smooth'}); setTimeout(function(){var i=t.querySelector('input');if(i)i.focus();},600);} }
-function bukaContoh(){ var origin=location.origin+location.pathname; var p=new URLSearchParams(); p.set('tamu',b64enc('Bapak Budi & Keluarga')); p.set('p',b64enc('Andi')); p.set('w',b64enc('Sinta')); p.set('t',b64enc('2026-09-20')); p.set('j',b64enc('19:00')); p.set('l',b64enc('Gedung Serbaguna Melati, Jakarta Selatan')); p.set('bank',b64enc('Bank BCA')); p.set('rek',b64enc('1234567890')); window.open(origin+'?'+p.toString(),'_blank'); }
+function bukaContoh(){ var origin=location.origin+location.pathname; var p=new URLSearchParams(); p.set('tamu',b64enc('Bapak Budi & Keluarga')); p.set('p',b64enc('Andi')); p.set('w',b64enc('Sinta')); p.set('t',b64enc('2026-09-20')); p.set('j',b64enc('19:00')); p.set('l',b64enc('Gedung Serbaguna Melati, Jakarta Selatan')); window.open(origin+'?'+p.toString(),'_blank'); }
 
 // ===== Nav smooth =====
 document.querySelectorAll('a[href^="#"]').forEach(function(a){ a.addEventListener('click',function(e){ var h=a.getAttribute('href'); /* set active instantly */ setNavActive(h); if(h==='#'||h==='#beranda'){if(e)e.preventDefault(); document.getElementById('beranda')?.scrollIntoView({behavior:'smooth'}); return;} var t=document.querySelector(h); if(t){if(e)e.preventDefault(); t.scrollIntoView({behavior:'smooth'});} }); });

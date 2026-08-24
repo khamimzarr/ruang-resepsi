@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-    const { pria, wanita, tanggal, jam, lokasi, maps, acara, bank, rek, fotoDataUrl } = body || {};
+    const { pria, wanita, tanggal, jam, lokasi, maps, acara, fotoDataUrl } = body || {};
 
     if (!pria || !wanita || !tanggal || !jam || !lokasi || !maps) {
       return res.status(400).json({ error: 'Field wajib belum lengkap' });
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
 
     const bundle = {
       id, pria, wanita, tanggal, jam, lokasi, maps,
-      acara: acara || '', bank: bank || '', rek: rek || '',
+      acara: acara || '',
       fotoUrl, fotoPath, createdAt, expiresAt
     };
 
