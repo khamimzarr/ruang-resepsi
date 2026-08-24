@@ -1,79 +1,89 @@
 # Ruang Resepsi — Undangan Digital Pernikahan
 
-Undangan pernikahan digital elegan, frontend-only (HTML + Tailwind CDN + Vanilla JS). Satu tautan personal per tamu, dikirim via WhatsApp.
+Undangan digital elegan — HTML + Tailwind CDN + Vanilla JS + **Vercel Functions & Blob**. Satu link pendek per tamu (`/u/:id`) via WhatsApp, **1 foto prewed auto-hapus 7 hari**.
 
-**Live:** https://ruang-resepsi.vercel.app
-**Desain:** Sequence editorial (DESIGN.md) — violet `#a565ff`, serif display, border `ash #e5e7eb`
+**Live:** https://ruang-resepsi.vercel.app → `https://ruang-resepsi.vercel.app/u/<id>?tamu=<b64>` (7 hari, lewat `410 expired`)  
+**Desain:** Sequence editorial — violet `#a565ff`, serif display, border `ash #e5e7eb`  
+**Alur superpowers:** lihat `../khamim-portfolio/ALUR-KERJA-SUPERPOWERS.md` (8 fase: brainstorming → auto-update)
 
 ---
 
 ## Struktur File
 
 ```
-index.html      # Satu file: semua state + logic + style (deploy ke Vercel)
-og-image.png    # Thumbnail saat link di-share ke WhatsApp (1200x630)
-vercel.json     # Config Vercel (cleanUrls)
+index.html       # FE: landing + setup + sender + invitation (cover + foto hero 220px/360px)
+api/
+  create.js      # POST /api/create → gen 6-char id, Blob prewed/<id>.jpg + invites/<id>.json (expiresAt +7 hari)
+  invite.js      # GET /api/invite?id= → 200 sebelum 7 hari, 410 expired setelahnya + best-effort del
+  cleanup.js     # GET /api/cleanup → cron 03:00 WIB, sapu invites yang lewat expiresAt
+vercel.json      # cleanUrls + rewrites /u/:id → / + crons
+package.json     # @vercel/blob
+og-image.png     # 1200×630 thumbnail WA
 ```
 
-Tanpa build, tanpa database, tanpa framework.
+Tanpa bundler. BE hanya 3 file serverless.
 
 ---
 
-## 3 State (prioritas tertinggi dulu)
+## 3 State + Route `/u/:id` (prioritas tertinggi dulu)
 
 | State | Kapan muncul | Penanda |
 |-------|--------------|---------|
-| **3 — Undangan Tamu** | Ada param URL `?tamu=&p=&w=&t=&j=&l=&maps=&acara=&bank=&rek=` | `hasGuestParams = has('tamu') \|\| has('p') \|\| has('w')` |
-| **1 — Setup Mempelai** | Tanpa URL params & `localStorage["ruang_resepsi_data"]` kosong | Form pria/wanita/tanggal/jam/**lokasi (nama)\*** / **link GMaps\*** |
-| **2 — Dashboard WA** | Tanpa URL params tapi `localStorage` ada data | Kirim loop WA + rekap + export CSV |
+| **Expired** | `GET /api/invite?id=<id>` → `404/410` (lewat 7 hari) | `#expired-wrap` — "Link Kadaluarsa" |
+| **3 — Undangan Tamu** | Ada `/u/<id>?tamu=...` atau `?tamu=&p=&w=` | `hasGuestParams = has('tamu')\|\|has('p')\|\|has('w')\|\|!!shortId` |
+| **1 — Setup Mempelai** | Tanpa URL params & `localStorage["ruang_resepsi_data"]` kosong | Form pria/wanita/tanggal/jam/**lokasi (nama)** / **link GMaps** / **foto prewed** |
+| **2 — Dashboard WA** | Tanpa URL params tapi `localStorage` ada data `{id, shortUrl, ...}` | Kirim loop WA short link + rekap + export CSV |
 
-> Lokasi = **nama tempat saja** (cth. "Gedung Melati"). Link Google Maps **wajib** diisi terpisah — lihat `PANDUAN-EDIT.md`.
+> `/u/<id>` via `vercel.json` `rewrites: [{ source:"/u/:id", destination:"/" }]` — bukan `/index.html` (hindari 308 dengan `cleanUrls`). Foto & data undangan fetch `GET /api/invite?id=<id>` (sebelum 7 hari `200`, lewat `410`).
 
-### URL params (Base64)
+### URL params
 
-```
-?tamu=<b64 nama tamu>
-&p=<b64 pria>&w=<b64 wanita>
-&t=<b64 tanggal>&j=<b64 jam>&l=<b64 lokasi>
-&maps=<b64 link GMaps>&acara=<b64 susunan acara>
-&bank=<b64 bank>&rek=<b64 rekening>
-```
-
-Semua nilai di-encode `btoa(unescape(encodeURIComponent(str)))` agar URL tetap bersih, aman untuk spasi/aksen.
+- **Short (dipakai sekarang):** `/u/<6-char>?tamu=<b64 nama tamu>` — data mempelai & foto diambil dari `invites/<id>.json` + `prewed/<id>.jpg` di Blob.
+- **Legacy panjang (masih support tanpa foto):** `?tamu=<b64>&p=<b64 pria>&w=<b64 wanita>&t=<b64 tgl>&j=<b64 jam>&l=<b64 lokasi>&maps=<b64 GMaps>&acara=<b64>` — `btoa(unescape(encodeURIComponent(str)))`.
 
 ### localStorage
 
-- `ruang_resepsi_data` — detail mempelai (pria, wanita, tanggal, jam, lokasi, maps, acara, bank, rek)
-- `ruang_resepsi_recent` — array tamu terkirim `{nama, wa, link}`
-- `ruang_resepsi_rsvp` — JSON `{ "rsvp-[namaTamu]": "Hadir"|"Tidak Hadir"|"Ragu" }`
-- `ruang_resepsi_opened_[tamu]` — flag per tamu agar cover hanya sekali
+- `ruang_resepsi_data` — `{ id, shortUrl, pria, wanita, tanggal, jam, lokasi, maps, acara, fotoUrl, fotoPath, createdAt, expiresAt }`
+- `ruang_resepsi_recent` — `[{ nama, wa, link }]` (link sudah `/u/<id>?tamu=...`)
+- `ruang_resepsi_rsvp` — `{ "rsvp-[namaTamu]": "Hadir"|"Tidak Hadir"|"Ragu" }`
+- `ruang_resepsi_opened_[tamu]` — flag cover sekali per tamu
 
 ---
 
 ## Fitur Undangan Tamu (State 3)
 
-- **Cover gate** personal "Kepada Yth. [Tamu]" + tombol Buka Undangan (skip bila sudah pernah dibuka di device tsb)
+- **Cover gate** personal + **foto hero** `220px` (`#cover-foto`) — hanya jika ada `fotoUrl` dari Blob, else hidden
+- **Foto hero** `360px` (`#inv-foto`) di atas judul — hanya jika ada foto
 - Info + **countdown live** ke `tanggal jam`
-- **Peta:** iframe embed dari link GMaps pengirim + tombol "Buka Google Maps" (= link asli, bukan pencarian) + **QR code** navigasi
-- **Susunan Acara** (hanya bila diisi di setup; kalau kosong tidak tampil)
-- **Amplop Digital** — placeholder nonaktif bila rekening kosong; aktif bila `bank && rek` terisi
-- **Musik latar** tombol pojok (autoplay muted saat buka undangan)
-- Tombol "Konfirmasi Kehadiran" → `wa.me/?text=...`
+- **Peta SATU SUMBER:** `inv-maps` + `inv-maps2` + `inv-qrlink` + `inv-mapframe` + `QRCode` semua pakai 1 `mapsLink` dari pengirim (`field maps`) — `embedFromMapsLink()` handle `?q`/`?query`, `/place/`, `@lat,lng`, `goo.gl`
+- **Susunan Acara** — hanya jika `acara` diisi
+- **Musik latar** — `soundhelix` `preload="auto"` `playsinline`, play on `bukaUndangan()` (user gesture), toggle `#btn-msc`
+- **WA:** `sender-wa` input `pattern ^8[0-9]{7,12}$` + prefix fixed `+62` (ketik `8xxx` saja), `wa='62'+raw` → `https://wa.me/<wa>?text=...` dengan `buildGuestShortUrl()` (`/u/<id>?tamu=...`)
+
+Tanpa amplop digital (dihapus — kurang etis, commit `06343da`).
+
+---
+
+## Foto Prewed 7-Hari (A)
+
+- **Setup:** `<input id="setup-foto" type="file" accept="image/*">` + preview `72px` → `compressImage(900, 0.6)` ~40KB (fallback `700/0.55` jika >70KB, tolak >140KB), max asli `10MB`
+- **BE:** `POST /api/create { pria,wanita,tanggal,jam,lokasi,maps,acara, fotoDataUrl }` → `put(prewed/<id>.jpg)` + `put(invites/<id>.json { expiresAt: +7 hari })` → `{ id, shortUrl, expiresAt, fotoUrl }`
+- **Expire:** `GET /api/invite?id=` cek `expiresAt` — sebelum `200` + foto, lewat `410 {expired:true}` + `#expired-wrap`, `cleanup.js` cron `0 3 * * *`
 
 ---
 
 ## Tech
 
-- Tailwind via CDN, font: Inter + Cormorant Garamond
-- Vanilla JS, tidak ada bundler
-- Deploy: `vercel --prod --yes` (project `voiddarkfire/ruang-resepsi`, alias `ruang-resepsi.vercel.app`)
+- Tailwind via CDN, `qrcodejs@1.0.0`, Inter + Cormorant Garamond
+- Vanilla JS, `api/*` Vercel Blob (`store_zpZgtVgOvpE5px4A`, `public`)
+- Deploy: `vercel --prod --yes` (team `voiddarkfire/ruang-resepsi`, alias `ruang-resepsi.vercel.app`) — **create new, jangan timpa** (cek `.vercel/project.json`)
 
 ---
 
 ## Ubah Cepat
 
-Lihat **PANDUAN-EDIT.md** untuk cara mengubah warna, teks sambutan, daftar acara, QR, dll tanpa merusak layout.
+Lihat **PANDUAN-EDIT.md** (foto, warna, hero, peta SATU SUMBER, WA +62).
 
 ## Lisensi
 
-Frontend-only, bebas dipakai & dimodifikasi.
+Bebas dipakai & dimodifikasi.
