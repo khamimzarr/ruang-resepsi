@@ -14,7 +14,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8' fill='%231F2A44'/><text x='8' y='12' font-family='Great Vibes, cursive' font-size='11' fill='%23C9A24B' text-anchor='middle'>RR</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><defs><linearGradient id='f' x1='0' y1='0' x2='1' y2='1' spreadMethod='reflect'><stop offset='0' stop-color='%238a6a1f'/><stop offset='.4' stop-color='%23fffdf0'/><stop offset='.6' stop-color='%23f7e9ad'/><stop offset='1' stop-color='%238a6a1f'/><animateTransform attributeName='gradientTransform' type='translate' from='-1 -1' to='1 1' dur='3.5s' repeatCount='indefinite'/></linearGradient></defs><circle cx='8' cy='8' r='7.4' fill='%23161d30' stroke='url(%23f)' stroke-width='1'/><text x='8' y='11.5' font-family='Great Vibes,cursive' font-size='9' fill='url(%23f)' text-anchor='middle'>RR</text></svg>">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -123,18 +123,31 @@ html{ scroll-behavior:smooth; }
 <nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-ash">
   <div class="max-w-[1200px] mx-auto px-6 h-14 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-full flex items-center justify-center shadow-md" style="background:radial-gradient(circle at 30% 25%, #2a3a5e, #1F2A44)">
-        <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+      <div class="w-11 h-11 rounded-full flex items-center justify-center shadow-md" style="background:radial-gradient(circle at 32% 26%, #26324f, #161d30); box-shadow:0 2px 10px rgba(201,162,75,.25)">
+        <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <path id="arcBottom" d="M6 26 A14 14 0 0 0 34 26" fill="none"/>
+            <linearGradient id="foil" x1="0" y1="0" x2="1" y2="1" spreadMethod="reflect" gradientUnits="objectBoundingBox">
+              <stop offset="0" stop-color="#8a6a1f"/>
+              <stop offset="0.35" stop-color="#f7e9ad"/>
+              <stop offset="0.5" stop-color="#fffdf0"/>
+              <stop offset="0.65" stop-color="#f7e9ad"/>
+              <stop offset="1" stop-color="#8a6a1f"/>
+              <animateTransform attributeName="gradientTransform" type="translate" from="-1 -1" to="1 1" dur="3.5s" repeatCount="indefinite"/>
+            </linearGradient>
           </defs>
-          <text x="20" y="21" font-family="Great Vibes, cursive" font-size="15" fill="#C9A24B" text-anchor="middle">RR</text>
-          <text font-family="Cormorant Garamond, Georgia, serif" font-size="4.4" letter-spacing="1.4" fill="#E7D3A1" font-weight="600">
-            <textPath href="#arcBottom" startOffset="50%" text-anchor="middle">RUANG RESEPSI</textPath>
-          </text>
+          <circle cx="24" cy="24" r="22" fill="none" stroke="url(#foil)" stroke-width="1.6"/>
+          <text x="24" y="31" font-family="Great Vibes, cursive" font-size="23" fill="url(#foil)" text-anchor="middle">RR</text>
+          <g fill="#fffdf0">
+            <path d="M24 5.5 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 z" opacity="0.9">
+              <animate attributeName="opacity" values="0.3;1;0.3" dur="2.4s" repeatCount="indefinite"/>
+            </path>
+            <path d="M41 17 l0.7 2 l2 0.7 l-2 0.7 l-0.7 2 l-0.7 -2 l-2 -0.7 l2 -0.7 z" opacity="0.8">
+              <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite"/>
+            </path>
+          </g>
         </svg>
       </div>
-      <span class="font-medium text-[18px] tracking-[-0.02em]">Ruang Resepsi</span>
+      <span class="font-medium text-[19px] tracking-[0.01em]" style="color:#C9A24B; font-family:'Cormorant Garamond',Georgia,serif; letter-spacing:.5px">Ruang Resepsi</span>
     </div>
     <div class="hidden md:flex items-center gap-6 text-[14px] font-medium text-iron">
       <a href="#beranda" id="nav-beranda" class="nav-link text-graphite">Beranda</a>
