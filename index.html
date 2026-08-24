@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='8' fill='%23a565ff'/><path d='M8 3 L11.5 5.5 L11.5 10.5 L8 13 L4.5 10.5 L4.5 5.5 Z' fill='none' stroke='white' stroke-width='1.2'/><circle cx='8' cy='8' r='1.7' fill='white'/></svg>">
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <script>
@@ -210,12 +210,23 @@ html{ scroll-behavior:smooth; }
 <!-- ===== INVITATION (STATE 3) ===== -->
 <section id="state-invitation" class="hidden">
 <div id="msc" class="fixed bottom-5 right-5 z-50"><button onclick="toggleMusic()" id="btn-msc" aria-label="Musik" class="w-11 h-11 rounded-full bg-violet-pulse text-white flex items-center justify-center shadow-lg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button></div>
-<audio id="audio-bg" loop preload="none"></audio>
+<audio id="audio-bg" loop preload="auto" playsinline crossorigin="anonymous"></audio>
+
+<!-- Expired (A2: lewat 7 hari = link kadaluarsa total) -->
+<div id="expired-wrap" class="hidden min-h-screen flex flex-col justify-center items-center radial-wash px-6 text-center">
+  <div class="card-elevated p-8 max-w-md w-full">
+    <p class="text-[40px] mb-3">⛔</p>
+    <h2 class="font-serif font-light text-[26px]">Link Kadaluarsa</h2>
+    <p class="text-[13px] text-steel mt-2 leading-[1.6]">Undangan ini sudah lewat masa aktif <b>7 hari</b> dan foto telah dihapus otomatis. Minta link baru ke mempelai ya.</p>
+    <a href="/" class="btn-primary mt-6 inline-flex">Kembali ke Beranda</a>
+  </div>
+</div>
 
 <!-- Cover -->
 <div id="cover" class="min-h-screen flex flex-col justify-center items-center radial-wash px-6 text-center relative">
   <div class="max-w-md w-full fade-in">
     <div class="mb-6 flex justify-center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#a565ff" stroke-width="1.5" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#1d1d20" stroke-width="1.3" fill="white"/></svg></div>
+    <div id="cover-foto-wrap" class="hidden mb-5"><img id="cover-foto" alt="Foto prewed" class="w-[220px] h-[220px] object-cover rounded-2xl mx-auto border border-ash shadow-sm block" loading="lazy" referrerpolicy="no-referrer"></div>
     <p class="eyebrow mb-3">The Wedding of</p>
     <h1 class="font-serif font-light text-[40px] sm:text-[46px] leading-none tracking-[-0.025em] text-graphite"><span id="cover-pria">—</span> <span class="text-violet-pulse">&</span> <span id="cover-wanita">—</span></h1>
     <div class="w-16 h-px bg-ash mx-auto my-5"></div>
@@ -232,6 +243,8 @@ html{ scroll-behavior:smooth; }
 <!-- Main invitation body -->
 <div id="invite" class="hidden">
   <div class="radial-wash">
+    <!-- Foto hero invitation (hanya jika ada foto 7-hari dari server) -->
+    <div id="inv-foto-wrap" class="hidden max-w-[680px] mx-auto px-6 pt-8"><div class="card-elevated overflow-hidden p-0"><img id="inv-foto" alt="Foto prewed" class="w-full h-[360px] object-cover block" loading="lazy" referrerpolicy="no-referrer"></div></div>
     <!-- Title -->
     <div class="max-w-[1200px] mx-auto px-6 pt-16 pb-6 text-center">
       <span class="eyebrow">Undangan Pernikahan</span>
@@ -373,8 +386,19 @@ html{ scroll-behavior:smooth; }
           <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Bank (Amplop)</label><input id="setup-bank" class="input-field" placeholder="Contoh: BCA"></div>
           <div><label class="text-[12px] font-medium text-slate block mb-1.5">No. Rekening (Amplop)</label><input id="setup-rek" class="input-field" placeholder="Contoh: 1234567890"></div>
         </div>
+        <div class="mt-4">
+          <label class="text-[12px] font-medium text-slate block mb-1.5">Foto Prewed (opsional) — max 10MB, auto-kompres</label>
+          <input id="setup-foto" type="file" accept="image/*" class="input-field file:mr-3 file:px-3 file:py-1.5 file:rounded-full file:border-0 file:bg-violet-pulse file:text-white file:text-[12px] file:font-medium">
+          <p class="text-[11px] text-smoke mt-1.5">1 foto saja (A). Akan dikompres jadi ~40KB & disimpan 7 hari di server. Tanpa foto undangan tetap jalan.</p>
+          <div id="setup-foto-preview" class="hidden mt-3 flex items-center gap-3 bg-bone border border-ash rounded-lg p-3">
+            <img id="setup-foto-img" class="w-[72px] h-[72px] object-cover rounded-lg border border-ash" alt="Preview foto">
+            <div class="flex-1 min-w-0"><p id="setup-foto-info" class="text-[12px] text-steel truncate"></p><p class="text-[11px] text-smoke">Akan terhapus otomatis 7 hari setelah disimpan</p></div>
+            <button type="button" id="setup-foto-remove" class="btn-secondary text-[11px] shrink-0">Hapus foto</button>
+          </div>
+        </div>
         <div class="divider my-6"></div>
-        <button type="submit" class="btn-primary w-full">Simpan & Lanjut ke Pengiriman</button>
+        <button type="submit" id="setup-submit" class="btn-primary w-full">Simpan & Lanjut ke Pengiriman</button>
+        <p id="setup-status" class="hidden text-center text-[11px] mt-2"></p>
         <p class="text-center text-[11px] text-smoke mt-3">Hanya di perangkat ini — tetap privat dan aman.</p>
       </form>
     </div>
@@ -399,8 +423,9 @@ html{ scroll-behavior:smooth; }
           <div class="flex items-center gap-2 mb-1"><div class="w-7 h-7 rounded-full bg-violet-pulse flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M22 16.5a3 3 0 0 1-3 3H9l-4 4v-16a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3v9Z"/></svg></div><h2 class="font-medium text-[16px]">Kirim Undangan Personal</h2></div>
           <p class="text-[13px] text-steel mb-5">Setiap tamu mendapat link unik dengan namanya. Loop tanpa reload.</p>
           <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Tamu <span class="text-violet-pulse">*</span></label><input id="sender-nama" class="input-field" placeholder="Contoh: Bapak Budi & Keluarga" required></div>
-          <div class="mt-4"><label class="text-[12px] font-medium text-slate block mb-1.5">Nomor WhatsApp <span class="text-violet-pulse">*</span></label><div class="flex gap-2"><span class="inline-flex items-center px-3 bg-bone border border-ash rounded px-3 text-[13px] text-steel shrink-0">+62</span><input id="sender-wa" class="input-field" inputmode="numeric" placeholder="81234567890 (format 628...)" required pattern="^628[0-9]{7,12}$"></div></div>
-          <div id="preview-wrap" class="hidden mt-5 bg-bone border border-ash rounded-lg p-3"><p class="text-[11px] uppercase tracking-wide text-steel mb-1.5 font-medium">Pratinjau Link Tamu</p><p id="preview-url" class="font-mono text-[11px] text-indigo-ink break-all"></p></div>
+          <div class="mt-4"><label class="text-[12px] font-medium text-slate block mb-1.5">Nomor WhatsApp <span class="text-violet-pulse">*</span></label><div class="flex gap-2"><span class="inline-flex items-center px-3 bg-bone border border-ash rounded-lg text-[13px] text-steel shrink-0 select-none">+62</span><input id="sender-wa" class="input-field" inputmode="numeric" placeholder="8123456789" required pattern="^8[0-9]{7,12}$" maxlength="13"></div><p class="text-[11px] text-smoke mt-1">Tulis mulai angka 8, tanpa 0 / 62. Contoh: 8123456789 → jadi +62 8123456789</p></div>
+          <div id="sender-short-wrap" class="hidden mt-4 bg-lavender-wash border border-iris-glow rounded-lg p-3"><p class="text-[11px] uppercase tracking-wide text-indigo-ink mb-1 font-medium">Link Pendek Undangan</p><a id="sender-short" href="#" target="_blank" class="font-mono text-[11px] text-indigo-ink break-all underline"></a><p class="text-[11px] text-steel mt-1">Link & foto auto-hapus 7 hari. Sebelum 7 hari tetap bisa dibuka.</p></div>
+          <div id="preview-wrap" class="hidden mt-4 bg-bone border border-ash rounded-lg p-3"><p class="text-[11px] uppercase tracking-wide text-steel mb-1.5 font-medium">Pratinjau Link Tamu</p><p id="preview-url" class="font-mono text-[11px] text-indigo-ink break-all"></p></div>
           <button type="submit" class="btn-primary w-full mt-6">Kirim via WhatsApp</button>
           <div id="sender-toast" class="hidden mt-4 bg-ledger-green/10 border border-ledger-green/20 rounded-lg p-3 text-[12px] text-ledger-green">Terkirim! Link untuk <span id="toast-nama" class="font-medium"></span> sudah dibuat. Lanjut tamu berikutnya.</div>
         </form>
@@ -446,6 +471,45 @@ function fmtTanggal(iso){ if(!iso) return '—'; try{ var d=new Date(iso+'T00:00
 function fmtDay(iso){ try{ return new Date(iso+'T00:00:00').toLocaleDateString('id-ID',{weekday:'long'}); }catch(_){ return ''; } }
 function buildGuestUrl(nama){ var d=loadData(); if(!d) return location.origin+location.pathname; var p=new URLSearchParams(); p.set('tamu',b64enc(nama)); p.set('p',b64enc(d.pria)); p.set('w',b64enc(d.wanita)); p.set('t',b64enc(d.tanggal)); p.set('j',b64enc(d.jam)); p.set('l',b64enc(d.lokasi)); if(d.bank)p.set('bank',b64enc(d.bank)); if(d.rek)p.set('rek',b64enc(d.rek)); if(d.maps)p.set('maps',b64enc(d.maps)); if(d.acara)p.set('acara',b64enc(d.acara)); return location.origin+location.pathname+'?'+p.toString(); }
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+// ===== Foto prewed 7-hari (A) =====
+var _fotoDataUrl=null, _fotoPendingInfo='';
+function compressImage(file, maxSide, quality){
+  return new Promise(function(resolve,reject){
+    var reader=new FileReader();
+    reader.onload=function(){ var img=new Image(); img.onload=function(){
+      var w=img.width, h=img.height;
+      var scale=Math.min(1, maxSide/Math.max(w,h));
+      var nw=Math.round(w*scale), nh=Math.round(h*scale);
+      var c=document.createElement('canvas'); c.width=nw; c.height=nh;
+      var ctx=c.getContext('2d'); ctx.drawImage(img,0,0,nw,nh);
+      var out=c.toDataURL('image/jpeg', quality);
+      resolve(out);
+    }; img.onerror=reject; img.src=reader.result; };
+    reader.onerror=reject; reader.readAsDataURL(file);
+  });
+}
+async function handleFotoFile(file){
+  if(!file) return;
+  if(!file.type.startsWith('image/')){ alert('File harus gambar.'); return; }
+  if(file.size>10*1024*1024){ alert('File terlalu besar, max 10MB.'); return; }
+  var st=document.getElementById('setup-status'), pv=document.getElementById('setup-foto-preview'), img=document.getElementById('setup-foto-img'), info=document.getElementById('setup-foto-info');
+  try{
+    if(st){ st.classList.remove('hidden'); st.className='text-center text-[11px] mt-2 text-steel'; st.textContent='Mengompres foto...'; }
+    var out=await compressImage(file,900,0.6);
+    if(out.length>70000){ out=await compressImage(file,700,0.55); }
+    if(out.length>140000){ alert('Hasil kompres masih kebesaran ('+Math.round(out.length/1024)+'KB). Coba foto lain yang lebih kecil.'); if(st) st.classList.add('hidden'); return; }
+    _fotoDataUrl=out; _fotoPendingInfo=file.name+' • '+(out.length>1024?Math.round(out.length/1024)+'KB':out.length+'B')+' (auto-kompres)';
+    if(img){ img.src=out; } if(info) info.textContent=_fotoPendingInfo; if(pv) pv.classList.remove('hidden');
+    if(st){ st.classList.remove('hidden'); st.className='text-center text-[11px] mt-2 text-ledger-green'; st.textContent='Foto siap — akan disimpan 7 hari di server'; setTimeout(function(){ st.classList.add('hidden'); },2500); }
+  }catch(e){ console.warn(e); alert('Gagal memproses foto. Coba file lain.'); if(st) st.classList.add('hidden'); }
+}
+(function(){
+  var inp=document.getElementById('setup-foto'), rm=document.getElementById('setup-foto-remove');
+  if(inp) inp.addEventListener('change',function(){ var f=this.files&&this.files[0]; if(f) handleFotoFile(f); });
+  if(rm) rm.addEventListener('click',function(){ _fotoDataUrl=null; _fotoPendingInfo=''; var pv=document.getElementById('setup-foto-preview'); if(pv) pv.classList.add('hidden'); var i=document.getElementById('setup-foto'); if(i) i.value=''; var st=document.getElementById('setup-status'); if(st){ st.className='text-center text-[11px] mt-2 text-steel'; st.textContent='Foto dihapus'; st.classList.remove('hidden'); setTimeout(function(){ st.classList.add('hidden'); },1500); }});
+})();
+function getShortIdFromPath(){ var m=location.pathname.match(/\/u\/([A-Za-z0-9]{4,16})/); return m?m[1]:''; }
+function buildGuestShortUrl(nama, shortId){ var sid=shortId || (loadData()&&loadData().id) || getShortIdFromPath(); if(!sid) return buildGuestUrl(nama); return location.origin+'/u/'+sid+'?tamu='+encodeURIComponent(b64enc(nama)); }
 
 // ===== Reveal =====
 const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{threshold:.12});
@@ -453,25 +517,57 @@ function observeReveals(){ document.querySelectorAll('.reveal:not(.in)').forEach
 function triggerVisible(){ document.querySelectorAll('.reveal:not(.in)').forEach(el=>{ var r=el.getBoundingClientRect(); if(r.top<window.innerHeight*.92) el.classList.add('in'); }); }
 
 // ===== State routing =====
+function showExpired(msg){
+  var inv=document.getElementById('state-invitation'); if(inv) inv.classList.remove('hidden');
+  var ex=document.getElementById('expired-wrap'), cov=document.getElementById('cover'), invBody=document.getElementById('invite');
+  if(ex) ex.classList.remove('hidden'); if(cov) cov.classList.add('hidden'); if(invBody) invBody.classList.add('hidden');
+  var msc=document.getElementById('msc'); if(msc) msc.classList.add('hidden');
+  document.title='Link Kadaluarsa — Ruang Resepsi';
+}
 function showState(){
-  var params=new URLSearchParams(location.search), hasGuest=params.has('tamu')||params.has('p')||params.has('w');
+  var shortId=getShortIdFromPath();
+  var params=new URLSearchParams(location.search);
+  var hasGuest=params.has('tamu')||params.has('p')||params.has('w')||(!!shortId);
   var inv=document.getElementById('state-invitation'), setup=document.getElementById('state-setup'), snd=document.getElementById('state-sender'), land=document.getElementById('landing');
   inv.classList.add('hidden'); setup.classList.add('hidden'); snd.classList.add('hidden'); if(land)land.classList.add('hidden');
-  if(hasGuest){ initInvitation(params); inv.classList.remove('hidden'); }
+  if(hasGuest){ inv.classList.remove('hidden'); initInvitation(params, shortId); }
   else { var d=loadData(); if(d&&d.pria){ snd.classList.remove('hidden'); renderSender(d); } else { setup.classList.remove('hidden'); } land.classList.remove('hidden'); }
   setTimeout(observeReveals,50); setTimeout(triggerVisible,150);
 }
 
 // ===== Invitation init =====
-var _invData=null, _cdTimer=null, _audio=null;
-function initInvitation(params){
+var _invData=null, _cdTimer=null, _audio=null, _inviteBundle=null;
+async function initInvitation(params, shortIdOpt){
+  var shortId=shortIdOpt || getShortIdFromPath() || params.get('id') || '';
   var tamu=safeDecode(params.get('tamu')||''), p=safeDecode(params.get('p')||''), w=safeDecode(params.get('w')||''), t=safeDecode(params.get('t')||''), j=safeDecode(params.get('j')||''), l=safeDecode(params.get('l')||'');
   var bank=safeDecode(params.get('bank')||''), rek=safeDecode(params.get('rek')||''), maps=safeDecode(params.get('maps')||''), acara=safeDecode(params.get('acara')||'');
+  var fotoUrlFromParam=safeDecode(params.get('foto')||'');
   var d=loadData();
-  var pria=p||(d&&d.pria)||'Andi', wanita=w||(d&&d.wanita)||'Sinta', tanggal=t||(d&&d.tanggal)||'', jam=j||(d&&d.jam)||'', lokasi=l||(d&&d.lokasi)||'Gedung Melati';
-  bank=bank||(d&&d.bank)||''; rek=rek||(d&&d.rek)||''; maps=maps||(d&&d.maps)||''; acara=acara||(d&&d.acara)||'';
-  _invData={pria:pria,wanita:wanita,tamu:tamu||'Tamu Undangan',tanggal:tanggal,jam:jam,lokasi:lokasi,bank:bank,rek:rek,maps:maps,acara:acara};
+  // A2: jika ada shortId (/u/xxx) → fetch dari backend (sumber kebenaran, 7 hari). Sebelum 7 hari tetap bisa dibuka, lewat 7 hari => 404/410 => expired total
+  var bundle=null;
+  if(shortId){
+    try{
+      var r=await fetch('/api/invite?id='+encodeURIComponent(shortId), {cache:'no-store'});
+      if(r.status===404||r.status===410){
+        var jerr=await r.json().catch(function(){return {}});
+        showExpired(jerr.error); return;
+      }
+      if(r.ok){ bundle=await r.json(); _inviteBundle=bundle; }
+      else { showExpired('Gagal memuat undangan'); return; }
+    }catch(e){ console.warn('invite fetch fail',e); showExpired('Gagal memuat undangan'); return; }
+  }
+  // bundle dari server override p/w/t/j/l/maps/acara/bank/rek/fotoUrl; tamu tetap dari URL personal
+  var pria=(bundle&&bundle.pria)||p||(d&&d.pria)||'Andi', wanita=(bundle&&bundle.wanita)||w||(d&&d.wanita)||'Sinta', tanggal=(bundle&&bundle.tanggal)||t||(d&&d.tanggal)||'', jam=(bundle&&bundle.jam)||j||(d&&d.jam)||'', lokasi=(bundle&&bundle.lokasi)||l||(d&&d.lokasi)||'Gedung Melati';
+  bank=(bundle&&bundle.bank)||bank||(d&&d.bank)||''; rek=(bundle&&bundle.rek)||rek||(d&&d.rek)||''; maps=(bundle&&bundle.maps)||maps||(d&&d.maps)||''; acara=(bundle&&bundle.acara)||acara||(d&&d.acara)||'';
+  var fotoUrl=(bundle&&bundle.fotoUrl)||fotoUrlFromParam||(d&&d.fotoUrl)||'';
+  _invData={pria:pria,wanita:wanita,tamu:tamu||'Tamu Undangan',tanggal:tanggal,jam:jam,lokasi:lokasi,bank:bank,rek:rek,maps:maps,acara:acara,fotoUrl:fotoUrl,shortId:shortId||(bundle&&bundle.id)||(d&&d.id)||''};
   document.title=pria+' & '+wanita+' — Undangan untuk '+(tamu||'Tamu');
+  // foto hero (A) — cover + section, hanya jika ada foto 7-hari dari server (atau legacy foto param)
+  try{
+    var cfWrap=document.getElementById('cover-foto-wrap'), cf=document.getElementById('cover-foto'), invWrap=document.getElementById('inv-foto-wrap'), invFoto=document.getElementById('inv-foto');
+    if(fotoUrl){ if(cf){ cf.src=fotoUrl; cf.onerror=function(){ if(cfWrap) cfWrap.classList.add('hidden'); }; } if(invFoto){ invFoto.src=fotoUrl; invFoto.onerror=function(){ if(invWrap) invWrap.classList.add('hidden'); }; } if(cfWrap) cfWrap.classList.remove('hidden'); if(invWrap) invWrap.classList.remove('hidden'); }
+    else { if(cfWrap) cfWrap.classList.add('hidden'); if(invWrap) invWrap.classList.add('hidden'); }
+  }catch(_){}
   // cover + body
   document.getElementById('cover-pria').textContent=pria;
   document.getElementById('cover-wanita').textContent=wanita;
@@ -484,13 +580,11 @@ function initInvitation(params){
   document.getElementById('inv-tanggal').textContent=fmtTanggal(tanggal);
   document.getElementById('inv-jam').textContent=jam?jam+' WIB':'—';
   document.getElementById('inv-lokasi').textContent=lokasi||'—';
-  // Lokasi = nama tempat saja; link GMaps wajib dipakai bila ada (field maps), else fallback nama (seharusnya tak terjadi karena wajib)
+  // SATU SUMBER: semua navigasi maps wajib pakai link yang dikirim pengirim (field maps) — biar semua sinkron 1 lokasi
   var mapsLink = (maps && /^https?:\/\//.test(maps)) ? maps : (lokasi ? 'https://www.google.com/maps/search/?api=1&query='+mapQuery : '#');
   var embedSrc = (maps && /^https?:\/\//.test(maps)) ? embedFromMapsLink(maps) : ('https://maps.google.com/maps?q='+mapQuery+'&z=15&output=embed');
-  document.getElementById('inv-maps').href=mapsLink;
-  document.getElementById('inv-maps2').href=mapsLink;
-  document.getElementById('inv-qrlink').href=mapsLink;
-  document.getElementById('inv-mapframe').src=embedSrc;
+  var a1=document.getElementById('inv-maps'), a2=document.getElementById('inv-maps2'), aq=document.getElementById('inv-qrlink'), fr=document.getElementById('inv-mapframe');
+  if(a1) a1.href=mapsLink; if(a2) a2.href=mapsLink; if(aq) aq.href=mapsLink; if(fr) fr.src=embedSrc;
   // QR code
   try{ document.getElementById('qrcode').innerHTML=''; if(typeof QRCode!=='undefined'){ new QRCode(document.getElementById('qrcode'),{text:mapsLink,width:160,height:160,colorDark:'#1d1d20',colorLight:'#ffffff'}); } }catch(_){}
   // Susunan acara (hanya jika diisi)
@@ -504,27 +598,36 @@ function initInvitation(params){
   // amplop — hanya tampil bila bank & rekening keduanya valid, jika tidak tetap placeholder nonaktif
   var ampop=document.getElementById('ampop-list');
   if(bank&&rek){ ampop.outerHTML='<div id="ampop-list" class="space-y-3"><div class="ampop-card bg-bone border border-ash rounded-lg p-4 flex items-center justify-between cursor-pointer" onclick="salinRek(event,\''+esc(bank)+'\',\''+esc(rek)+'\',\''+esc(pria+" & "+wanita)+'\')"><div class="text-left"><p class="font-medium text-[14px]">'+esc(bank)+'</p><p class="font-mono text-[13px] text-steel">'+esc(rek)+' a.n. '+esc(pria+' & '+wanita)+'</p></div><span class="badge inline-flex items-center gap-1 bg-lavender-wash text-indigo-ink rounded-full px-2.5 py-1 text-[11px] border border-iris-glow/60">Salin</span></div></div>'; }
-  // music (autoplay muted attempt after cover open)
-  var musicURL='https://www.bensound.com/bensound-music/bensound-romantic.mp3';
-  _audio=document.getElementById('audio-bg'); _audio.src=musicURL;
+  // music — source wajib CORS-friendly (bensound lama 403)
+  var musicURL='https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+  _audio=document.getElementById('audio-bg'); _audio.src=musicURL; try{_audio.load();}catch(_){}
+  _audio.addEventListener('error',function(){ console.warn('audio error',_audio.error); });
   // cover: skip bila tamu sudah pernah membuka (per device)
   var opened=false; try{ opened=localStorage.getItem('ruang_resepsi_opened_'+(tamu||''))==='1'; }catch(_){}
   if(opened){ document.getElementById('cover').classList.add('hidden'); document.getElementById('invite').classList.remove('hidden'); }
   else { resetCover(); }
 }
 function resetCover(){ document.getElementById('cover').classList.remove('hidden'); document.getElementById('invite').classList.add('hidden'); window.scrollTo(0,0); }
-// Ubah link Google Maps (maps.app.goo.gl / google.com/maps/place) jadi src iframe embed
+// Embed sinkron 1 sumber: peta iframe diturunkan dari mapsLink yang sama — bukan dari nama lokasi terpisah
 function embedFromMapsLink(url){
-  // short link goo.gl -> redirect tak bisa langsung; fallback pakai pencarian nama lokasi
-  if(/maps\.app\.goo\.gl/.test(url) || /goo\.gl\/maps/.test(url)){ return 'https://maps.google.com/maps?q='+encodeURIComponent((_invData&&_invData.lokasi)||'')+'&z=15&output=embed'; }
-  // jika sudah berupa output=embed
+  if(!url) return 'about:blank';
   if(/output=embed/.test(url)) return url;
-  // google.com/maps/place/... atau maps?q=...
-  var q=null;
-  var m=url.match(/[?&]q=([^&]+)/); if(m) q=decodeURIComponent(m[1]);
-  if(!q){ var pm=url.match(/maps\/place\/([^/?]+)/); if(pm) q=decodeURIComponent(pm[1]); }
-  if(q) return 'https://maps.google.com/maps?q='+encodeURIComponent(q)+'&z=15&output=embed';
-  return url;
+  // short link (maps.app.goo.gl) -> jangan fallback ke nama lokasi (bikin beda), bungkus url-nya sebagai query biar sinkron
+  if(/maps\.app\.goo\.gl/.test(url) || /goo\.gl\/maps/.test(url)){
+    return 'https://maps.google.com/maps?q='+encodeURIComponent(url)+'&z=15&output=embed';
+  }
+  // q= atau query= (termasuk https://www.google.com/maps/search/?api=1&query=...)
+  var qm=url.match(/[?&](q|query)=([^&]+)/);
+  if(qm){ try{ return 'https://maps.google.com/maps?q='+encodeURIComponent(decodeURIComponent(qm[2]))+'&z=15&output=embed'; }catch(_){} }
+  // /place/Nama Tempat
+  var pm=url.match(/\/place\/([^\/\?@]+)/);
+  if(pm){ try{ return 'https://maps.google.com/maps?q='+encodeURIComponent(decodeURIComponent(pm[1].replace(/\+/g,' ')))+'&z=15&output=embed'; }catch(_){} }
+  // @lat,lng
+  var cm=url.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+  if(cm) return 'https://maps.google.com/maps?q='+cm[1]+','+cm[2]+'&z=15&output=embed';
+  // google.com/maps biasa -> tinggal tambah output=embed
+  if(/google\.com\/maps/.test(url)) return url + (url.indexOf('?')>-1?'&':'?') + 'output=embed';
+  return 'https://maps.google.com/maps?q='+encodeURIComponent(url)+'&z=15&output=embed';
 }
 // Render susunan acara dari teks "Nama | Jam" per baris
 function renderAcara(acara){
@@ -544,9 +647,9 @@ function bukaUndangan(){
   var invite=document.getElementById('invite'); invite.classList.remove('hidden');
   try{ localStorage.setItem('ruang_resepsi_opened_'+(_invData&&_invData.tamu||''),'1'); }catch(_){}
   setTimeout(function(){ document.getElementById('invite').scrollIntoView({behavior:'smooth'}); },50);
-  try{ var a=document.getElementById('audio-bg'); a.volume=.35; var pr=a.play(); if(pr) pr.catch(function(){}); document.getElementById('btn-msc').style.background='#2e7317'; }catch(_){}
+  try{ var a=document.getElementById('audio-bg'); a.volume=.35; a.muted=false; var pr=a.play(); if(pr) pr.catch(function(e){ console.warn('play blocked',e); }); document.getElementById('btn-msc').style.background='#2e7317'; }catch(e){ console.warn(e); }
 }
-function toggleMusic(){ var a=document.getElementById('audio-bg'); if(a.paused){ a.play().catch(function(){}); document.getElementById('btn-msc').style.background='#2e7317'; } else { a.pause(); document.getElementById('btn-msc').style.background='#a565ff'; } }
+function toggleMusic(){ var a=document.getElementById('audio-bg'); if(a.paused){ a.muted=false; var pr=a.play(); if(pr) pr.catch(function(e){ console.warn('play blocked',e); alert('Tap sekali lagi untuk putar musik — browser memblokir autoplay.'); }); document.getElementById('btn-msc').style.background='#2e7317'; } else { a.pause(); document.getElementById('btn-msc').style.background='#a565ff'; } }
 function konfirmasiWA(){ var d=_invData; var txt='Halo '+d.pria+' & '+d.wanita+', saya '+d.tamu+' mengkonfirmasi kehadiran saya pada acara pernikahan Anda, '+fmtTanggal(d.tanggal)+'. Terima kasih atas undangannya!'; window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank'); }
 function salinRek(e,n,b,a){ e.stopPropagation(); if(!n||!b) return; var t=b+' ('+n+') a.n. '+a; navigator.clipboard.writeText(t).then(function(){ e.currentTarget.querySelector('.badge').textContent='✓ Tersalin'; setTimeout(function(){ e.currentTarget.querySelector('.badge').textContent='Salin'; },1500); }); }
 // Export rekap tamu (nama, WA, link) ke CSV
@@ -572,19 +675,46 @@ function getRsvpStats(){
   try{ var all=JSON.parse(localStorage.getItem(RSVP_KEY)||'{}'); var h=0,t=0,r=0; Object.keys(all).forEach(function(k){ if(all[k]==='Hadir')h++; else if(all[k]==='Tidak Hadir')t++; else r++; }); return {h:h,t:t,r:r}; }catch(_){return {h:0,t:0,r:0};}
 }
 
-// ===== Setup =====
-document.getElementById('setup-form').addEventListener('submit',function(e){
+// ===== Setup (A2: simpan ke backend 7 hari, dapat short link /u/xxx) =====
+document.getElementById('setup-form').addEventListener('submit',async function(e){
   e.preventDefault();
+  var btn=document.getElementById('setup-submit'), st=document.getElementById('setup-status');
   var data={pria:document.getElementById('setup-pria').value.trim(),wanita:document.getElementById('setup-wanita').value.trim(),tanggal:document.getElementById('setup-tanggal').value,jam:document.getElementById('setup-jam').value,lokasi:document.getElementById('setup-lokasi').value.trim(),maps:document.getElementById('setup-maps').value.trim(),acara:document.getElementById('setup-acara').value.trim(),bank:document.getElementById('setup-bank').value.trim(),rek:document.getElementById('setup-rek').value.trim()};
   if(!data.pria||!data.wanita||!data.tanggal||!data.jam||!data.lokasi||!data.maps){ alert('Mohon lengkapi semua field yang wajib.'); return; }
   if(!/^https?:\/\//.test(data.maps)){ alert('Link Google Maps harus diawali https://'); return; }
-  saveData(data); document.getElementById('state-setup').classList.add('hidden'); document.getElementById('state-sender').classList.remove('hidden'); renderSender(data); // tetap di dashboard pengiriman
+  if(_fotoDataUrl && _fotoDataUrl.length>140000){ alert('Foto masih kebesaran setelah kompres. Coba foto lain.'); return; }
+  var payload={...data}; if(_fotoDataUrl) payload.fotoDataUrl=_fotoDataUrl;
+  if(btn){ btn.disabled=true; btn.textContent='Menyimpan...'; }
+  if(st){ st.classList.remove('hidden'); st.className='text-center text-[11px] mt-2 text-steel'; st.textContent=_fotoDataUrl?'Mengupload foto & membuat link pendek...':'Membuat link pendek...'; }
+  try{
+    var r=await fetch('/api/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    var j=await r.json().catch(function(){return {}});
+    if(!r.ok){ throw new Error(j.error||('Gagal menyimpan ('+r.status+')')); }
+    var bundle={...data, id:j.id, shortUrl:j.shortUrl, fotoUrl:j.fotoUrl||null, fotoPath:null, createdAt:j.createdAt, expiresAt:j.expiresAt};
+    saveData(bundle);
+    // juga simpan fotoDataUrl lokal buat preview cepat (opsional, bukan sumber kebenaran)
+    if(st){ st.className='text-center text-[11px] mt-2 text-ledger-green'; st.textContent='Tersimpan! Link: '+j.shortUrl+' — kadaluarsa '+(j.expiresAt?new Date(j.expiresAt).toLocaleDateString('id-ID'):'7 hari'); }
+    document.getElementById('state-setup').classList.add('hidden'); document.getElementById('state-sender').classList.remove('hidden'); renderSender(bundle);
+  }catch(err){
+    console.warn(err);
+    // fallback: tetap simpan lokal tanpa backend (link panjang) biar tidak blokir user
+    if(confirm((err.message||'Gagal ke server')+'\n\nSimpan lokal saja (link panjang & tanpa foto server)?')){
+      if(_fotoDataUrl) data.fotoUrl=_fotoDataUrl;
+      saveData(data); document.getElementById('state-setup').classList.add('hidden'); document.getElementById('state-sender').classList.remove('hidden'); renderSender(data);
+    } else {
+      if(st){ st.className='text-center text-[11px] mt-2 text-red-500'; st.textContent=String(err.message||err); }
+    }
+  }finally{ if(btn){ btn.disabled=false; btn.textContent='Simpan & Lanjut ke Pengiriman'; } }
 });
 
 // ===== Sender =====
 function renderSender(data){
   document.getElementById('sender-couple').textContent=data.pria+' & '+data.wanita;
-  document.getElementById('sender-meta').textContent=fmtTanggal(data.tanggal)+' • '+data.jam+' • '+data.lokasi;
+  var expStr=''; if(data.expiresAt){ try{ var ed=new Date(data.expiresAt); expStr=' • Kadaluarsa '+ed.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}); }catch(_){} }
+  document.getElementById('sender-meta').textContent=fmtTanggal(data.tanggal)+' • '+data.jam+' • '+data.lokasi+expStr;
+  if(data.shortUrl){
+    var sh=document.getElementById('sender-short'); if(sh){ sh.textContent=data.shortUrl; sh.href=data.shortUrl; var sw=document.getElementById('sender-short-wrap'); if(sw) sw.classList.remove('hidden'); }
+  }
   var mq=encodeURIComponent(data.lokasi + ' ' + data.pria + ' ' + data.wanita);
   var mSrc = (data.maps && /^https?:\/\//.test(data.maps)) ? embedFromMapsLink(data.maps) : 'https://maps.google.com/maps?q='+mq+'&z=14&output=embed';
   document.getElementById('snd-map').src=mSrc;
@@ -592,13 +722,16 @@ function renderSender(data){
   renderRecent();
 }
 var senderNama=document.getElementById('sender-nama'), senderWA=document.getElementById('sender-wa');
-function updatePreview(){ var nama=senderNama.value.trim(); var w=document.getElementById('preview-wrap'); if(!nama){w.classList.add('hidden');return;} document.getElementById('preview-url').textContent=buildGuestUrl(nama); w.classList.remove('hidden'); }
+function updatePreview(){ var nama=senderNama.value.trim(); var w=document.getElementById('preview-wrap'); if(!nama){w.classList.add('hidden');return;} var d=loadData(); if(d&&d.id) document.getElementById('preview-url').textContent=buildGuestShortUrl(nama, d.id); else document.getElementById('preview-url').textContent=buildGuestUrl(nama); w.classList.remove('hidden'); }
 senderNama.addEventListener('input',updatePreview);
+// +62 sudah fixed di UI — bersihkan jika user terlanjur ketik 0/62, hanya simpan 8xxx
+senderWA.addEventListener('input',function(){ var v=this.value.replace(/\D/g,''); if(v.startsWith('62')) v=v.slice(2); else if(v.startsWith('0')) v=v.slice(1); if(v!==this.value) this.value=v; });
 document.getElementById('sender-form').addEventListener('submit',function(e){
-  e.preventDefault(); var nama=senderNama.value.trim(); var wa=senderWA.value.trim().replace(/\D/g,'');
-  if(wa.startsWith('0'))wa='62'+wa.slice(1); else if(wa.startsWith('8'))wa='62'+wa;
-  if(!nama){alert('Nama tamu wajib diisi.');return;} if(!/^628[0-9]{7,12}$/.test(wa)){alert('Nomor WA tidak valid. Gunakan format 6281234567890.');return;}
-  var guestUrl=buildGuestUrl(nama); var text='Kepada Yth. '+nama+', kami mengundang Anda ke pernikahan '+((loadData()||{}).pria||'')+' & '+((loadData()||{}).wanita||'')+'. Detail dan undangan digital: '+guestUrl;
+  e.preventDefault(); var nama=senderNama.value.trim(); var raw=senderWA.value.trim().replace(/\D/g,'');
+  if(raw.startsWith('62')) raw=raw.slice(2); else if(raw.startsWith('0')) raw=raw.slice(1);
+  if(!nama){alert('Nama tamu wajib diisi.');return;} if(!/^8[0-9]{7,12}$/.test(raw)){alert('Nomor WA tidak valid. Tulis mulai angka 8 tanpa 0/62. Contoh: 8123456789');return;}
+  var wa='62'+raw;
+  var d=loadData()||{}; var guestUrl=d.id?buildGuestShortUrl(nama,d.id):buildGuestUrl(nama); var text='Kepada Yth. '+nama+', kami mengundang Anda ke pernikahan '+(d.pria||'')+' & '+(d.wanita||'')+'. Detail dan undangan digital: '+guestUrl;
   var recent=JSON.parse(localStorage.getItem(RECENT_KEY)||'[]'); recent.unshift({nama:nama,wa:wa,link:guestUrl}); localStorage.setItem(RECENT_KEY,JSON.stringify(recent.slice(0,20)));
   renderRecent();
   window.open('https://wa.me/'+wa+'?text='+encodeURIComponent(text),'_blank');

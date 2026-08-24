@@ -1,3 +1,5 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [{ "source": "/u/:id", "destination": "/" }],
+  "crons": [{ "path": "/api/cleanup", "schedule": "0 3 * * *" }]
 }
