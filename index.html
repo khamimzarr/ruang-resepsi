@@ -441,42 +441,47 @@ html{ scroll-behavior:smooth; }
       </div>
       <form id="setup-form" class="card-elevated p-6 sm:p-8 fade-in">
         <div class="flex items-center justify-between mb-6"><h2 class="font-medium text-[18px]">Detail Mempelai</h2><span class="text-[10px] tracking-[0.06em] text-smoke bg-bone border border-ash rounded-full px-2.5 py-1">✦ Detail</span></div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Panggilan Pria <span class="text-violet-pulse">*</span></label><input id="setup-pria" class="input-field" placeholder="Contoh: Andi" required></div>
-          <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Panggilan Wanita <span class="text-violet-pulse">*</span></label><input id="setup-wanita" class="input-field" placeholder="Contoh: Sinta" required></div>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-          <div><label class="text-[12px] font-medium text-slate block mb-1.5">Tanggal Acara <span class="text-violet-pulse">*</span></label><input id="setup-tanggal" type="date" class="input-field" required></div>
-          <div><label class="text-[12px] font-medium text-slate block mb-1.5">Jam Acara <span class="text-violet-pulse">*</span></label><input id="setup-jam" type="time" class="input-field" required></div>
-        </div>
-        <div class="mt-4"><label class="text-[12px] font-medium text-slate block mb-1.5">Lokasi / Gedung <span class="text-violet-pulse">*</span></label><input id="setup-lokasi" class="input-field" placeholder="Contoh: Gedung Serbaguna Melati, Jakarta Selatan" required></div>
-        <div class="mt-4">
-          <label class="text-[12px] font-medium text-slate block mb-1.5">Link Google Maps <span class="text-violet-pulse">*</span></label>
-          <input id="setup-maps" class="input-field" placeholder="Tempel link Google Maps di sini, contoh: https://maps.app.goo.gl/xxxx" required inputmode="url">
-          <p class="text-[11px] text-smoke mt-1.5 leading-[1.5]">
-            <span class="font-medium text-graphite">Cara ambil link:</span> buka Google Maps → cari lokasi → ketuk <span class="font-medium text-indigo-ink">Bagikan</span> → <span class="font-medium text-indigo-ink">Salin tautan</span> → tempel di sini.
-          </p>
-        </div>
-        <div class="mt-4">
-          <label class="text-[12px] font-medium text-slate block mb-1.5">Kisah Cinta <span class="text-smoke">(opsional)</span></label>
-          <textarea id="setup-kisah" class="input-field resize-y min-h-[100px]" placeholder="Satu cerita per baris. Format: Judul | Tgl&#10;Cerita di baris berikutnya.&#10;Contoh:&#10;Pertemuan Pertama | 2019&#10;Kami bertemu saat organisasi kampus..."></textarea>
-          <p class="text-[11px] text-smoke mt-1.5">Kosongkan bila tidak perlu — timeline tidak akan tampil.</p>
-        </div>
- <span class="text-smoke">(opsional — isi manual)</span></label>
-          <textarea id="setup-acara" class="input-field resize-y min-h-[88px]" placeholder="Satu acara per baris. Format: Nama Acara | Jam&#10;Contoh:&#10;Akad Nikah | 09:00&#10;Resepsi | 11:00 - 14:00"></textarea>
-          <p class="text-[11px] text-smoke mt-1.5">Kosongkan bila tidak perlu — susunan acara tidak akan tampil ke tamu.</p>
-        </div>
-        <div class="mt-4">
-          <label class="text-[12px] font-medium text-slate block mb-1.5">Foto Prewed (opsional) — max 10MB, auto-kompres</label>
-          <input id="setup-foto" type="file" accept="image/*" class="input-field file:mr-3 file:px-3 file:py-1.5 file:rounded-full file:border-0 file:bg-violet-pulse file:text-white file:text-[12px] file:font-medium">
-          <p class="text-[11px] text-smoke mt-1.5">1 foto saja (A). Akan dikompres jadi ~40KB & disimpan 7 hari di server. Tanpa foto undangan tetap jalan.</p>
-          <div id="setup-foto-preview" class="hidden mt-3 flex items-center gap-3 bg-bone border border-ash rounded-lg p-3">
-            <img id="setup-foto-img" class="w-[72px] h-[72px] object-cover rounded-lg border border-ash" alt="Preview foto">
-            <div class="flex-1 min-w-0"><p id="setup-foto-info" class="text-[12px] text-steel truncate"></p><p class="text-[11px] text-smoke">Akan terhapus otomatis 7 hari setelah disimpan</p></div>
-            <button type="button" id="setup-foto-remove" class="btn-secondary text-[11px] shrink-0">Hapus foto</button>
+                <div class="grid grid-cols-1 md:grid-cols-[210px_1fr] gap-6">
+          <!-- Kiri: slot foto prewed -->
+          <div class="flex flex-col">
+            <label class="text-[12px] font-medium text-slate block mb-2">Foto Prewed <span class="text-smoke">(opsional)</span></label>
+            <div id="setup-foto-drop" class="relative w-full aspect-square rounded-2xl border-2 border-dashed border-ash bg-bone flex flex-col items-center justify-center text-center p-3 overflow-hidden">
+              <img id="setup-foto-img" class="hidden absolute inset-0 w-full h-full object-cover rounded-2xl" alt="Preview foto">
+              <svg id="setup-foto-ph" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#92939e" stroke-width="1.5" class="mb-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <p id="setup-foto-hint" class="text-[11px] text-steel leading-snug px-1">Ketuk untuk<br>upload foto<br><span class="text-smoke">max 10MB, auto-kompres</span></p>
+              <input id="setup-foto" type="file" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+            </div>
+            <div id="setup-foto-preview" class="hidden mt-2 flex items-center gap-2 bg-bone border border-ash rounded-lg p-2">
+              <div class="flex-1 min-w-0"><p id="setup-foto-info" class="text-[11px] text-steel truncate"></p><p class="text-[10px] text-smoke">Hapus otomatis 7 hari</p></div>
+              <button type="button" id="setup-foto-remove" class="btn-secondary text-[11px] shrink-0">Hapus</button>
+            </div>
+            <p class="text-[11px] text-smoke mt-2 leading-[1.5]">1 foto saja. Tanpa foto undangan tetap jalan — cover & hero otomatis gradient elegan.</p>
+          </div>
+          <!-- Kanan: field detail mempelai -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Panggilan Pria <span class="text-violet-pulse">*</span></label><input id="setup-pria" class="input-field" placeholder="Contoh: Andi" required></div>
+            <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Panggilan Wanita <span class="text-violet-pulse">*</span></label><input id="setup-wanita" class="input-field" placeholder="Contoh: Sinta" required></div>
+            <div><label class="text-[12px] font-medium text-slate block mb-1.5">Tanggal Acara <span class="text-violet-pulse">*</span></label><input id="setup-tanggal" type="date" class="input-field" required></div>
+            <div><label class="text-[12px] font-medium text-slate block mb-1.5">Jam Acara <span class="text-violet-pulse">*</span></label><input id="setup-jam" type="time" class="input-field" required></div>
+            <div class="sm:col-span-2"><label class="text-[12px] font-medium text-slate block mb-1.5">Lokasi / Gedung <span class="text-violet-pulse">*</span></label><input id="setup-lokasi" class="input-field" placeholder="Contoh: Gedung Serbaguna Melati, Jakarta Selatan" required></div>
+            <div class="sm:col-span-2">
+              <label class="text-[12px] font-medium text-slate block mb-1.5">Link Google Maps <span class="text-violet-pulse">*</span></label>
+              <input id="setup-maps" class="input-field" placeholder="Tempel link Google Maps di sini, contoh: https://maps.app.goo.gl/xxxx" required inputmode="url">
+              <p class="text-[11px] text-smoke mt-1.5 leading-[1.5]"><span class="font-medium text-graphite">Cara ambil link:</span> buka Google Maps → cari lokasi → ketuk <span class="font-medium text-indigo-ink">Bagikan</span> → <span class="font-medium text-indigo-ink">Salin tautan</span> → tempel di sini.</p>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="text-[12px] font-medium text-slate block mb-1.5">Daftar Acara <span class="text-smoke">(opsional — isi manual)</span></label>
+              <textarea id="setup-acara" class="input-field resize-y min-h-[88px]" placeholder="Satu acara per baris. Format: Nama Acara | Jam&#10;Contoh:&#10;Akad Nikah | 09:00&#10;Resepsi | 11:00 - 14:00"></textarea>
+              <p class="text-[11px] text-smoke mt-1.5">Kosongkan bila tidak perlu — susunan acara tidak akan tampil ke tamu.</p>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="text-[12px] font-medium text-slate block mb-1.5">Kisah Cinta <span class="text-smoke">(opsional)</span></label>
+              <textarea id="setup-kisah" class="input-field resize-y min-h-[100px]" placeholder="Satu cerita per baris. Format: Judul | Tgl&#10;Cerita di baris berikutnya.&#10;Contoh:&#10;Pertemuan Pertama | 2019&#10;Kami bertemu saat organisasi kampus..."></textarea>
+              <p class="text-[11px] text-smoke mt-1.5">Kosongkan bila tidak perlu — timeline tidak akan tampil.</p>
+            </div>
           </div>
         </div>
-        <div class="divider my-6"></div>
+                <div class="divider my-6"></div>
         <button type="submit" id="setup-submit" class="btn-primary w-full">Simpan & Lanjut ke Pengiriman</button>
         <p id="setup-status" class="hidden text-center text-[11px] mt-2"></p>
         <p class="text-center text-[11px] text-smoke mt-3">Hanya di perangkat ini — tetap privat dan aman.</p>
@@ -581,7 +586,7 @@ async function handleFotoFile(file){
     var out=await compressAdaptive(file, MAX);
     if(!out){ alert('Foto terlalu kompleks untuk dikompres di bawah 220KB. Coba foto yang lebih sederhana.'); if(st) st.classList.add('hidden'); return; }
     _fotoDataUrl=out; _fotoPendingInfo=file.name+' • '+(out.length>1024?Math.round(out.length/1024)+'KB':out.length+'B')+' (auto-kompres)';
-    if(img){ img.src=out; } if(info) info.textContent=_fotoPendingInfo; if(pv) pv.classList.remove('hidden');
+    if(img){ img.src=out; img.classList.remove('hidden'); } var _ph=document.getElementById('setup-foto-ph'); if(_ph) _ph.classList.add('hidden'); var _hint=document.getElementById('setup-foto-hint'); if(_hint) _hint.classList.add('hidden'); if(info) info.textContent=_fotoPendingInfo; if(pv) pv.classList.remove('hidden');
     if(st){ st.classList.remove('hidden'); st.className='text-center text-[11px] mt-2 text-ledger-green'; st.textContent='Foto siap — tajam & ringan, disimpan 7 hari di server'; setTimeout(function(){ st.classList.add('hidden'); },3000); }
   }catch(e){ console.warn(e); alert('Gagal memproses foto. Coba file lain.'); if(st) st.classList.add('hidden'); }
 }
@@ -608,7 +613,7 @@ async function compressAdaptive(file, maxLen){
 (function(){
   var inp=document.getElementById('setup-foto'), rm=document.getElementById('setup-foto-remove');
   if(inp) inp.addEventListener('change',function(){ var f=this.files&&this.files[0]; if(f) handleFotoFile(f); });
-  if(rm) rm.addEventListener('click',function(){ _fotoDataUrl=null; _fotoPendingInfo=''; var pv=document.getElementById('setup-foto-preview'); if(pv) pv.classList.add('hidden'); var i=document.getElementById('setup-foto'); if(i) i.value=''; var st=document.getElementById('setup-status'); if(st){ st.className='text-center text-[11px] mt-2 text-steel'; st.textContent='Foto dihapus'; st.classList.remove('hidden'); setTimeout(function(){ st.classList.add('hidden'); },1500); }});
+  if(rm) rm.addEventListener('click',function(){ _fotoDataUrl=null; _fotoPendingInfo=''; var pv=document.getElementById('setup-foto-preview'); if(pv) pv.classList.add('hidden'); var i=document.getElementById('setup-foto'); if(i) i.value=''; var im=document.getElementById('setup-foto-img'); if(im){ im.classList.add('hidden'); im.src=''; } var ph=document.getElementById('setup-foto-ph'); if(ph) ph.classList.remove('hidden'); var hn=document.getElementById('setup-foto-hint'); if(hn) hn.classList.remove('hidden'); var st=document.getElementById('setup-status'); if(st){ st.className='text-center text-[11px] mt-2 text-steel'; st.textContent='Foto dihapus'; st.classList.remove('hidden'); setTimeout(function(){ st.classList.add('hidden'); },1500); }});
 })();
 function getShortIdFromPath(){ var m=location.pathname.match(/\/u\/([A-Za-z0-9]{4,16})/); return m?m[1]:''; }
 function buildGuestShortUrl(nama, shortId){ var sid=shortId || (loadData()&&loadData().id) || getShortIdFromPath(); if(!sid) return buildGuestUrl(nama); return location.origin+'/u/'+sid+'?tamu='+encodeURIComponent(b64enc(nama)); }
