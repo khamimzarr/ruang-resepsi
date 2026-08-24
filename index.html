@@ -15,10 +15,10 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><defs><linearGradient id='f' x1='0' y1='0' x2='1' y2='1' spreadMethod='reflect'><stop offset='0' stop-color='%238a6a1f'/><stop offset='.4' stop-color='%23fffdf0'/><stop offset='.6' stop-color='%23f7e9ad'/><stop offset='1' stop-color='%238a6a1f'/><animateTransform attributeName='gradientTransform' type='translate' from='-1 -1' to='1 1' dur='3.5s' repeatCount='indefinite'/></linearGradient></defs><circle cx='8' cy='8' r='7.4' fill='%23161d30' stroke='url(%23f)' stroke-width='1'/><text x='8' y='11.5' font-family='Great Vibes,cursive' font-size='9' fill='url(%23f)' text-anchor='middle'>RR</text></svg>">
-<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/dist/tailwind.css">
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&family=Great+Vibes&family=Philosopher:wght@400;700&family=Baskervville:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&family=Great+Vibes&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -277,8 +277,9 @@ html{ scroll-behavior:smooth; }
   <div class="card-elevated p-8 max-w-md w-full">
     <p class="text-[40px] mb-3">⛔</p>
     <h2 class="font-serif font-light text-[26px]">Link Kadaluarsa</h2>
-    <p class="text-[13px] text-steel mt-2 leading-[1.6]">Undangan ini sudah lewat masa aktif <b>7 hari</b> dan foto telah dihapus otomatis. Minta link baru ke mempelai ya.</p>
-    <a href="/" class="btn-primary mt-6 inline-flex">Kembali ke Beranda</a>
+    <p class="text-[13px] text-steel mt-2 leading-[1.6]">Undangan ini sudah lewat masa aktif <b>7 hari</b> dan foto telah dihapus otomatis secara otomatis.</p>
+    <p class="text-[12px] text-steel mt-3">Link undangan hanya berlaku 7 hari demi privasi. Mohon <b>hubungi mempelai</b> (lewat WhatsApp) untuk meminta link undangan terbaru.</p>
+    <a href="https://wa.me/" target="_blank" class="btn-primary mt-5 inline-flex">Minta Link Baru lewat WhatsApp</a>
   </div>
 </div>
 
@@ -520,13 +521,13 @@ html{ scroll-behavior:smooth; }
             <iframe id="snd-map" title="Peta" src="about:blank" class="w-full h-[220px] rounded-lg border border-ash" loading="lazy"></iframe>
           </div>
           <div class="card p-5">
-            <h3 class="text-[13px] font-medium mb-3">Rekap Kehadiran (RSVP)</h3>
+            <h3 class="text-[13px] font-medium mb-3">Rekap Kehadiran (Catatan Lokal)</h3>
             <div class="flex gap-3">
               <div class="flex-1 bg-bone border border-ash rounded-lg p-3 text-center"><p class="text-[22px] font-light text-ledger-green" id="stat-hadir">0</p><p class="text-[10px] uppercase text-steel">Hadir</p></div>
               <div class="flex-1 bg-bone border border-ash rounded-lg p-3 text-center"><p class="text-[22px] font-light text-steel" id="stat-tidak">0</p><p class="text-[10px] uppercase text-steel">Tidak</p></div>
               <div class="flex-1 bg-bone border border-ash rounded-lg p-3 text-center"><p class="text-[22px] font-light text-steel" id="stat-ragu">0</p><p class="text-[10px] uppercase text-steel">Ragu</p></div>
             </div>
-            <p class="text-[11px] text-smoke mt-3">Konfirmasi terkumpul di perangkat ini (per tamu, per browser).</p>
+            <p class="text-[11px] text-smoke mt-3">Catatan ini tersimpan di perangkat pengirim (browser ini) — bukan konfirmasi dari tamu. Tiap tamu membuka undangan lewat WA tidak mengirim RSVP ke sini.</p>
           </div>
           <div class="card p-5">
             <h3 class="text-[13px] font-medium mb-3">Terkirim Baru-baru ini</h3>
@@ -794,7 +795,7 @@ function bukaUndangan(){
   setTimeout(function(){ document.getElementById('invite').scrollIntoView({behavior:'smooth'}); try{ if(window.AOS) AOS.refresh(); }catch(_){} },80);
   try{ var a=document.getElementById('audio-bg'); a.volume=.35; a.muted=false; var pr=a.play(); if(pr) pr.catch(function(e){ console.warn('play blocked',e); }); var bm=document.getElementById('btn-msc'); if(bm) bm.style.background='#4B6B99'; }catch(e){ console.warn(e); }
 }
-function toggleMusic(){ var a=document.getElementById('audio-bg'); if(a.paused){ a.muted=false; var pr=a.play(); if(pr) pr.catch(function(e){ console.warn('play blocked',e); alert('Tap sekali lagi untuk putar musik — browser memblokir autoplay.'); }); var bm=document.getElementById('btn-msc'); if(bm) bm.style.background='#4B6B99'; } else { a.pause(); var bm2=document.getElementById('btn-msc'); if(bm2){ bm2.style.background='#4B6B99'; bm2.style.opacity='.55'; setTimeout(function(){ if(bm2) bm2.style.opacity='1'; },200); } } }
+function toggleMusic(){ var a=document.getElementById('audio-bg'); var bm=document.getElementById('btn-msc'); if(a.paused){ a.muted=false; var pr=a.play(); if(pr){ pr.catch(function(e){ console.warn('play blocked',e); }); } if(bm){ bm.style.background='#4B6B99'; bm.title='Musik diputar (tap untuk jeda)'; bm.style.opacity='1'; } } else { a.pause(); if(bm){ bm.style.background='#4B6B99'; bm.style.opacity='.55'; bm.title='Musik dijeda (tap untuk putar)'; setTimeout(function(){ if(bm) bm.style.opacity='1'; },200); } } }
 function konfirmasiWA(){ var d=_invData; var txt='Halo '+d.pria+' & '+d.wanita+', saya '+d.tamu+' mengkonfirmasi kehadiran saya pada acara pernikahan Anda, '+fmtTanggal(d.tanggal)+'. Terima kasih atas undangannya!'; window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank'); }
 // Export rekap tamu (nama, WA, link) ke CSV
 function exportCSV(){
