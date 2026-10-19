@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ruang Resepsi — Undangan Digital Eksklusif</title>
 <meta name="description" content="Ruang Resepsi — buat undangan pernikahan digital yang elegan. Satu tautan personal untuk setiap tamu, kirim via WhatsApp dalam satu ketukan.">
-<meta name="theme-color" content="#4B6B99">
+<meta name="theme-color" content="#4F5D3A">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Ruang Resepsi — Undangan Digital Eksklusif">
 <meta property="og:description" content="Kisah cinta, satu tautan.">
@@ -14,250 +14,435 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><defs><linearGradient id='f' x1='0' y1='0' x2='1' y2='1' spreadMethod='reflect'><stop offset='0' stop-color='%238a6a1f'/><stop offset='.4' stop-color='%23fffdf0'/><stop offset='.6' stop-color='%23f7e9ad'/><stop offset='1' stop-color='%238a6a1f'/><animateTransform attributeName='gradientTransform' type='translate' from='-1 -1' to='1 1' dur='3.5s' repeatCount='indefinite'/></linearGradient></defs><circle cx='8' cy='8' r='7.4' fill='%23161d30' stroke='url(%23f)' stroke-width='1'/><text x='8' y='11.5' font-family='Great Vibes,cursive' font-size='9' fill='url(%23f)' text-anchor='middle'>RR</text></svg>">
-<link rel="stylesheet" href="/dist/tailwind.css">
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='2' fill='%234F5D3A'/><text x='8' y='12' font-family='Georgia,serif' font-weight='bold' font-size='9' fill='%23FBFAF8' text-anchor='middle'>RR</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&family=Great+Vibes&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-<script>
-tailwind.config = {
-  theme: { extend: {
-    colors: {
-      'violet-pulse':'#a565ff','indigo-ink':'#5e5cff','lavender-wash':'#ebebff','iris-glow':'#e0c9ff',
-      'ledger-green':'#2e7317','paper-white':'#ffffff','bone':'#f7f7f7','fog':'#f1f1f1','silver':'#efefef',
-      'marble':'#fff6df','graphite':'#1d1d20','slate':'#42424a','iron':'#505050','steel':'#757575',
-      'smoke':'#92939e','ash':'#e5e7eb','mist':'#d1d9e4',
-    },
-    fontFamily: {
-      'sans':['Inter','TWK Lausanne','system-ui','sans-serif'],
-      'serif':['Cormorant Garamond','Moderat Serif','Georgia','serif'],
-      'mono':['JetBrains Mono','SF Mono','monospace'],
-    }
-  }}
-}
-</script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <style>
-:root{ --violet:#a565ff; --lav:#ebebff; --iris:#e0c9ff; --ash:#e5e7eb; --mist:#d1d9e4; --graphite:#1d1d20; --iron:#505050; --steel:#757575; }
-html{ scroll-behavior:smooth; }
-@media (prefers-reduced-motion: reduce){ *,*::before,*::after{ animation-duration:.01ms !important; transition-duration:.01ms !important; } }
-.reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease; }
-.reveal.in{ opacity:1; transform:none; }
-.d1{ transition-delay:.08s; } .d2{ transition-delay:.16s; } .d3{ transition-delay:.24s; }
-@keyframes floatY{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-7px); } }
-.float-card{ animation: floatY 6s ease-in-out infinite; }
-@keyframes shimmerLine{ 0%{ background-position:-200% 0; } 100%{ background-position:200% 0; } }
-.shimmer{ background:linear-gradient(90deg,#a565ff 0%,#9492ff 45%,#e0c9ff 55%,#a565ff 100%); background-size:200% 100%; animation:shimmerLine 2.8s linear infinite; }
-.btn-primary{ position:relative; overflow:hidden; background:#a565ff; border-radius:9999px; padding:11px 22px; color:#fff; font-size:14px; font-weight:500; font-family:'Inter',system-ui,sans-serif; box-shadow:rgba(58,58,64,.1) 0 0 0 1px, rgba(0,0,0,.1) 0 1px 3px, rgba(99,102,241,.18) 0 0 10px 3px; transition:all .18s; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
-.btn-primary:hover{ background:#9a52ff; transform:translateY(-1px); }
-.btn-primary::after{ content:''; position:absolute; inset:0; background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.22) 50%,transparent 70%); transform:translateX(-120%); transition:transform .6s; }
-.btn-primary:hover::after{ transform:translateX(120%); }
-.btn-secondary{ background:#fff; border:1px solid #efefef; border-radius:9999px; padding:11px 20px; color:#1d1d20; font-size:14px; font-weight:500; font-family:'Inter',system-ui,sans-serif; box-shadow:rgba(29,29,32,.08) 0 0 0 1px; transition:all .15s; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
-.btn-secondary:hover{ background:#f7f7f7; }
-.input-field{ background:#fff; border:1px solid #d1d9e4; border-radius:4px; padding:10px 14px; font-family:'Inter',system-ui,sans-serif; font-size:14px; color:#1d1d20; width:100%; outline:none; transition:all .15s; }
-.input-field::placeholder{ color:#92939e; }
-.input-field:focus{ border-color:#a565ff; box-shadow:0 0 0 3px #ebebff; }
-.card{ background:#fff; border:1px solid #e5e7eb; border-radius:8px; }
-.card-elevated{ background:#fff; border:1px solid #e5e7eb; border-radius:16px; box-shadow:rgb(239,239,239) 0 0 0 2px, rgba(0,0,0,.01) 0 22px 9px, rgba(0,0,0,.04) 0 12px 7px, rgba(0,0,0,.06) 0 5px 5px; }
-.eyebrow{ font-family:'Inter',system-ui,sans-serif; font-size:11px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:#757575; }
-.hover-lift{ transition:transform .25s, box-shadow .25s, border-color .25s; }
-.hover-lift:hover{ transform:translateY(-3px); box-shadow:rgba(58,58,64,.06) 0 8px 24px; border-color:#e0c9ff !important; }
-.radial-wash{ background:radial-gradient(ellipse 900px 600px at 15% 10%, rgba(186,217,249,.55), transparent 60%), radial-gradient(ellipse 800px 500px at 85% 15%, rgba(234,234,255,.85), transparent 60%), radial-gradient(ellipse 700px 400px at 50% 100%, rgba(224,201,255,.25), transparent 60%); }
-.fade-in{ animation:fadeIn .5s ease; }
-@keyframes fadeIn{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
-@keyframes pulseDot{ 0%,100%{ transform:scale(1); opacity:1; } 50%{ transform:scale(1.35); opacity:.7; } }
-.dot-pulse{ animation:pulseDot 1.8s ease-in-out infinite; }
-.nav-link{ color:#505050; transition:color .2s, text-decoration-color .2s; }
-.nav-link:hover{ color:#1d1d20; }
-.nav-link.active{ color:#1d1d20; text-decoration:underline; text-decoration-color:#a565ff; text-underline-offset:4px; text-decoration-thickness:2px; }
-.timeline-line{ position:relative; }
-.timeline-line::before{ content:''; position:absolute; left:19px; top:0; bottom:0; width:1px; background:#e5e7eb; }
-/* ===== Mildness — State 3 only (undangan) ===== */
-#state-invitation{ --inv:#4B6B99; --inv-hover:#5d7697; --inv-light:#d6e1f1; --inv-bg:#ffffff; }
-#state-invitation .font-title{ font-family:'Great Vibes',cursive !important; }
-#state-invitation .font-philo{ font-family:'Philosopher',sans-serif !important; }
-#state-invitation .inv-card{ background:rgba(255,255,255,.88); border-radius:30px; box-shadow:0 0 20px rgba(0,0,0,.13); border:1px solid rgba(226,234,246,.9); }
-#state-invitation .inv-page{ background:#fff; }
-.cover-bleed{ position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#eef2f8; }
-.cover-bleed-bg{ position:absolute; inset:0; background-size:cover; background-position:center; background-repeat:no-repeat; }
-.cover-bleed-overlay{ position:absolute; inset:0; background:linear-gradient(to bottom, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 38%, var(--inv-bg) 78%, var(--inv-bg) 100%); }
-.cover-corner-tl{ position:absolute; top:0; left:0; width:55%; max-width:360px; opacity:.95; pointer-events:none; }
-.cover-corner-br{ position:absolute; bottom:0; right:0; width:55%; max-width:360px; opacity:.95; pointer-events:none; transform:scaleY(-1) scaleX(-1); }
-.cover-date{ display:flex; align-items:center; justify-content:center; gap:0; }
-.cover-date-num{ border-left:2px solid #1d1d20; border-right:2px solid #1d1d20; padding:2px 14px; margin:0 12px; line-height:1; }
-.btn-inv{ background:var(--inv); color:#fff; border-radius:9999px; padding:10px 22px; font-size:13px; font-weight:600; display:inline-flex; align-items:center; gap:8px; transition:.18s; box-shadow:0 4px 14px rgba(75,107,153,.28); }
-.btn-inv:hover{ background:var(--inv-hover); transform:translateY(-1px); }
-.count-box{ background:var(--inv); color:#fff; border-radius:10px; padding:10px 6px; }
-.count-box p:first-child{ color:#fff !important; }
-.count-box p:last-child{ color:rgba(255,255,255,.85) !important; }
-.inv-nav{ position:fixed; bottom:18px; left:50%; transform:translateX(-50%); z-index:40; background:rgba(255,255,255,.96); backdrop-filter:blur(8px); border:1px solid #e2eaf6; border-radius:9999px; padding:6px 10px; box-shadow:0 8px 24px rgba(75,107,153,.18); display:flex; gap:4px; }
-.inv-nav a{ width:38px; height:38px; display:flex; align-items:center; justify-content:center; border-radius:9999px; color:var(--inv); transition:.15s; }
-.inv-nav a:hover{ background:var(--inv-light); }
-@media(prefers-reduced-motion:reduce){ [data-aos]{ transition:none !important; transform:none !important; opacity:1 !important; } }
-.inv-page::before{ content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
-  background-image: url('mildness-assets/flower-1.png');
-  background-size: 78% auto; background-position: center top; background-repeat: no-repeat;
-  opacity:.16; }
-/* Mildness watercolor corner wash */
-.inv-page::after{ content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
-  background-image: url('mildness-assets/watercolor-4.png'), url('mildness-assets/watercolor-3.png');
-  background-size: 45% auto, 45% auto; background-repeat: no-repeat, no-repeat;
-  background-position: top right, bottom left; opacity:.35; }
-/* Kisah Cinta timeline */
-.kisah-card{ background:rgba(255,255,255,.9); border-radius:18px; overflow:hidden; box-shadow:0 0 14px rgba(75,107,153,.10); }
-.kisah-card img{ width:100%; height:150px; object-fit:cover; }
-.kisah-pill{ display:inline-flex; align-items:center; gap:6px; }
-#state-invitation{ position:relative; }
-#state-invitation .inv-body-wrap{ position:relative; z-index:2; }
+/* ============================================================
+   RUANG RESEPSI — sistem desain tunggal
+   Grotesk Swiss (Inter Tight) + aksen serif (Instrument Serif),
+   kartu sudut 2px + garis rambut, CTA pill.
+   Satu bahasa untuk landing, setup, dashboard, dan undangan tamu.
+   ============================================================ */
+:root{
+  --paper:#FBFAF8;
+  --surface:#FFFFFF;
+  --tint:#F2F0EC;
+  --ink:#14100C;
+  --muted:rgba(20,16,12,.66);
+  --faint:rgba(20,16,12,.52);
+  --label:rgba(20,16,12,.74);
+  --hair:rgba(20,16,12,.16);
+  --hair-strong:rgba(20,16,12,.28);
+  --dark:#14100C;
+  --accent:#4F5D3A;
+  --accent-soft:#EDEFE7;
+  --accent-ink:#3C4729;
+  --accent-deep:#2A331D;
+  --danger:#9E3B32;
+  --r-rect:2px;
+  --r-pill:9999px;
+  /* alias dipakai markup/JS undangan */
+  --inv:#3C4729;
+  --inv-light:rgba(20,16,12,.16);
+  --inv-bg:#FBFAF8;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.5;font-weight:400;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+iframe{border:0}
+.hidden{display:none!important}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.narrow{max-width:960px;margin:0 auto;padding:0 24px}
+.tnum{font-variant-numeric:tabular-nums}
+.serif{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em}
+.eyebrow,.mono-label{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--label)}
+.divider{height:1px;background:var(--hair)}
+.hair{border-top:1px solid var(--hair)}
+
+/* ---------- tombol ---------- */
+.btn-primary,.btn-secondary,.btn-inv{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  border-radius:var(--r-pill);padding:15px 30px;font-size:15px;font-weight:500;letter-spacing:-.005em;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),background .25s,box-shadow .25s;
+}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{background:#2b241d;transform:translateY(-1px)}
+.btn-secondary{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--hair-strong)}
+.btn-secondary:hover{background:var(--tint);transform:translateY(-1px)}
+.btn-inv{background:var(--ink);color:#fff}
+.btn-inv:hover{background:#2b241d;transform:translateY(-1px)}
+.btn-primary:focus-visible,.btn-secondary:focus-visible,.btn-inv:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ---------- announcement + nav ---------- */
+#announcement{background:var(--dark);color:#fff;font-size:13.5px}
+.ann-inner{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;justify-content:center;padding:9px 24px;text-align:center}
+.ann-inner b{font-weight:600}
+.ann-link{border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:1px;cursor:pointer;font-weight:500;white-space:nowrap}
+nav.site{position:sticky;top:0;z-index:40;background:rgba(251,250,248,.88);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--hair)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;letter-spacing:-.01em}
+.brand .mark{width:26px;height:26px;border-radius:var(--r-rect);background:var(--accent);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+.nav-links{display:flex;gap:26px;align-items:center;font-size:14.5px}
+.nav-link{color:var(--muted);position:relative;padding:2px 0}
+.nav-link:hover{color:var(--ink)}
+.nav-link.active{color:var(--ink);font-weight:500}
+.nav-link.active::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:var(--ink)}
+.live{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted)}
+.live i{width:6px;height:6px;border-radius:50%;background:var(--accent);display:block;animation:pulse 1.8s ease-in-out infinite}
+.dot-pulse{animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.28}}
+
+/* ---------- hero + landing ---------- */
+#beranda{padding:72px 0 84px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);gap:56px;align-items:start}
+h1.display{margin:14px 0 0;font-size:clamp(42px,7.2vw,76px);line-height:.94;font-weight:700;letter-spacing:-.035em;text-wrap:balance}
+.hero-copy{padding-top:26px}
+.hero-copy p{font-size:17px;color:var(--muted);margin:0 0 26px;max-width:42ch;line-height:1.55}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px}
+.specimen{margin-top:64px;border:1px solid var(--hair);border-radius:var(--r-rect);background:var(--surface);overflow:hidden}
+.specimen-bar{display:flex;align-items:center;gap:10px;padding:11px 18px;border-bottom:1px solid var(--hair);background:var(--tint)}
+.specimen-bar .dot{width:8px;height:8px;border-radius:50%;background:var(--hair-strong)}
+.specimen-bar .addr{margin-left:6px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pill-tag{margin-left:auto;font-size:10.5px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent-soft);border-radius:var(--r-rect);padding:4px 9px}
+.specimen-body{padding:34px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0;align-items:stretch}
+.specimen-cta{display:grid;place-items:center;border-left:1px solid var(--hair);padding-left:38px;margin-left:38px}
+.specimen-body h3{margin:0;font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.05}
+.specimen-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:20px;border-top:1px solid var(--hair)}
+.specimen-meta div{padding:14px 16px 0 0}
+.specimen-meta div + div{padding-left:16px;border-left:1px solid var(--hair)}
+.specimen-meta span{display:block;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--label);margin-bottom:4px}
+.specimen-meta b{font-weight:600;font-size:14px}
+.proof{border-top:1px solid var(--hair);background:var(--tint)}
+.proof .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 34px;padding:20px 24px;font-size:13.5px;color:var(--muted)}
+.proof span{display:flex;align-items:center;gap:8px}
+section.band{padding:80px 0;border-top:1px solid var(--hair);scroll-margin-top:60px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:end;margin-bottom:44px}
+h2.sec{margin:12px 0 0;font-size:clamp(30px,4.4vw,52px);line-height:1;font-weight:600;letter-spacing:-.03em}
+.sec-lead{margin:0;color:var(--muted);font-size:16px;max-width:46ch;line-height:1.6}
+.steps{border-top:1px solid var(--hair)}
+.step{display:grid;grid-template-columns:76px minmax(0,1fr) minmax(0,1.1fr) 120px;gap:28px;align-items:start;padding:28px 0;border-bottom:1px solid var(--hair);transition:background .3s}
+.step:hover{background:var(--tint)}
+.step .n{font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--faint);padding-top:6px;font-variant-numeric:tabular-nums}
+.step h3{margin:0;font-size:23px;font-weight:600;letter-spacing:-.02em;line-height:1.15}
+.step p{margin:0;color:var(--muted);font-size:15px;line-height:1.55}
+.step .go{justify-self:end;font-size:13.5px;color:var(--muted);padding-top:6px;white-space:nowrap}
+.step .go:hover{color:var(--ink)}
+.demo-frame{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.demo-card{max-width:440px;border:1px solid var(--hair);border-radius:var(--r-rect);background:var(--surface);overflow:hidden;box-shadow:0 24px 60px -28px rgba(20,16,12,.28)}
+.demo-card .top{height:186px;background:radial-gradient(120% 90% at 78% 10%,var(--accent-soft) 0%,transparent 60%),linear-gradient(160deg,var(--accent) 0%,var(--accent-deep) 100%);display:grid;place-items:center}
+.demo-card .top span{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.demo-card .body{padding:26px 24px 28px;text-align:center}
+.demo-names{margin:12px 0 4px;font-size:30px;font-weight:600;letter-spacing:-.025em;line-height:1.06}
+.demo-date{font-size:13px;color:var(--muted)}
+.checklist{list-style:none;margin:22px 0 0;padding:0}
+.checklist li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:12px;padding:13px 0;border-top:1px solid var(--hair);font-size:14.5px;color:var(--muted)}
+.checklist li i{width:16px;height:16px;border:1px solid var(--hair-strong);border-radius:var(--r-rect);display:grid;place-items:center;margin-top:2px}
+.checklist li i::after{content:"";width:7px;height:7px;background:var(--accent);border-radius:1px;display:block}
+.split{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--hair);border-radius:var(--r-rect);overflow:hidden;background:var(--surface)}
+.split > div{padding:36px 34px}
+.split > div + div{border-left:1px solid var(--hair)}
+.split h3{margin:0 0 8px;font-size:24px;font-weight:600;letter-spacing:-.02em}
+.split p{margin:0 0 22px;color:var(--muted);font-size:15px;line-height:1.55}
+.tags{display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-size:11.5px;font-weight:600;letter-spacing:.04em;border:1px solid var(--hair);border-radius:var(--r-rect);padding:5px 9px;color:var(--muted)}
+.tag.a{background:var(--accent-soft);border-color:transparent;color:var(--accent-ink)}
+
+/* ---------- kartu umum (dipakai setup + dashboard) ---------- */
+.card,.card-elevated{border:1px solid var(--hair);border-radius:var(--r-rect);background:var(--surface)}
+.card-elevated{box-shadow:0 24px 60px -32px rgba(20,16,12,.22)}
+.panel-h,.fs-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 22px;border-bottom:1px solid var(--hair);background:var(--tint)}
+.panel-h h3,.fs-h h3{margin:0;font-size:13.5px;font-weight:600;letter-spacing:-.01em}
+.panel-h .n,.fs-h .n{font-size:10.5px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--label);font-variant-numeric:tabular-nums}
+.panel-b{padding:22px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* ---------- form ---------- */
+.field-label{display:block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--label);margin-bottom:7px}
+.field-label .opt{text-transform:none;letter-spacing:0;font-weight:400;color:var(--faint)}
+.input-field{width:100%;border:1px solid var(--hair);border-radius:var(--r-rect);background:var(--surface);padding:12px 13px;font-size:15px;font-family:inherit;color:var(--ink)}
+.input-field::placeholder{color:var(--faint)}
+.input-field:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px var(--accent-soft)}
+textarea.input-field{min-height:104px;resize:vertical;line-height:1.6}
+.field{margin-bottom:16px}
+.field:last-child{margin-bottom:0}
+.hint{margin:9px 0 0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.status-note{margin:10px 0 0;font-size:12.5px;line-height:1.5;color:var(--muted);text-align:center}
+.status-note.ok{color:#3d6b2f}
+.status-note.err{color:#b3261e}
+.recent-empty{margin:0;font-size:12.5px;color:var(--faint)}
+.group-note{margin:0 0 20px;font-size:12.5px;color:var(--faint);letter-spacing:.01em}
+.input-row{display:flex;align-items:stretch}
+.input-row .pre{border:1px solid var(--hair);border-right:0;border-radius:var(--r-rect) 0 0 var(--r-rect);padding:12px;font-size:14px;color:var(--muted);background:var(--tint);font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;flex-shrink:0}
+.input-row .input-field{border-radius:0 var(--r-rect) var(--r-rect) 0}
+.link-box{border:1px dashed var(--hair-strong);border-radius:var(--r-rect);padding:13px;font-size:12.5px;color:var(--muted);word-break:break-all;font-variant-numeric:tabular-nums;background:var(--paper)}
+.drop-zone{position:relative;width:100%;aspect-ratio:1/1;border:2px dashed var(--hair);border-radius:var(--r-rect);background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px;overflow:hidden}
+.drop-zone img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:var(--r-rect)}
+.drop-zone input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.drop-zone svg{margin-bottom:8px}
+
+/* ---------- dashboard kirim ---------- */
+.dash{padding:44px 0 80px}
+.dash-head{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:flex-end;padding-bottom:22px;border-bottom:1px solid var(--hair);margin-bottom:26px}
+.dash-head h2{margin:10px 0 0;font-size:clamp(28px,3.6vw,40px);font-weight:600;letter-spacing:-.03em;line-height:1.05}
+.dash-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;align-items:start}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--hair);border-radius:var(--r-rect);overflow:hidden;background:var(--surface);margin-bottom:20px}
+.stats div{padding:16px 18px}
+.stats div + div{border-left:1px solid var(--hair)}
+.stats span{display:block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--label);margin-bottom:6px}
+.stats b{font-size:26px;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.recent-item{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--hair);border-radius:var(--r-rect);padding:12px 14px;background:var(--paper)}
+.recent-item + .recent-item{margin-top:8px}
+.recent-item .nm{font-size:14px;font-weight:500}
+.recent-item .wa{font-size:12.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+.recent-item a{font-size:12.5px;color:var(--accent-ink);font-weight:500}
+.recent-item a:hover{text-decoration:underline}
+.empty-note{font-size:13px;color:var(--faint);margin:0}
+.toast{border:1px solid var(--hair);border-left:2px solid var(--accent);border-radius:var(--r-rect);background:var(--accent-soft);padding:13px 15px;font-size:13.5px;color:var(--accent-ink)}
+
+/* ---------- footer ---------- */
+footer.site{background:var(--dark);color:#fff}
+footer.site .wrap{padding-top:52px;padding-bottom:38px}
+.f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px}
+.f-grid h4{margin:0 0 14px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.f-grid a{display:block;font-size:14px;color:rgba(255,255,255,.82);padding:5px 0}
+.f-grid a:hover{color:#fff}
+.f-brand p{color:rgba(255,255,255,.6);font-size:13.5px;max-width:30ch;margin:12px 0 0}
+.f-bottom{margin-top:42px;padding-top:20px;border-top:1px solid rgba(255,255,255,.16);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:12.5px;color:rgba(255,255,255,.55)}
+.f-brand .brand{color:#fff}
+.f-brand .mark{background:#fff;color:var(--dark)}
+
+/* ============================================================
+   UNDANGAN TAMU
+   ============================================================ */
+#msc{position:fixed;right:20px;bottom:78px;z-index:60}
+#btn-msc{width:44px;height:44px;border-radius:var(--r-pill);background:var(--accent);color:#fff;display:grid;place-items:center;box-shadow:0 8px 24px -8px rgba(20,16,12,.45);transition:opacity .2s}
+.cover-date{display:flex;align-items:center;justify-content:center;gap:14px}
+.cover-date-num{display:block}
+.cover-bleed{position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden;background:linear-gradient(165deg,var(--accent) 0%,var(--accent-deep) 100%);color:#fff}
+.cover-bleed-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .8s}
+.cover-bleed-bg.on{opacity:1}
+.cover-bleed-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,16,12,.34) 0%,rgba(20,16,12,.22) 45%,rgba(20,16,12,.55) 100%)}
+.cover-inner{position:relative;z-index:10;width:100%;max-width:460px;margin:0 auto;padding:72px 24px;text-align:center}
+.cover-name{font-size:clamp(38px,9vw,54px);line-height:1;font-weight:600;letter-spacing:-.035em;margin:14px 0 22px}
+.cover-name .amp{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;font-size:.55em;vertical-align:middle;margin:0 8px}
+.cover-countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:28px auto 0;max-width:340px}
+.count-box{border:1px solid rgba(255,255,255,.3);border-radius:var(--r-rect);padding:11px 4px;text-align:center;background:rgba(255,255,255,.05)}
+.count-box p{margin:0;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
+.count-box span{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.78);margin-top:2px}
+.cover-guest{margin:26px 0 0;font-size:13.5px;color:rgba(255,255,255,.82)}
+.cover-guest b{color:#fff;font-weight:600}
+.cover-foto-full{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
+
+.inv-page{background-color:var(--inv-bg);min-height:60vh}
+.inv-sheet{max-width:600px;margin:0 auto;padding:56px 20px 96px}
+.inv-card{border:1px solid var(--hair);border-radius:var(--r-rect);background:var(--surface);padding:28px}
+.inv-card + .inv-card{margin-top:18px}
+.inv-card .inv-title{margin:0;font-size:19px;font-weight:600;letter-spacing:-.02em;color:var(--inv)}
+.inv-card .inv-sub{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.inv-quote{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:21px;line-height:1.5;margin:0;color:var(--inv)}
+.inv-hero{position:relative;height:340px;background-size:cover;background-position:center}
+.inv-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(20,16,12,.25) 0%,rgba(20,16,12,.06) 45%,var(--surface) 100%)}
+.inv-detail{padding:28px;text-align:center}
+.inv-name{font-size:32px;font-weight:600;letter-spacing:-.03em;line-height:1.1;margin:0;color:var(--inv)}
+.inv-amp{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;font-size:24px;margin:8px 0;color:var(--inv)}
+.inv-meta-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px}
+.inv-meta-3 div{border:1px solid var(--hair);border-radius:var(--r-rect);padding:11px 8px}
+.inv-meta-3 span{display:block;font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--label);margin-bottom:5px}
+.inv-meta-3 b{font-size:13px;font-weight:500;color:var(--inv)}
+.inv-row{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:12px 0;border-top:1px solid var(--hair);font-size:14.5px;text-align:left}
+.inv-row span{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--label);padding-top:3px}
+.inv-row b{font-weight:500;color:var(--inv)}
+.inv-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.inv-actions .btn-inv,.inv-actions .btn-secondary{flex:1;justify-content:center}
+.inv-guest-pill{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--hair);border-radius:var(--r-pill);padding:9px 16px;font-size:12.5px;color:var(--inv);background:var(--accent-soft)}
+.inv-guest-pill i{width:7px;height:7px;border-radius:50%;background:var(--accent);display:block}
+.acara-item{text-align:center;padding:4px 0}
+.acara-item .nm{font-size:15px;font-weight:600;color:var(--inv)}
+.acara-item .jm{font-size:13px;color:var(--muted);margin-top:3px}
+.acara-item a{display:inline-flex;align-items:center;gap:6px;margin-top:10px;border-radius:var(--r-pill);padding:7px 14px;font-size:11.5px;font-weight:500;background:var(--accent-soft);color:var(--accent-ink)}
+.acara-sep{margin:18px 0;border-bottom:1px dashed var(--hair-strong)}
+.kisah-item{position:relative;padding-left:40px}
+.kisah-item .kdot{position:absolute;left:3px;top:4px;width:26px;height:26px;border-radius:var(--r-pill);display:grid;place-items:center;background:var(--accent);color:#fff;font-size:12px}
+.kisah-item + .kisah-item{margin-top:20px}
+.recent-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--hair)}
+.recent-row:last-child{border-bottom:0}
+.recent-nama{margin:0;font-size:13px;font-weight:500}
+.recent-wa{margin:2px 0 0;font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+.recent-link{font-size:12px;font-weight:500;color:var(--accent-ink);white-space:nowrap}
+.kisah-row{position:relative;padding-left:40px;margin-bottom:18px}
+.kisah-dot{position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:9999px;background:var(--accent);color:#fff;display:grid;place-items:center}
+.kisah-dot i{font-size:12px}
+.acara-row{text-align:center}
+.acara-nama{font-size:14px;font-weight:600;color:var(--ink)}
+.acara-jam{font-size:12.5px;color:var(--muted);margin-top:3px}
+.acara-map{display:inline-flex;align-items:center;gap:5px;margin-top:10px;padding:6px 12px;border-radius:9999px;background:var(--accent);color:#fff;font-size:11.5px;font-weight:500}
+.acara-sep{border-bottom:1px dashed var(--hair-strong);margin:20px 0}
+.kisah-card{border:1px solid var(--hair);border-radius:var(--r-rect);padding:14px;background:var(--surface)}
+.kisah-card .jt{font-size:14px;font-weight:600;color:var(--inv)}
+.kisah-card .jt span{font-weight:400;font-size:11.5px;color:var(--faint)}
+.kisah-card p{margin:8px 0 0;font-size:13px;line-height:1.6;color:var(--muted)}
+#inv-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:60;display:flex;gap:2px;border:1px solid var(--hair-strong);border-radius:var(--r-pill);background:rgba(251,250,248,.94);backdrop-filter:blur(10px);padding:6px;box-shadow:0 14px 32px -14px rgba(20,16,12,.4)}
+#inv-nav a{width:38px;height:38px;border-radius:var(--r-pill);display:grid;place-items:center;color:var(--muted);font-size:16px}
+#inv-nav a:hover{background:var(--tint);color:var(--ink)}
+#expired-wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 24px;text-align:center}
+#expired-wrap .card-elevated{max-width:440px;width:100%;padding:34px;border-radius:var(--r-rect)}
+#qrcode{display:flex;justify-content:center;margin:18px 0}
+#qrcode img,#qrcode canvas{border:1px solid var(--hair);border-radius:var(--r-rect);padding:8px;background:#fff}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}
+.reveal.d2{transition-delay:.16s}
+.reveal.d3{transition-delay:.24s}
+.float-card{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.float-card:hover{transform:translateY(-4px)}
+.shimmer{background:linear-gradient(90deg,var(--accent),var(--accent-deep),var(--accent));background-size:200% 100%;animation:shim 3.5s linear infinite}
+@keyframes shim{0%{background-position:0% 0}100%{background-position:200% 0}}
+
+@media (max-width:960px){
+  .hero-grid,.sec-head,.demo-frame,.dash-grid{grid-template-columns:1fr;gap:30px}
+  .split{grid-template-columns:1fr}
+  .split > div + div{border-left:0;border-top:1px solid var(--hair)}
+  .step{grid-template-columns:44px minmax(0,1fr);gap:14px}
+  .step p,.step .go{grid-column:2}
+  .step .go{justify-self:start}
+  .f-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+}
+@media (max-width:640px){
+  #beranda{padding:52px 0 64px}
+  section.band{padding:56px 0}
+  .hero-actions{flex-direction:column;align-items:stretch}
+  .hero-actions .btn-primary,.hero-actions .btn-secondary{justify-content:center}
+  .specimen{margin-top:38px}
+  .specimen-body{padding:22px;grid-template-columns:1fr}
+  .specimen-cta{border-left:0;border-top:1px solid var(--hair);padding:18px 0 0;margin:18px 0 0}
+  .f-grid{grid-template-columns:1fr;gap:26px}
+  .stats{grid-template-columns:1fr}
+  .stats div + div{border-left:0;border-top:1px solid var(--hair)}
+  .inv-card{padding:22px}
+  .grid2{grid-template-columns:1fr}
+  .inv-meta-3{grid-template-columns:1fr}
+  .inv-row{grid-template-columns:96px minmax(0,1fr)}
+  body{padding-bottom:8px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
-<body class="bg-white text-graphite font-sans antialiased min-h-screen">
+<body>
 
 <!-- ===== LANDING ===== -->
 <div id="landing" class="hidden">
-<div id="announcement" class="bg-marble border-b border-ash w-full text-center py-2 px-4">
-  <p class="font-sans text-[13px]">Ruang Resepsi — Undangan digital elegan, tanpa ribet. <span onclick="document.getElementById('cara-kerja')?.scrollIntoView({behavior:'smooth'})" class="text-indigo-ink font-medium ml-1 cursor-pointer hover:underline">Pelajari →</span></p>
+<div id="announcement">
+  <div class="ann-inner">
+    <p style="margin:0">Gratis, tanpa daftar · tautan aktif 7 hari</p>
+  </div>
 </div>
-<nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-ash">
-  <div class="max-w-[1200px] mx-auto px-6 h-14 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="w-11 h-11 rounded-full flex items-center justify-center shadow-md" style="background:radial-gradient(circle at 32% 26%, #26324f, #161d30); box-shadow:0 2px 10px rgba(201,162,75,.25)">
-        <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="foil" x1="0" y1="0" x2="1" y2="1" spreadMethod="reflect" gradientUnits="objectBoundingBox">
-              <stop offset="0" stop-color="#8a6a1f"/>
-              <stop offset="0.35" stop-color="#f7e9ad"/>
-              <stop offset="0.5" stop-color="#fffdf0"/>
-              <stop offset="0.65" stop-color="#f7e9ad"/>
-              <stop offset="1" stop-color="#8a6a1f"/>
-              <animateTransform attributeName="gradientTransform" type="translate" from="-1 -1" to="1 1" dur="3.5s" repeatCount="indefinite"/>
-            </linearGradient>
-          </defs>
-          <circle cx="24" cy="24" r="22" fill="none" stroke="url(#foil)" stroke-width="1.6"/>
-          <text x="24" y="31" font-family="Great Vibes, cursive" font-size="23" fill="url(#foil)" text-anchor="middle">RR</text>
-          <g fill="#fffdf0">
-            <path d="M24 5.5 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 z" opacity="0.9">
-              <animate attributeName="opacity" values="0.3;1;0.3" dur="2.4s" repeatCount="indefinite"/>
-            </path>
-            <path d="M41 17 l0.7 2 l2 0.7 l-2 0.7 l-0.7 2 l-0.7 -2 l-2 -0.7 l2 -0.7 z" opacity="0.8">
-              <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite"/>
-            </path>
-          </g>
-        </svg>
-      </div>
-      <span class="font-medium text-[19px] tracking-[0.01em]" style="color:#C9A24B; font-family:'Cormorant Garamond',Georgia,serif; letter-spacing:.5px">Ruang Resepsi</span>
+
+<nav class="site">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#beranda"><span class="mark">RR</span> Ruang Resepsi</a>
+    <div class="nav-links">
+      <a href="#beranda" id="nav-beranda" class="nav-link active">Beranda</a>
+      <a href="#cara-kerja" id="nav-cara" class="nav-link">Cara Kerja</a>
+      <a href="#contoh-undangan" id="nav-contoh" class="nav-link">Contoh</a>
     </div>
-    <div class="hidden md:flex items-center gap-6 text-[14px] font-medium text-iron">
-      <a href="#beranda" id="nav-beranda" class="nav-link text-graphite">Beranda</a>
-      <a href="#cara-kerja" id="nav-cara" class="nav-link text-iron hover:text-graphite transition underline decoration-transparent underline-offset-4 hover:decoration-graphite">Cara Kerja</a>
-      <a href="#contoh-undangan" id="nav-contoh" class="nav-link text-iron hover:text-graphite transition underline decoration-transparent underline-offset-4 hover:decoration-graphite">Contoh</a>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="hidden sm:inline text-[13px] text-steel">Kisah cinta, satu tautan</span>
-      <div class="w-2 h-2 rounded-full bg-ledger-green dot-pulse"></div>
-    </div>
+    <button class="btn-primary" style="padding:9px 18px;font-size:13.5px" onclick="scrollToSetup()">Buat Undangan</button>
   </div>
 </nav>
 
-<!-- ===== HERO / BERANDA (display penuh sesuai DESIGN.md) ===== -->
-<section id="beranda" class="radial-wash relative overflow-hidden">
-  <div class="max-w-[1200px] mx-auto px-6 py-20 sm:py-28 text-center">
-    <span class="eyebrow reveal">Undangan Digital Pernikahan</span>
-    <h1 class="font-serif font-light text-[46px] sm:text-[56px] leading-none tracking-[-0.025em] text-graphite mt-5 reveal d1">
-      Satu ruang untuk <em class="italic" style="color:#a565ff;">kisah cinta</em>
-    </h1>
-    <p class="font-sans text-[16px] leading-[1.63] text-iron max-w-[560px] mx-auto mt-5 reveal d2">
-      Buat undangan pernikahan yang elegan dan personal — satu tautan unik untuk setiap tamu, dikirim langsung lewat WhatsApp dalam satu ketukan.
-    </p>
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mt-9 reveal d2">
-      <button onclick="scrollToSetup()" class="btn-primary">
-        Mulai Buat Undangan
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-      </button>
-      <a href="#contoh-undangan" class="btn-secondary">Lihat Contoh</a>
-    </div>
-    <p class="font-mono text-[11px] text-smoke mt-6 reveal d3">tanpa akun • tanpa database • tanpa ribet</p>
-  </div>
-</section>
-
-<!-- Social proof strip -->
-<section class="bg-bone border-t border-ash">
-  <div class="max-w-[1200px] mx-auto px-6 py-8">
-    <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-[13px] font-medium text-steel">
-      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span>Link taruna personal</span>
-      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span>Countdown live</span>
-      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span>Galeri & kisah</span>
-      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span>RSVP</span>
-      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span>Musik & peta</span>
-    </div>
-  </div>
-</section>
-
-<!-- Cara Kerja -->
-<section id="cara-kerja" class="bg-white border-t border-ash scroll-mt-14">
-  <div class="max-w-[1200px] mx-auto px-6 py-16">
-    <div class="max-w-[720px] mx-auto text-center mb-10 reveal">
-      <span class="eyebrow">Cara Kerja</span>
-      <h2 class="font-serif font-light text-[32px] sm:text-[40px] leading-none tracking-[-0.025em] mt-3">Tiga langkah, undangan <span class="italic" style="color:#a565ff;">siap disebar</span></h2>
-      <p class="font-sans text-[14px] text-iron mt-4">Tanpa akun, tanpa password. Cukup isi sekali, lalu undang sebanyak yang kamu mau.</p>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[960px] mx-auto">
-      <div class="card p-6 hover-lift reveal">
-        <div class="w-9 h-9 rounded-full bg-lavender-wash border border-iris-glow flex items-center justify-center mb-4"><span class="text-[13px] font-semibold text-indigo-ink">1</span></div>
-        <h3 class="font-medium text-[16px]">Isi Detail Mempelai</h3>
-        <p class="text-[13px] text-steel mt-2 leading-[1.6]">Masukkan nama, tanggal, jam, dan lokasi. Data tersimpan aman di browser kamu.</p>
-        <div class="mt-4 inline-flex items-center gap-1.5 bg-bone border border-ash rounded-full px-2.5 py-1"><span class="w-1.5 h-1.5 rounded-full bg-violet-pulse dot-pulse"></span><span class="text-[11px] text-steel">30 detik</span></div>
+<section id="beranda">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow reveal">Undangan Digital Pernikahan</span>
+        <h1 class="display reveal d1">Satu tautan untuk hari yang <em class="serif">bahagia.</em></h1>
       </div>
-      <div class="card p-6 hover-lift reveal d1">
-        <div class="w-9 h-9 rounded-full bg-lavender-wash border border-iris-glow flex items-center justify-center mb-4"><span class="text-[13px] font-semibold text-indigo-ink">2</span></div>
-        <h3 class="font-medium text-[16px]">Buat Link Personal</h3>
-        <p class="text-[13px] text-steel mt-2 leading-[1.6]">Setiap tamu mendapat tautan unik dengan namanya — rapi, personal, dan anti-salah kirim.</p>
-        <div class="mt-4 inline-flex items-center gap-1.5 bg-bone border border-ash rounded-full px-2.5 py-1"><span class="w-1.5 h-1.5 rounded-full bg-ledger-green dot-pulse"></span><span class="text-[11px] text-steel">Tautan personal</span></div>
-      </div>
-      <div class="card p-6 hover-lift reveal d2">
-        <div class="w-9 h-9 rounded-full bg-violet-pulse flex items-center justify-center mb-4"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M22 16.5a3 3 0 0 1-3 3H9l-4 4v-16a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3v9Z"/></svg></div>
-        <h3 class="font-medium text-[16px]">Kirim via WhatsApp</h3>
-        <p class="text-[13px] text-steel mt-2 leading-[1.6]">Satu klik membuka WhatsApp dengan pesan jadi. Kirim, lanjut tamu berikutnya — tanpa reload.</p>
-        <div class="mt-4 inline-flex items-center gap-1.5 bg-ledger-green/10 border border-ledger-green/15 rounded-full px-2.5 py-1"><span class="text-[11px] font-medium text-ledger-green">Satu ketuk — langsung terkirim</span></div>
-      </div>
-    </div>
-    <div class="flex justify-center mt-8"><a href="#" onclick="scrollToSetup(event)" class="btn-primary">Mulai Buat Undangan</a></div>
-  </div>
-</section>
-
-<!-- Contoh -->
-<section id="contoh-undangan" class="bg-bone border-t border-ash scroll-mt-14">
-  <div class="max-w-[1100px] mx-auto px-6 py-16">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-      <div class="reveal">
-        <span class="eyebrow">Contoh Undangan</span>
-        <h2 class="font-serif font-light text-[32px] sm:text-[40px] leading-none tracking-[-0.025em] mt-3">Pratinjau yang <span class="italic" style="color:#a565ff;">diterima tamu</span></h2>
-        <p class="text-[14px] text-iron mt-4 leading-[1.6]">Bersih, editorial, dan elegan — lengkap dengan countdown, galeri, dan RSVP.</p>
-        <div class="mt-6 flex gap-3">
-          <button onclick="bukaContoh()" class="btn-primary">Lihat Contoh Live</button>
-          <a href="#cara-kerja" class="btn-secondary">Pelajari cara kerja</a>
+      <div class="hero-copy reveal d2">
+        <p>Kirim lewat WhatsApp, tanpa aplikasi. Nama tamu otomatis masuk.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="scrollToSetup()">Buat Undangan</button>
         </div>
       </div>
-      <div class="max-w-[440px] mx-auto w-full">
-        <div class="card-elevated overflow-hidden float-card">
-          <div class="h-[3px] w-full shimmer"></div>
-          <div class="p-8 text-center">
-            <p class="text-[10px] tracking-[0.12em] uppercase text-steel mb-2">Kepada Yth.</p>
-            <div class="inline-flex items-center gap-2 bg-bone border border-ash rounded-full px-3 py-1.5 mb-4"><span class="w-2 h-2 rounded-full bg-violet-pulse"></span><span class="text-[13px] font-medium">Bapak Budi & Keluarga</span></div>
-            <h3 class="font-serif font-light text-[30px] leading-none tracking-[-0.02em]">Andi <span class="text-violet-pulse">&</span> Sinta</h3>
-            <div class="flex items-center justify-center gap-2 my-4 text-center">
-              <span class="text-[11px] text-steel">Countdown</span>
-              <span class="text-[11px] text-steel">•</span><span class="text-[11px] text-steel">Galeri</span>
-              <span class="text-[11px] text-steel">•</span><span class="text-[11px] text-steel">RSVP</span>
-              <span class="text-[11px] text-steel">•</span><span class="text-[11px] text-steel">Amplop</span>
-            </div>
-            <div class="grid grid-cols-3 gap-2 mb-5">
-              <div class="bg-bone border border-ash rounded-lg p-2.5"><p class="eyebrow text-[10px]">Tanggal</p><p class="text-[12px] font-medium mt-1">20 Sep 2026</p></div>
-              <div class="bg-bone border border-ash rounded-lg p-2.5"><p class="eyebrow text-[10px]">Jam</p><p class="text-[12px] font-medium mt-1">19:00</p></div>
-              <div class="bg-bone border border-ash rounded-lg p-2.5"><p class="eyebrow text-[10px]">Lokasi</p><p class="text-[11px] font-medium mt-1">Gedung Melati</p></div>
-            </div>
+    </div>
+
+    <div class="specimen reveal">
+      <div class="specimen-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="addr">ruang-resepsi.vercel.app/u/Contoh7</span>
+      </div>
+      <div class="specimen-body">
+        <div>
+          <h3>Andi &amp; Sinta</h3>
+          <div class="specimen-meta">
+            <div><span>Tanggal</span><b>Sabtu, 20 Sep 2026</b></div>
+            <div><span>Jam</span><b>19:00 WIB</b></div>
+            <div><span>Lokasi</span><b>Gedung Melati</b></div>
+          </div>
+        </div>
+        <div class="specimen-cta"><button class="btn-primary" onclick="bukaContoh()">Buka undangan</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cara-kerja" class="band">
+  <div class="wrap">
+    <h2 class="sec reveal" style="margin-bottom:44px">Tiga langkah,<br><em class="serif">tanpa ribet.</em></h2>
+    <div class="steps reveal">
+      <div class="step">
+        <span class="n">01</span>
+        <h3>Isi detail mempelai</h3>
+        <p>Nama, tanggal, jam, tempat, dan link Maps. Foto opsional.</p>
+      </div>
+      <div class="step">
+        <span class="n">02</span>
+        <h3>Dapat tautan pendek</h3>
+        <p>Kode 6 karakter, misal <b>/u/Contoh7</b>.</p>
+      </div>
+      <div class="step">
+        <span class="n">03</span>
+        <h3>Kirim per tamu</h3>
+        <p>Nama dan nomor WhatsApp — tautan personalnya jadi sendiri.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contoh-undangan" class="band">
+  <div class="wrap">
+    <div class="demo-frame">
+      <div class="reveal">
+        <h2 class="sec" style="margin-bottom:20px">Halaman pembuka<br>yang <em class="serif">personal.</em></h2>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="bukaContoh()">Buka contoh</button>
+        </div>
+      </div>
+      <div class="demo-card float-card reveal d1">
+        <div class="shimmer" style="height:3px;width:100%"></div>
+        <div class="top"><span>Foto prewed</span></div>
+        <div class="body">
+          <p class="demo-names">Andi <span class="serif">&amp;</span> Sinta</p>
+          <p class="demo-date">Sabtu, 20 September 2026 · 19:00</p>
+          <div class="divider" style="margin:20px 0"></div>
+          <div id="cover-countdown-demo" class="cover-countdown" style="margin:0 auto">
+            <div class="count-box"><p>—</p><span>Hari</span></div>
+            <div class="count-box"><p>—</p><span>Jam</span></div>
+            <div class="count-box"><p>—</p><span>Menit</span></div>
+            <div class="count-box"><p>—</p><span>Detik</span></div>
           </div>
         </div>
       </div>
@@ -267,161 +452,128 @@ html{ scroll-behavior:smooth; }
 </div>
 <!-- ===== END LANDING ===== -->
 
-<!-- ===== INVITATION (STATE 3) ===== -->
+<!-- ===== UNDANGAN (STATE 3) ===== -->
 <section id="state-invitation" class="hidden">
-<div id="msc" class="fixed bottom-5 right-5 z-50" style="bottom:78px"><button onclick="toggleMusic()" id="btn-msc" style="background:#4B6B99" aria-label="Musik" class="w-11 h-11 rounded-full bg-violet-pulse text-white flex items-center justify-center shadow-lg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button></div>
+<div id="msc" class="hidden"><button onclick="toggleMusic()" id="btn-msc" aria-label="Musik"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button></div>
 <audio id="audio-bg" loop preload="auto" playsinline crossorigin="anonymous"></audio>
 
-<!-- Expired (A2: lewat 7 hari = link kadaluarsa total) -->
-<div id="expired-wrap" class="hidden min-h-screen flex flex-col justify-center items-center radial-wash px-6 text-center">
-  <div class="card-elevated p-8 max-w-md w-full">
-    <p class="text-[40px] mb-3">⛔</p>
-    <h2 class="font-serif font-light text-[26px]">Link Kadaluarsa</h2>
-    <p class="text-[13px] text-steel mt-2 leading-[1.6]">Undangan ini sudah lewat masa aktif <b>7 hari</b> dan foto telah dihapus otomatis secara otomatis.</p>
-    <p class="text-[12px] text-steel mt-3">Link undangan hanya berlaku 7 hari demi privasi. Mohon <b>hubungi mempelai</b> (lewat WhatsApp) untuk meminta link undangan terbaru.</p>
-    <a href="https://wa.me/" target="_blank" class="btn-primary mt-5 inline-flex">Minta Link Baru lewat WhatsApp</a>
+<!-- Link kadaluarsa -->
+<div id="expired-wrap" class="hidden">
+  <div class="card-elevated">
+    <span class="eyebrow">Masa Aktif Habis</span>
+    <h2 style="margin:12px 0 0;font-size:26px;font-weight:600;letter-spacing:-.03em">Link Kadaluarsa</h2>
+    <p style="font-size:14px;color:var(--muted);margin:12px 0 0;line-height:1.6">Masa aktif 7 hari sudah lewat dan fotonya terhapus otomatis.</p>
+    <a href="https://wa.me/" target="_blank" class="btn-primary" style="margin-top:22px">Minta Link Baru lewat WhatsApp</a>
   </div>
 </div>
 
-<!-- Cover — Mildness full-bleed -->
+<!-- Cover tamu -->
 <div id="cover" class="cover-bleed">
-  <div id="cover-bg" class="cover-bleed-bg"></div>
+  <img id="cover-foto" alt="Foto prewed" class="cover-foto-full" referrerpolicy="no-referrer">
+  <div id="cover-foto-wrap" class="hidden"></div>
+  <div class="cover-bleed-bg" id="cover-bg"></div>
   <div class="cover-bleed-overlay"></div>
-  <div class="cover-corner-tl" aria-hidden="true" style="background:radial-gradient(ellipse 380px 280px at 0% 0%, rgba(75,107,153,.14), transparent 68%), radial-gradient(ellipse 260px 200px at 20% 15%, rgba(188,151,201,.18), transparent 70%); border-radius:0 0 120px 0;"></div>
-  <div class="cover-corner-br" aria-hidden="true" style="background:radial-gradient(ellipse 380px 280px at 100% 100%, rgba(75,107,153,.13), transparent 68%), radial-gradient(ellipse 260px 200px at 80% 85%, rgba(188,151,201,.15), transparent 70%);"></div>
-  <div class="relative z-10 w-full max-w-[420px] mx-auto px-6 py-10 text-center animate__animated animate__zoomIn">
-    <p class="font-philo text-[12px] tracking-[.16em] uppercase" style="color:var(--inv)" data-aos="fade-up">Undangan Pernikahan</p>
-    <h1 class="font-title text-[44px] sm:text-[50px] leading-none mt-3" style="color:var(--inv)" data-aos="fade-up" data-aos-delay="80"><span id="cover-pria">—</span> <span style="font-family:'Philosopher',sans-serif; font-size:20px; font-weight:400; vertical-align:middle; margin:0 4px;">&</span> <span id="cover-wanita">—</span></h1>
-    <div class="cover-date mt-8" data-aos="fade-up" data-aos-delay="160">
-      <span id="cover-day" class="font-philo text-[13px] flex-1 text-right pr-2">Sabtu</span>
-      <span class="cover-date-num"><span id="cover-day-num" class="font-philo font-bold text-[22px] leading-none block">28</span><span id="cover-year" class="font-philo text-[11px] tracking-wide block mt-1">2026</span></span>
-      <span id="cover-month" class="font-philo text-[13px] flex-1 text-left pl-2">Maret</span>
+  <div class="cover-inner">
+    <span class="eyebrow reveal" style="color:rgba(255,255,255,.82)">Undangan Pernikahan</span>
+    <h1 class="cover-name reveal d1"><span id="cover-pria">—</span><span class="amp">&amp;</span><span id="cover-wanita">—</span></h1>
+    <div class="cover-date reveal d2">
+      <span id="cover-day" class="tnum">Sabtu</span>
+      <span class="cover-date-num"><span id="cover-day-num" class="tnum" style="display:block;font-size:24px;font-weight:600;line-height:1">20</span><span id="cover-year" class="tnum" style="display:block;font-size:11.5px;letter-spacing:.1em;margin-top:4px">2026</span></span>
+      <span id="cover-month">September</span>
     </div>
-    <div id="cover-countdown" class="grid grid-cols-4 gap-2 mt-6 max-w-[320px] mx-auto" data-aos="fade-up" data-aos-delay="200">
-      <div class="count-box text-center"><p class="font-philo text-[18px] font-bold leading-none" id="cover-cd-d">0</p><p class="text-[9px] uppercase tracking-wide mt-1">Hari</p></div>
-      <div class="count-box text-center"><p class="font-philo text-[18px] font-bold leading-none" id="cover-cd-h">0</p><p class="text-[9px] uppercase tracking-wide mt-1">Jam</p></div>
-      <div class="count-box text-center"><p class="font-philo text-[18px] font-bold leading-none" id="cover-cd-m">0</p><p class="text-[9px] uppercase tracking-wide mt-1">Menit</p></div>
-      <div class="count-box text-center"><p class="font-philo text-[18px] font-bold leading-none" id="cover-cd-s">0</p><p class="text-[9px] uppercase tracking-wide mt-1">Detik</p></div>
+    <div id="cover-countdown" class="cover-countdown reveal d2">
+      <div class="count-box"><p id="cover-cd-d" class="tnum">0</p><span>Hari</span></div>
+      <div class="count-box"><p id="cover-cd-h" class="tnum">0</p><span>Jam</span></div>
+      <div class="count-box"><p id="cover-cd-m" class="tnum">0</p><span>Menit</span></div>
+      <div class="count-box"><p id="cover-cd-s" class="tnum">0</p><span>Detik</span></div>
     </div>
-    <div class="mt-8" data-aos="fade-up" data-aos-delay="260">
-      <p class="font-philo text-[12px]" style="color:var(--inv); opacity:.7">Kepada:</p>
-      <p id="cover-tamu" class="font-philo font-bold text-[16px] mt-1" style="color:var(--inv)">Tamu Undangan</p>
-      <button onclick="bukaUndangan(true)" class="btn-inv mt-5"><i class="bi bi-envelope-open"></i> Buka Undangan</button>
+    <div class="reveal d3" style="margin-top:30px">
+      <p class="cover-guest" style="margin:0 0 6px">Kepada Yth.</p>
+      <p id="cover-tamu" style="margin:0;font-size:17px;font-weight:600">Tamu Undangan</p>
+      <button onclick="bukaUndangan(true)" class="btn-inv" style="margin-top:20px"><i class="bi bi-envelope-open"></i> Buka Undangan</button>
     </div>
   </div>
-  <img id="cover-foto" alt="Foto prewed" class="hidden" referrerpolicy="no-referrer">
-  <div id="cover-foto-wrap" class="hidden"></div>
 </div>
 
-<!-- Main invitation body — Mildness -->
+<!-- Isi undangan -->
 <div id="invite" class="hidden">
-  <div class="inv-page min-h-screen" style="background-color:var(--inv-bg);">
-    <!-- watercolor wash -->
-    <div class="fixed inset-0 pointer-events-none" aria-hidden="true" style="background: radial-gradient(ellipse 700px 420px at 95% 0%, rgba(75,107,153,.07), transparent 65%), radial-gradient(ellipse 600px 380px at 5% 100%, rgba(188,151,201,.08), transparent 65%), url('') ;"></div>
-    <div class="relative z-10 max-w-[560px] mx-auto px-4 sm:px-6 py-10">
+  <div class="inv-page">
+    <div class="inv-sheet">
 
-    <!-- Quote — card transparan -->
-    <div id="quote" class="inv-card p-8 sm:p-10 text-center" data-aos="fade-up">
-      <p class="font-philo italic text-[15px] leading-relaxed" style="color:var(--inv)">"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya." <span class="not-italic text-[12px] opacity-70">(QS. Ar-Rum: 21)</span></p>
-      <p class="font-philo font-bold text-[12px] mt-4" style="color:var(--inv)">Ar Rum: 21</p>
-    </div>
+      <div id="quote" class="inv-card reveal" style="text-align:center">
+        <p class="inv-quote">“Dan di antara tanda-tanda kekuasaan-Nya, Dia menciptakan untukmu pasangan dari jenismu sendiri, agar kamu merasa tenteram kepadanya.”</p>
+        <p style="margin:14px 0 0;font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--label)">QS. Ar-Rum: 21</p>
+      </div>
 
-    <!-- Mempelai + Foto prewed hero full-bleed -->
-    <div id="detail" class="inv-card mt-8 sm:mt-10 overflow-hidden" data-aos="fade-up">
-      <div id="inv-hero-wrap" class="hidden relative h-[380px] sm:h-[440px] bg-cover bg-center" style="background-image:linear-gradient(to bottom, transparent 55%, rgba(255,255,255,.88) 82%, #fff 100%);"></div>
-      <img id="inv-foto" alt="Foto prewed" class="hidden" referrerpolicy="no-referrer">
-      <div id="inv-foto-wrap" class="hidden"></div>
-      <div class="p-7 sm:p-8 text-center">
-        <p class="font-philo text-[13px]" style="color:var(--inv); opacity:.7">Kami mohon do'a & restunya atas pernikahan kami</p>
-        <div class="mt-6 flex flex-col items-center gap-1" data-aos="fade-up">
-          <p class="font-title text-[34px] leading-none" style="color:var(--inv)"><span id="inv-pria">—</span></p>
-          <p class="font-philo text-[11px] opacity-60">Putra kebanggaan keluarga</p>
-        </div>
-        <p class="font-title text-[26px] my-2" style="color:var(--inv)" data-aos="fade-up">&</p>
-        <div class="flex flex-col items-center gap-1" data-aos="fade-up">
-          <p class="font-title text-[34px] leading-none" style="color:var(--inv)"><span id="inv-wanita">—</span></p>
-          <p class="font-philo text-[11px] opacity-60">Putri kebanggaan keluarga</p>
+      <div id="detail" class="inv-card reveal d1" style="padding:0;overflow:hidden">
+        <div id="inv-hero-wrap" class="inv-hero hidden"></div>
+        <img id="inv-foto" alt="Foto prewed" class="hidden" referrerpolicy="no-referrer">
+        <div id="inv-foto-wrap" class="hidden"></div>
+        <div class="inv-detail">
+          <p class="inv-name" style="margin-top:20px"><span id="inv-pria">—</span></p>
+          <p class="inv-amp">&amp;</p>
+          <p class="inv-name"><span id="inv-wanita">—</span></p>
+          
         </div>
       </div>
-    </div>
 
-    <!-- Info & Countdown — 3 kotak + countdown dusty-blue -->
-    <div class="inv-card mt-8 p-6 sm:p-7" data-aos="fade-up">
-      <p class="font-philo text-[13px] text-center leading-relaxed" style="color:var(--inv); opacity:.75">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu pada hari bahagia kami.</p>
-      <div class="grid grid-cols-3 gap-2 text-center mt-6">
-        <div class="rounded-xl border p-3" style="border-color:var(--inv-light); background:rgba(214,225,241,.35)"><p class="font-philo text-[11px] tracking-wide uppercase" style="color:var(--inv); opacity:.6">Tanggal</p><p class="font-philo font-bold text-[12px] mt-1" style="color:var(--inv)" id="inv-tanggal">—</p></div>
-        <div class="rounded-xl border p-3" style="border-color:var(--inv-light); background:rgba(214,225,241,.35)"><p class="font-philo text-[11px] tracking-wide uppercase" style="color:var(--inv); opacity:.6">Jam</p><p class="font-philo font-bold text-[12px] mt-1" style="color:var(--inv)" id="inv-jam">—</p></div>
-        <div class="rounded-xl border p-3" style="border-color:var(--inv-light); background:rgba(214,225,241,.35)"><p class="font-philo text-[11px] tracking-wide uppercase" style="color:var(--inv); opacity:.6">Lokasi</p><p class="font-philo font-bold text-[11px] leading-tight mt-1" style="color:var(--inv)" id="inv-lokasi">—</p></div>
-      </div>
-      <div class="border-t mt-6 pt-6" style="border-color:var(--inv-light)">
-        <p class="font-philo text-[11px] tracking-[.14em] uppercase text-center" style="color:var(--inv); opacity:.55">Menuju Hari Bahagia</p>
-        <div class="grid grid-cols-4 gap-2 text-center mt-4">
-          <div class="count-box"><p class="font-philo text-[22px] font-bold leading-none" id="cd-d">0</p><p class="text-[9px] uppercase tracking-wide">Hari</p></div>
-          <div class="count-box"><p class="font-philo text-[22px] font-bold leading-none" id="cd-h">0</p><p class="text-[9px] uppercase tracking-wide">Jam</p></div>
-          <div class="count-box"><p class="font-philo text-[22px] font-bold leading-none" id="cd-m">0</p><p class="text-[9px] uppercase tracking-wide">Menit</p></div>
-          <div class="count-box"><p class="font-philo text-[22px] font-bold leading-none" id="cd-s">0</p><p class="text-[9px] uppercase tracking-wide">Detik</p></div>
+      <div class="inv-card reveal">
+        <div class="inv-meta-3">
+          <div><span>Tanggal</span><b id="inv-tanggal">—</b></div>
+          <div><span>Jam</span><b id="inv-jam">—</b></div>
+          <div><span>Lokasi</span><b id="inv-lokasi">—</b></div>
+        </div>
+        <div style="border-top:1px solid var(--hair);margin-top:22px;padding-top:22px">
+          <p style="margin:0;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--label);text-align:center">Menuju Hari Bahagia</p>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px">
+            <div class="count-box" style="border-color:var(--hair);background:var(--tint)"><p id="cd-d" class="tnum" style="color:var(--ink)">0</p><span style="color:var(--muted)">Hari</span></div>
+            <div class="count-box" style="border-color:var(--hair);background:var(--tint)"><p id="cd-h" class="tnum" style="color:var(--ink)">0</p><span style="color:var(--muted)">Jam</span></div>
+            <div class="count-box" style="border-color:var(--hair);background:var(--tint)"><p id="cd-m" class="tnum" style="color:var(--ink)">0</p><span style="color:var(--muted)">Menit</span></div>
+            <div class="count-box" style="border-color:var(--hair);background:var(--tint)"><p id="cd-s" class="tnum" style="color:var(--ink)">0</p><span style="color:var(--muted)">Detik</span></div>
+          </div>
+        </div>
+        <div class="inv-actions">
+          <a id="inv-maps" href="#" target="_blank" class="btn-secondary"><i class="bi bi-geo-alt"></i> Buka Google Maps</a>
+          <button onclick="konfirmasiWA()" class="btn-inv">Konfirmasi Kehadiran</button>
+        </div>
+        <div style="display:flex;justify-content:center;margin-top:18px">
+          <span class="inv-guest-pill"><i></i> Kepada Yth. <b id="inv-tamu"></b></span>
         </div>
       </div>
-      <div class="flex flex-col sm:flex-row gap-3 mt-6">
-        <a id="inv-maps" href="#" target="_blank" class="flex-1 inline-flex items-center justify-center gap-2 rounded-full border px-5 py-2.5 text-[13px] font-medium" style="border-color:var(--inv); color:var(--inv); background:#fff"><i class="bi bi-geo-alt"></i>Buka Google Maps</a>
-        <button onclick="konfirmasiWA()" class="btn-inv flex-1 justify-center">Konfirmasi Kehadiran</button>
+
+      <div id="acara-wrap" class="hidden inv-card reveal">
+        <h3 class="inv-title">Susunan Acara</h3>
+        <div id="acara-list" style="margin-top:20px"></div>
       </div>
-      <div class="mt-4 flex justify-center">
-        <div class="inline-flex items-center gap-2 rounded-full border px-4 py-2" style="border-color:var(--inv-light); background:rgba(214,225,241,.4)"><span class="w-2 h-2 rounded-full" style="background:var(--inv)"></span><span class="font-philo text-[12px]" style="color:var(--inv)">Kepada Yth. <b id="inv-tamu"></b></span></div>
+
+      <div class="inv-card reveal" style="padding:0;overflow:hidden">
+        <iframe id="inv-mapframe" title="Peta Lokasi" src="about:blank" style="width:100%;height:280px;display:block;filter:saturate(.95)" loading="lazy"></iframe>
+        <div style="padding:18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;border-top:1px solid var(--hair)">
+          <a id="inv-maps2" href="#" target="_blank" style="font-size:13.5px;font-weight:500;color:var(--inv)">Buka di Google Maps →</a>
+        </div>
       </div>
-    </div>
 
-    <!-- Schedule list (Susunan Acara) — Mildness sparator-line -->
-    <div id="acara-wrap" class="hidden inv-card mt-8 p-6 sm:p-7" data-aos="fade-up">
-      <p class="font-title text-[26px] text-center" style="color:var(--inv)">Acara</p>
-      <p class="font-philo text-[12px] text-center mt-1" style="color:var(--inv); opacity:.6">Kami bermaksud mengundang saudara/(i) dalam acara pernikahan kami pada:</p>
-      <div id="acara-list" class="mt-6 space-y-0"></div>
-    </div>
-
-    <!-- Maps embed -->
-    <div class="inv-card mt-8 overflow-hidden" data-aos="fade-up">
-      <iframe id="inv-mapframe" title="Peta Lokasi" src="about:blank" class="w-full h-[280px] block" loading="lazy" style="filter:saturate(.95);"></iframe>
-      <div class="p-4 text-center flex flex-col sm:flex-row items-center justify-center gap-3">
-        <a id="inv-maps2" href="#" target="_blank" class="font-philo font-bold text-[13px] hover:underline" style="color:var(--inv)">Buka peta di Google Maps →</a>
-        <span class="text-[12px]" style="color:var(--inv); opacity:.4">atau</span>
-        <span class="font-philo text-[12px]" style="color:var(--inv); opacity:.6">Scan QR untuk navigasi</span>
+      <div id="kisah" class="hidden inv-card reveal">
+        <h3 class="inv-title">Kisah Cinta</h3>
+        <div id="kisah-list" style="margin-top:20px">
+          <div id="kisah-items"></div>
+        </div>
       </div>
-    </div>
 
-    <!-- QR Navigasi -->
-    <div class="inv-card mt-8 p-7 text-center" data-aos="fade-up">
-      <p class="font-philo text-[11px] tracking-[.14em] uppercase" style="color:var(--inv); opacity:.55">Navigasi Lokasi</p>
-      <p class="font-philo text-[13px] mt-2" style="color:var(--inv); opacity:.6">Scan kode QR untuk membuka peta lokasi di ponsel Anda.</p>
-      <div id="qrcode" class="mx-auto flex justify-center my-4"></div>
-      <a id="inv-qrlink" href="#" target="_blank" class="font-philo font-bold text-[13px] hover:underline" style="color:var(--inv)">Buka lokasi →</a>
-    </div>
+      <div id="qrcode" style="display:none"></div>
 
-    <!-- Kisah Cinta (timeline) — Mildness -->
-    <div id="kisah" class="inv-card mt-8 p-6 sm:p-7" data-aos="fade-up">
-      <p class="font-title text-[28px] text-center" style="color:var(--inv)">Kisah Cinta</p>
-      <div id="kisah-list" class="mt-6 relative">
-        <div class="absolute left-[19px] top-0 bottom-0 w-px" style="background:var(--inv-light)"></div>
-        <div id="kisah-items" class="space-y-5"></div>
+      <div id="closing" class="inv-card reveal" style="text-align:center;padding:34px">
+        <p style="margin:0;font-size:14px;color:var(--muted)">Terima kasih atas doa dan kehadirannya.</p>
+        <p style="margin:22px 0 0;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--label)">Hormat Kami</p>
+        <p class="inv-name" style="font-size:26px;margin-top:6px" id="closing-title">—</p>
+        <p id="rsvp-msg" class="hidden" style="margin:18px 0 0;font-size:13px;color:var(--accent-ink)">Terima kasih, konfirmasimu sudah kami catat di perangkat ini.</p>
       </div>
-    </div>
 
-    <!-- Closing -->
-    <div id="closing" class="inv-card mt-8 p-8 sm:p-10 text-center" data-aos="zoom-in">
-      <p class="font-philo text-[13px]" style="color:var(--inv); opacity:.7">Atas kehadiran saudara/(i) & Do'a restunya, kami ucapkan terimakasih</p>
-      <p class="font-philo text-[11px] tracking-[.14em] uppercase mt-6" style="color:var(--inv); opacity:.5">Hormat Kami</p>
-      <p class="font-title text-[28px] mt-1" style="color:var(--inv)" id="closing-title">—</p>
-    </div>
-
-    <!-- Footer invitation -->
-    <div class="text-center py-8" data-aos="fade-up">
-      <p class="font-philo italic text-[13px]" style="color:var(--inv); opacity:.55">Atas doa dan kehadiran Anda, kami ucapkan terima kasih.</p>
-      <p class="font-philo text-[11px] mt-3" style="color:var(--inv); opacity:.4">Ruang Resepsi • <span id="inv-couple-footer"></span></p>
-    </div>
+      <p style="text-align:center;font-size:12.5px;color:var(--faint);margin:26px 0 0">Ruang Resepsi • <span id="inv-couple-footer"></span></p>
     </div>
   </div>
-  <!-- bottom nav Mildness — muncul hanya saat invite terbuka -->
-  <nav id="inv-nav" class="inv-nav hidden">
-    <a href="#cover" title="Cover"><i class="bi bi-file-earmark-text"></i></a>
+  <nav id="inv-nav" class="hidden">
+    <a href="#cover" title="Cover"><i class="bi bi-envelope-open"></i></a>
     <a href="#detail" title="Mempelai"><i class="bi bi-heart"></i></a>
     <a href="#acara-wrap" title="Acara"><i class="bi bi-calendar-event"></i></a>
     <a href="#inv-mapframe" title="Peta"><i class="bi bi-geo-alt"></i></a>
@@ -429,109 +581,147 @@ html{ scroll-behavior:smooth; }
   </nav>
 </div>
 </section>
-<!-- ===== END INVITATION ===== -->
+<!-- ===== END UNDANGAN ===== -->
 
 <!-- ===== SETUP (STATE 1) ===== -->
 <section id="state-setup" class="hidden">
-  <div class="radial-wash">
-    <div class="max-w-[640px] mx-auto px-6 py-16">
-      <div class="text-center mb-8 reveal">
-        <div class="inline-flex items-center gap-2 bg-lavender-wash border border-iris-glow/60 rounded-full px-3 py-1 mb-5"><span class="w-2 h-2 rounded-full bg-violet-pulse dot-pulse"></span><span class="text-[11px] font-medium text-indigo-ink">✦ Mulai Kisah Baru</span></div>
-        <h1 class="font-serif font-light text-[40px] leading-none tracking-[-0.025em]">Buat ruang <span class="italic text-violet-pulse">resepsi</span> Anda</h1>
-        <p class="text-[15px] text-iron mt-3">Atur detail pernikahan sekali, lalu kirim undangan personal ke setiap tamu.</p>
-      </div>
-      <form id="setup-form" class="card-elevated p-6 sm:p-8 fade-in">
-        <div class="flex items-center justify-between mb-6"><h2 class="font-medium text-[18px]">Detail Mempelai</h2><span class="text-[10px] tracking-[0.06em] text-smoke bg-bone border border-ash rounded-full px-2.5 py-1">✦ Detail</span></div>
-                <div class="grid grid-cols-1 md:grid-cols-[210px_1fr] gap-6">
-          <!-- Kiri: slot foto prewed -->
-          <div class="flex flex-col">
-            <label class="text-[12px] font-medium text-slate block mb-2">Foto Prewed <span class="text-smoke">(opsional)</span></label>
-            <div id="setup-foto-drop" class="relative w-full aspect-square rounded-2xl border-2 border-dashed border-ash bg-bone flex flex-col items-center justify-center text-center p-3 overflow-hidden">
-              <img id="setup-foto-img" class="hidden absolute inset-0 w-full h-full object-cover rounded-2xl" alt="Preview foto">
-              <svg id="setup-foto-ph" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#92939e" stroke-width="1.5" class="mb-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-              <p id="setup-foto-hint" class="text-[11px] text-steel leading-snug px-1">Ketuk untuk<br>upload foto<br><span class="text-smoke">max 10MB, auto-kompres</span></p>
-              <input id="setup-foto" type="file" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+  <div style="padding:52px 0 88px">
+    <div class="narrow" style="max-width:760px">
+      <h2 class="sec reveal" style="margin:0 0 34px">Detail <em class="serif">mempelai.</em></h2>
+
+      <form id="setup-form" class="card-elevated">
+        <div class="panel-b">
+          <div class="grid2" style="gap:18px">
+            <div class="field">
+              <label class="field-label" for="setup-pria">Nama pria</label>
+              <input id="setup-pria" class="input-field" placeholder="Andi" required>
             </div>
-            <div id="setup-foto-preview" class="hidden mt-2 flex items-center gap-2 bg-bone border border-ash rounded-lg p-2">
-              <div class="flex-1 min-w-0"><p id="setup-foto-info" class="text-[11px] text-steel truncate"></p><p class="text-[10px] text-smoke">Hapus otomatis 7 hari</p></div>
-              <button type="button" id="setup-foto-remove" class="btn-secondary text-[11px] shrink-0">Hapus</button>
+            <div class="field">
+              <label class="field-label" for="setup-wanita">Nama wanita</label>
+              <input id="setup-wanita" class="input-field" placeholder="Sinta" required>
             </div>
-            <p class="text-[11px] text-smoke mt-2 leading-[1.5]">1 foto saja. Tanpa foto undangan tetap jalan — cover & hero otomatis gradient elegan.</p>
+            <div class="field">
+              <label class="field-label" for="setup-tanggal">Tanggal</label>
+              <input id="setup-tanggal" type="date" class="input-field" required>
+            </div>
+            <div class="field">
+              <label class="field-label" for="setup-jam">Jam</label>
+              <input id="setup-jam" type="time" class="input-field" required>
+            </div>
           </div>
-          <!-- Kanan: field detail mempelai -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Panggilan Pria <span class="text-violet-pulse">*</span></label><input id="setup-pria" class="input-field" placeholder="Contoh: Andi" required></div>
-            <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Panggilan Wanita <span class="text-violet-pulse">*</span></label><input id="setup-wanita" class="input-field" placeholder="Contoh: Sinta" required></div>
-            <div><label class="text-[12px] font-medium text-slate block mb-1.5">Tanggal Acara <span class="text-violet-pulse">*</span></label><input id="setup-tanggal" type="date" class="input-field" required></div>
-            <div><label class="text-[12px] font-medium text-slate block mb-1.5">Jam Acara <span class="text-violet-pulse">*</span></label><input id="setup-jam" type="time" class="input-field" required></div>
-            <div class="sm:col-span-2"><label class="text-[12px] font-medium text-slate block mb-1.5">Lokasi / Gedung <span class="text-violet-pulse">*</span></label><input id="setup-lokasi" class="input-field" placeholder="Contoh: Gedung Serbaguna Melati, Jakarta Selatan" required></div>
-            <div class="sm:col-span-2">
-              <label class="text-[12px] font-medium text-slate block mb-1.5">Link Google Maps <span class="text-violet-pulse">*</span></label>
-              <input id="setup-maps" class="input-field" placeholder="Tempel link Google Maps di sini, contoh: https://maps.app.goo.gl/xxxx" required inputmode="url">
-              <p class="text-[11px] text-smoke mt-1.5 leading-[1.5]"><span class="font-medium text-graphite">Cara ambil link:</span> buka Google Maps → cari lokasi → ketuk <span class="font-medium text-indigo-ink">Bagikan</span> → <span class="font-medium text-indigo-ink">Salin tautan</span> → tempel di sini.</p>
+          <div class="field">
+            <label class="field-label" for="setup-lokasi">Nama tempat</label>
+            <input id="setup-lokasi" class="input-field" placeholder="Gedung Melati, Jakarta Selatan" required>
+          </div>
+          <div class="field">
+            <label class="field-label" for="setup-maps">Link Google Maps</label>
+            <input id="setup-maps" class="input-field" placeholder="https://maps.app.goo.gl/xxxx" required inputmode="url">
+            <p class="hint">Bagikan → Salin tautan.</p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="panel-b">
+          <p class="group-note">Bagian ini opsional — boleh dikosongkan.</p>
+          <div class="field">
+            <label class="field-label" for="setup-acara">Susunan acara</label>
+            <textarea id="setup-acara" class="input-field" placeholder="Akad Nikah | 09:00&#10;Resepsi | 11:00"></textarea>
+          </div>
+          <div class="field">
+            <label class="field-label" for="setup-kisah">Kisah cinta</label>
+            <textarea id="setup-kisah" class="input-field" placeholder="Pertemuan Pertama | 2019&#10;Kami bertemu saat organisasi kampus..."></textarea>
+          </div>
+          <div class="field" style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:start">
+            <div>
+              <label class="field-label" for="setup-foto">Foto</label>
+              <div id="setup-foto-drop" class="drop-zone">
+                <img id="setup-foto-img" class="hidden" alt="Preview foto">
+                <svg id="setup-foto-ph" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(20,16,12,.52)" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                <p id="setup-foto-hint" style="margin:0;font-size:12px;color:var(--muted)">Ketuk untuk upload</p>
+                <input id="setup-foto" type="file" accept="image/*">
+              </div>
             </div>
-            <div class="sm:col-span-2">
-              <label class="text-[12px] font-medium text-slate block mb-1.5">Daftar Acara <span class="text-smoke">(opsional — isi manual)</span></label>
-              <textarea id="setup-acara" class="input-field resize-y min-h-[88px]" placeholder="Satu acara per baris. Format: Nama Acara | Jam&#10;Contoh:&#10;Akad Nikah | 09:00&#10;Resepsi | 11:00 - 14:00"></textarea>
-              <p class="text-[11px] text-smoke mt-1.5">Kosongkan bila tidak perlu — susunan acara tidak akan tampil ke tamu.</p>
-            </div>
-            <div class="sm:col-span-2">
-              <label class="text-[12px] font-medium text-slate block mb-1.5">Kisah Cinta <span class="text-smoke">(opsional)</span></label>
-              <textarea id="setup-kisah" class="input-field resize-y min-h-[100px]" placeholder="Satu cerita per baris. Format: Judul | Tgl&#10;Cerita di baris berikutnya.&#10;Contoh:&#10;Pertemuan Pertama | 2019&#10;Kami bertemu saat organisasi kampus..."></textarea>
-              <p class="text-[11px] text-smoke mt-1.5">Kosongkan bila tidak perlu — timeline tidak akan tampil.</p>
+            <div>
+              <div id="setup-foto-preview" class="hidden card" style="margin-top:12px;padding:10px;display:flex;align-items:center;gap:10px">
+                <p id="setup-foto-info" style="margin:0;flex:1;min-width:0;font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></p>
+                <button type="button" id="setup-foto-remove" class="btn-secondary" style="padding:7px 14px;font-size:12.5px">Hapus</button>
+              </div>
             </div>
           </div>
         </div>
-                <div class="divider my-6"></div>
-        <button type="submit" id="setup-submit" class="btn-primary w-full">Simpan & Lanjut ke Pengiriman</button>
-        <p id="setup-status" class="hidden text-center text-[11px] mt-2"></p>
-        <p class="text-center text-[11px] text-smoke mt-3">Hanya di perangkat ini — tetap privat dan aman.</p>
+
+        <div class="divider"></div>
+
+        <div class="panel-b" style="display:flex;align-items:center;justify-content:flex-end">
+          <button type="submit" id="setup-submit" class="btn-primary">Simpan &amp; Lanjut</button>
+        </div>
       </form>
+      <p id="setup-status" class="hidden" style="text-align:center;font-size:12.5px;margin-top:12px"></p>
     </div>
   </div>
 </section>
 
 <!-- ===== SENDER (STATE 2) ===== -->
 <section id="state-sender" class="hidden">
-  <div class="radial-wash min-h-screen">
-    <div class="max-w-[860px] mx-auto px-6 py-10">
-      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+  <div class="dash">
+    <div class="wrap">
+      <div class="dash-head">
         <div>
-          <div class="flex items-center gap-2 mb-2"><span class="badge bg-ledger-green/10 text-ledger-green border border-ledger-green/15 rounded-full px-3 py-1 text-[11px] font-medium">✦ Siap Mengundang</span></div>
-          <h1 class="text-[24px] font-light">Dashboard <span class="font-medium" id="sender-couple"></span></h1>
-          <p class="text-[13px] text-steel mt-1" id="sender-meta"></p>
+          <span class="eyebrow">Pengiriman Undangan</span>
+          <h2><span id="sender-couple"></span></h2>
+          <p id="sender-meta" style="margin:10px 0 0;font-size:13.5px;color:var(--muted)"></p>
         </div>
-        <button id="btn-edit" class="btn-secondary text-[13px]">Edit Data Mempelai</button>
-        <button onclick="exportCSV()" class="btn-secondary text-[13px]">📄 Export Tamu (CSV)</button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button id="btn-edit" class="btn-secondary" style="padding:11px 20px;font-size:13.5px">Edit Data Mempelai</button>
+          <button onclick="exportCSV()" class="btn-secondary" style="padding:11px 20px;font-size:13.5px">Export Tamu (CSV)</button>
+        </div>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6">
-        <form id="sender-form" class="card-elevated p-6">
-          <div class="flex items-center gap-2 mb-1"><div class="w-7 h-7 rounded-full bg-violet-pulse flex items-center justify-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M22 16.5a3 3 0 0 1-3 3H9l-4 4v-16a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3v9Z"/></svg></div><h2 class="font-medium text-[16px]">Kirim Undangan Personal</h2></div>
-          <p class="text-[13px] text-steel mb-5">Setiap tamu mendapat link unik dengan namanya. Loop tanpa reload.</p>
-          <div><label class="text-[12px] font-medium text-slate block mb-1.5">Nama Tamu <span class="text-violet-pulse">*</span></label><input id="sender-nama" class="input-field" placeholder="Contoh: Bapak Budi & Keluarga" required></div>
-          <div class="mt-4"><label class="text-[12px] font-medium text-slate block mb-1.5">Nomor WhatsApp <span class="text-violet-pulse">*</span></label><div class="flex gap-2"><span class="inline-flex items-center px-3 bg-bone border border-ash rounded-lg text-[13px] text-steel shrink-0 select-none">+62</span><input id="sender-wa" class="input-field" inputmode="numeric" placeholder="8123456789" required pattern="^8[0-9]{7,12}$" maxlength="13"></div><p class="text-[11px] text-smoke mt-1">Tulis mulai angka 8, tanpa 0 / 62. Contoh: 8123456789 → jadi +62 8123456789</p></div>
-          <div id="sender-short-wrap" class="hidden mt-4 bg-lavender-wash border border-iris-glow rounded-lg p-3"><p class="text-[11px] uppercase tracking-wide text-indigo-ink mb-1 font-medium">Link Pendek Undangan</p><a id="sender-short" href="#" target="_blank" class="font-mono text-[11px] text-indigo-ink break-all underline"></a><p class="text-[11px] text-steel mt-1">Link & foto auto-hapus 7 hari. Sebelum 7 hari tetap bisa dibuka.</p></div>
-          <div id="preview-wrap" class="hidden mt-4 bg-bone border border-ash rounded-lg p-3"><p class="text-[11px] uppercase tracking-wide text-steel mb-1.5 font-medium">Pratinjau Link Tamu</p><p id="preview-url" class="font-mono text-[11px] text-indigo-ink break-all"></p></div>
-          <button type="submit" class="btn-primary w-full mt-6">Kirim via WhatsApp</button>
-          <div id="sender-toast" class="hidden mt-4 bg-ledger-green/10 border border-ledger-green/20 rounded-lg p-3 text-[12px] text-ledger-green">Terkirim! Link untuk <span id="toast-nama" class="font-medium"></span> sudah dibuat. Lanjut tamu berikutnya.</div>
-        </form>
-        <div class="space-y-4">
-          <div class="card p-5">
-            <h3 class="text-[13px] font-medium mb-3">Peta & Lokasi</h3>
-            <iframe id="snd-map" title="Peta" src="about:blank" class="w-full h-[220px] rounded-lg border border-ash" loading="lazy"></iframe>
-          </div>
-          <div class="card p-5">
-            <h3 class="text-[13px] font-medium mb-3">Rekap Kehadiran (Catatan Lokal)</h3>
-            <div class="flex gap-3">
-              <div class="flex-1 bg-bone border border-ash rounded-lg p-3 text-center"><p class="text-[22px] font-light text-ledger-green" id="stat-hadir">0</p><p class="text-[10px] uppercase text-steel">Hadir</p></div>
-              <div class="flex-1 bg-bone border border-ash rounded-lg p-3 text-center"><p class="text-[22px] font-light text-steel" id="stat-tidak">0</p><p class="text-[10px] uppercase text-steel">Tidak</p></div>
-              <div class="flex-1 bg-bone border border-ash rounded-lg p-3 text-center"><p class="text-[22px] font-light text-steel" id="stat-ragu">0</p><p class="text-[10px] uppercase text-steel">Ragu</p></div>
+
+      <div class="stats">
+        <div><span>Hadir</span><b class="tnum" id="stat-hadir">0</b></div>
+        <div><span>Tidak hadir</span><b class="tnum" id="stat-tidak">0</b></div>
+        <div><span>Ragu</span><b class="tnum" id="stat-ragu">0</b></div>
+      </div>
+
+      <div class="dash-grid">
+        <form id="sender-form" class="card-elevated">
+          <div class="panel-h"><h3>Kirim undangan personal</h3></div>
+          <div class="panel-b">
+            <div class="field">
+              <label class="field-label" for="sender-nama">Nama tamu</label>
+              <input id="sender-nama" class="input-field" placeholder="Contoh: Bapak Budi & Keluarga" required>
             </div>
-            <p class="text-[11px] text-smoke mt-3">Catatan ini tersimpan di perangkat pengirim (browser ini) — bukan konfirmasi dari tamu. Tiap tamu membuka undangan lewat WA tidak mengirim RSVP ke sini.</p>
+            <div class="field">
+              <label class="field-label" for="sender-wa">Nomor WhatsApp</label>
+              <div class="input-row"><span class="pre">+62</span><input id="sender-wa" class="input-field" inputmode="numeric" placeholder="8123456789" required pattern="^8[0-9]{7,12}$" maxlength="13"></div>
+              <p class="hint">Tanpa 0 / 62.</p>
+            </div>
+            <div id="sender-short-wrap" class="hidden field">
+              <label class="field-label">Tautan pendek undangan</label>
+              <div class="link-box" style="border-style:solid;background:var(--accent-soft);border-color:transparent">
+                <a id="sender-short" href="#" target="_blank" style="color:var(--accent-ink);text-decoration:underline"></a>
+              </div>
+            </div>
+            <div id="preview-wrap" class="hidden field">
+              <label class="field-label">Pratinjau tautan tamu</label>
+              <div class="link-box"><p id="preview-url" style="margin:0"></p></div>
+            </div>
+            <button type="submit" class="btn-primary" style="width:100%;margin-top:22px">Kirim via WhatsApp</button>
+            <div id="sender-toast" class="hidden toast" style="margin-top:16px">Terkirim! Tautan untuk <span id="toast-nama" style="font-weight:600"></span> sudah dibuat. Lanjut tamu berikutnya.</div>
           </div>
-          <div class="card p-5">
-            <h3 class="text-[13px] font-medium mb-3">Terkirim Baru-baru ini</h3>
-            <div id="recent-items" class="space-y-2"></div>
+        </form>
+
+        <div>
+          <div class="card-elevated">
+            <div class="panel-h"><h3>Peta &amp; lokasi</h3></div>
+            <div style="padding:0">
+              <iframe id="snd-map" title="Peta" src="about:blank" style="width:100%;height:220px;display:block" loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="card-elevated" style="margin-top:18px">
+            <div class="panel-h"><h3>Terkirim baru-baru ini</h3></div>
+            <div class="panel-b" id="recent-items"></div>
           </div>
         </div>
       </div>
@@ -539,10 +729,21 @@ html{ scroll-behavior:smooth; }
   </div>
 </section>
 
-<footer class="border-t border-ash bg-white">
-  <div class="max-w-[1200px] mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-    <p class="text-[12px] text-steel">© Ruang Resepsi — Merangkai momen bahagia menjadi kenangan abadi.</p>
-    <p class="font-mono text-[11px] text-smoke">Sequence editorial • Violet Pulse #a565ff</p>
+<footer class="site">
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a class="brand" href="#beranda"><span class="mark">RR</span> Ruang Resepsi</a>
+        <p>Undangan pernikahan digital.</p>
+      </div>
+      <div>
+        <h4>Undangan</h4>
+        <a href="#beranda">Buat baru</a><a href="#contoh-undangan">Contoh live</a><a href="#cara-kerja">Cara kerja</a>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© Ruang Resepsi</span>
+    </div>
   </div>
 </footer>
 
@@ -580,7 +781,7 @@ async function handleFotoFile(file){
   if(file.size>10*1024*1024){ alert('File terlalu besar, max 10MB.'); return; }
   var st=document.getElementById('setup-status'), pv=document.getElementById('setup-foto-preview'), img=document.getElementById('setup-foto-img'), info=document.getElementById('setup-foto-info');
   try{
-    if(st){ st.classList.remove('hidden'); st.className='text-center text-[11px] mt-2 text-steel'; st.textContent='Mengompres foto...'; }
+    if(st){ st.classList.remove('hidden'); st.className='status-note'; st.textContent='Mengompres foto...'; }
     // Balanced (A): maks 300KB dataURL (~220KB file). Resolusi tinggi biar tajam di full-bleed.
     var MAX=300000;
     // ukuran asli; lewati kompresi jika sudah cukup kecil? tetap normalisasi ke <=1500px
@@ -588,7 +789,7 @@ async function handleFotoFile(file){
     if(!out){ alert('Foto terlalu kompleks untuk dikompres di bawah 220KB. Coba foto yang lebih sederhana.'); if(st) st.classList.add('hidden'); return; }
     _fotoDataUrl=out; _fotoPendingInfo=file.name+' • '+(out.length>1024?Math.round(out.length/1024)+'KB':out.length+'B')+' (auto-kompres)';
     if(img){ img.src=out; img.classList.remove('hidden'); } var _ph=document.getElementById('setup-foto-ph'); if(_ph) _ph.classList.add('hidden'); var _hint=document.getElementById('setup-foto-hint'); if(_hint) _hint.classList.add('hidden'); if(info) info.textContent=_fotoPendingInfo; if(pv) pv.classList.remove('hidden');
-    if(st){ st.classList.remove('hidden'); st.className='text-center text-[11px] mt-2 text-ledger-green'; st.textContent='Foto siap — tajam & ringan, disimpan 7 hari di server'; setTimeout(function(){ st.classList.add('hidden'); },3000); }
+    if(st){ st.classList.remove('hidden'); st.className='status-note ok'; st.textContent='Foto siap — tajam & ringan, disimpan 7 hari di server'; setTimeout(function(){ st.classList.add('hidden'); },3000); }
   }catch(e){ console.warn(e); alert('Gagal memproses foto. Coba file lain.'); if(st) st.classList.add('hidden'); }
 }
 // Kompresi adaptif: mulai resolusi tinggi + kualitas mantap, turunkan quality bertahap (jaga resolusi),
@@ -614,7 +815,7 @@ async function compressAdaptive(file, maxLen){
 (function(){
   var inp=document.getElementById('setup-foto'), rm=document.getElementById('setup-foto-remove');
   if(inp) inp.addEventListener('change',function(){ var f=this.files&&this.files[0]; if(f) handleFotoFile(f); });
-  if(rm) rm.addEventListener('click',function(){ _fotoDataUrl=null; _fotoPendingInfo=''; var pv=document.getElementById('setup-foto-preview'); if(pv) pv.classList.add('hidden'); var i=document.getElementById('setup-foto'); if(i) i.value=''; var im=document.getElementById('setup-foto-img'); if(im){ im.classList.add('hidden'); im.src=''; } var ph=document.getElementById('setup-foto-ph'); if(ph) ph.classList.remove('hidden'); var hn=document.getElementById('setup-foto-hint'); if(hn) hn.classList.remove('hidden'); var st=document.getElementById('setup-status'); if(st){ st.className='text-center text-[11px] mt-2 text-steel'; st.textContent='Foto dihapus'; st.classList.remove('hidden'); setTimeout(function(){ st.classList.add('hidden'); },1500); }});
+  if(rm) rm.addEventListener('click',function(){ _fotoDataUrl=null; _fotoPendingInfo=''; var pv=document.getElementById('setup-foto-preview'); if(pv) pv.classList.add('hidden'); var i=document.getElementById('setup-foto'); if(i) i.value=''; var im=document.getElementById('setup-foto-img'); if(im){ im.classList.add('hidden'); im.src=''; } var ph=document.getElementById('setup-foto-ph'); if(ph) ph.classList.remove('hidden'); var hn=document.getElementById('setup-foto-hint'); if(hn) hn.classList.remove('hidden'); var st=document.getElementById('setup-status'); if(st){ st.className='status-note'; st.textContent='Foto dihapus'; st.classList.remove('hidden'); setTimeout(function(){ st.classList.add('hidden'); },1500); }});
 })();
 function getShortIdFromPath(){ var m=location.pathname.match(/\/u\/([A-Za-z0-9]{4,16})/); return m?m[1]:''; }
 function buildGuestShortUrl(nama, shortId){ var sid=shortId || (loadData()&&loadData().id) || getShortIdFromPath(); if(!sid) return buildGuestUrl(nama); return location.origin+'/u/'+sid+'?tamu='+encodeURIComponent(b64enc(nama)); }
@@ -761,9 +962,9 @@ function renderAcara(acara){
     var parts=line.split('|').map(function(s){return s.trim();});
     var nama=parts[0]||'', jam=parts[1]||'';
     var mapsLink = (_invData&&_invData.maps&&/^https?:\/\//.test(_invData.maps)) ? _invData.maps : '#';
-    var showBtn = mapsLink!=='#' ? '<a href="'+esc(mapsLink)+'" target="_blank" class="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[11px] font-medium mt-2" style="background:var(--inv); color:#fff"><i class="bi bi-geo-alt"></i> Navigasi Map</a>' : '';
-    var sep = idx < lines.length-1 ? '<div class="my-5" style="border-bottom:1px dashed var(--inv); opacity:.35"></div>' : '';
-    return '<div class="text-center" data-aos="fade-up"><div class="font-philo font-bold text-[14px]" style="color:var(--inv)">'+esc(nama)+'</div>'+(jam?'<div class="font-philo text-[12px] mt-1" style="color:var(--inv); opacity:.6">'+esc(jam)+'</div>':'')+showBtn+'</div>'+sep;
+    var showBtn = mapsLink!=='#' ? '<a href="'+esc(mapsLink)+'" target="_blank" class="acara-map"><i class="bi bi-geo-alt"></i> Navigasi</a>' : '';
+    var sep = idx < lines.length-1 ? '<div class="acara-sep"></div>' : '';
+    return '<div class="acara-row" data-aos="fade-up"><div class="acara-nama">'+esc(nama)+'</div>'+(jam?'<div class="acara-jam">'+esc(jam)+'</div>':'')+showBtn+'</div>'+sep;
   }).join('');
   wrap.classList.remove('hidden');
 }
@@ -780,7 +981,7 @@ function renderKisah(kisah){
     var head=lines[0]||''; var parts=head.split('|').map(function(x){return x.trim();});
     var judul=parts[0]||'', tgl=parts[1]||'';
     var cerita=lines.slice(1).join(' ');
-    html+='<div class="relative pl-10" data-aos="fade-up"><span class="absolute left-[3px] top-1 w-8 h-8 rounded-full flex items-center justify-center" style="background:var(--inv); color:#fff"><i class="bi bi-heart" style="font-size:12px"></i></span><div class="kisah-card p-4"><div class="font-philo font-bold text-[14px]" style="color:var(--inv)">'+esc(judul)+(tgl?' <span class="font-normal text-[11px] opacity-60" style="color:var(--inv)">• '+esc(tgl)+'</span>':'')+'</div>'+(cerita?'<p class="font-philo text-[12px] mt-2 leading-relaxed" style="color:var(--inv); opacity:.65">'+esc(cerita)+'</p>':'')+'</div></div>';
+    html+='<div class="kisah-row" data-aos="fade-up"><span class="kisah-dot"><i class="bi bi-heart"></i></span><div class="kisah-card"><div class="jt">'+esc(judul)+(tgl?' <span>• '+esc(tgl)+'</span>':'')+'</div>'+(cerita?'<p>'+esc(cerita)+'</p>':'')+'</div></div>';
   });
   items.innerHTML=html;
   wrap.classList.remove('hidden');
@@ -830,7 +1031,7 @@ document.getElementById('setup-form').addEventListener('submit',async function(e
   if(_fotoDataUrl && _fotoDataUrl.length>300000){ alert('Foto masih kebesaran setelah kompres. Coba foto lain.'); return; }
   var payload={...data}; if(_fotoDataUrl) payload.fotoDataUrl=_fotoDataUrl;
   if(btn){ btn.disabled=true; btn.textContent='Menyimpan...'; }
-  if(st){ st.classList.remove('hidden'); st.className='text-center text-[11px] mt-2 text-steel'; st.textContent=_fotoDataUrl?'Mengupload foto & membuat link pendek...':'Membuat link pendek...'; }
+  if(st){ st.classList.remove('hidden'); st.className='status-note'; st.textContent=_fotoDataUrl?'Mengupload foto & membuat link pendek...':'Membuat link pendek...'; }
   try{
     var r=await fetch('/api/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     var j=await r.json().catch(function(){return {}});
@@ -838,7 +1039,7 @@ document.getElementById('setup-form').addEventListener('submit',async function(e
     var bundle={...data, id:j.id, shortUrl:j.shortUrl, fotoUrl:j.fotoUrl||null, fotoPath:null, createdAt:j.createdAt, expiresAt:j.expiresAt};
     saveData(bundle);
     // juga simpan fotoDataUrl lokal buat preview cepat (opsional, bukan sumber kebenaran)
-    if(st){ st.className='text-center text-[11px] mt-2 text-ledger-green'; st.textContent='Tersimpan! Link: '+j.shortUrl+' — kadaluarsa '+(j.expiresAt?new Date(j.expiresAt).toLocaleDateString('id-ID'):'7 hari'); }
+    if(st){ st.className='status-note ok'; st.textContent='Tersimpan! Link: '+j.shortUrl+' — kadaluarsa '+(j.expiresAt?new Date(j.expiresAt).toLocaleDateString('id-ID'):'7 hari'); }
     document.getElementById('state-setup').classList.add('hidden'); document.getElementById('state-sender').classList.remove('hidden'); renderSender(bundle);
   }catch(err){
     console.warn(err);
@@ -847,7 +1048,7 @@ document.getElementById('setup-form').addEventListener('submit',async function(e
       if(_fotoDataUrl) data.fotoUrl=_fotoDataUrl;
       saveData(data); document.getElementById('state-setup').classList.add('hidden'); document.getElementById('state-sender').classList.remove('hidden'); renderSender(data);
     } else {
-      if(st){ st.className='text-center text-[11px] mt-2 text-red-500'; st.textContent=String(err.message||err); }
+      if(st){ st.className='status-note err'; st.textContent=String(err.message||err); }
     }
   }finally{ if(btn){ btn.disabled=false; btn.textContent='Simpan & Lanjut ke Pengiriman'; } }
 });
@@ -883,7 +1084,7 @@ document.getElementById('sender-form').addEventListener('submit',function(e){
   document.getElementById('toast-nama').textContent=nama; var t=document.getElementById('sender-toast'); t.classList.remove('hidden'); setTimeout(function(){t.classList.add('hidden');},4000);
   senderNama.value=''; senderWA.value=''; document.getElementById('preview-wrap').classList.add('hidden'); senderNama.focus();
 });
-function renderRecent(){ var list=JSON.parse(localStorage.getItem(RECENT_KEY)||'[]'); var c=document.getElementById('recent-items'); if(!list.length){c.innerHTML='<p class="text-[12px] text-smoke">Belum ada tamu dikirim.</p>';return;} c.innerHTML=list.slice(0,4).map(function(r){return '<div class="flex items-center justify-between bg-bone border border-ash rounded-lg px-3 py-2"><div><p class="text-[13px] font-medium">'+esc(r.nama)+'</p><p class="font-mono text-[11px] text-steel">'+esc(r.wa)+'</p></div><a href="'+esc(r.link)+'" target="_blank" class="text-[11px] font-medium text-indigo-ink hover:underline">Lihat →</a></div>';}).join(''); }
+function renderRecent(){ var list=JSON.parse(localStorage.getItem(RECENT_KEY)||'[]'); var c=document.getElementById('recent-items'); if(!list.length){c.innerHTML='<p class="recent-empty">Belum ada tamu dikirim.</p>';return;} c.innerHTML=list.slice(0,4).map(function(r){return '<div class="recent-row"><div><p class="recent-nama">'+esc(r.nama)+'</p><p class="recent-wa">'+esc(r.wa)+'</p></div><a href="'+esc(r.link)+'" target="_blank" class="recent-link">Lihat →</a></div>';}).join(''); }
 document.getElementById('btn-edit').addEventListener('click',function(){ if(confirm('Edit data mempelai? Data saat ini akan dihapus dan kembali ke form setup.')){ localStorage.removeItem(LS_KEY); document.getElementById('state-sender').classList.add('hidden'); document.getElementById('state-setup').classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); } });
 
 // ===== Landing helpers =====
@@ -911,7 +1112,5 @@ showState();
 window.addEventListener('popstate',showState);
 window.addEventListener('load',function(){ setTimeout(observeReveals,100); setTimeout(triggerVisible,200); });
 </script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>try{AOS.init({duration:700, once:true, offset:60});}catch(_){}</script>
 </body>
 </html>
