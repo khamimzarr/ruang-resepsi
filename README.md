@@ -15,7 +15,7 @@ index.html       # FE: landing + setup + sender + invitation (cover + foto hero 
 api/
   create.js      # POST /api/create → gen 6-char id, Blob prewed/<id>.jpg + invites/<id>.json (expiresAt +7 hari)
   invite.js      # GET /api/invite?id= → 200 sebelum 7 hari, 410 expired setelahnya + best-effort del
-  cleanup.js     # GET /api/cleanup → cron 03:00 WIB, sapu invites yang lewat expiresAt
+  cleanup.js     # GET /api/cleanup → cron 03:00 WIB (0 20 * * * UTC), sapu invites yang lewat expiresAt
 vercel.json      # cleanUrls + rewrites /u/:id → / + crons
 package.json     # @vercel/blob
 og-image.png     # 1200×630 thumbnail WA
@@ -68,7 +68,7 @@ Tanpa amplop digital (dihapus — kurang etis, commit `06343da`).
 
 - **Setup:** `<input id="setup-foto" type="file" accept="image/*">` + preview `72px` → `compressImage(900, 0.6)` ~40KB (fallback `700/0.55` jika >70KB, tolak >140KB), max asli `10MB`
 - **BE:** `POST /api/create { pria,wanita,tanggal,jam,lokasi,maps,acara, fotoDataUrl }` → `put(prewed/<id>.jpg)` + `put(invites/<id>.json { expiresAt: +7 hari })` → `{ id, shortUrl, expiresAt, fotoUrl }`
-- **Expire:** `GET /api/invite?id=` cek `expiresAt` — sebelum `200` + foto, lewat `410 {expired:true}` + `#expired-wrap`, `cleanup.js` cron `0 3 * * *`
+- **Expire:** `GET /api/invite?id=` cek `expiresAt` — sebelum `200` + foto, lewat `410 {expired:true}` + `#expired-wrap`, `cleanup.js` cron `0 20 * * *` (UTC → 03:00 WIB)
 
 ---
 
