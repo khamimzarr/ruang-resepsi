@@ -159,9 +159,9 @@ curl -s https://ruang-resepsi.vercel.app/api/cleanup | head -c 500
 
 `vercel.json`:
 ```json
-{"cleanUrls":true,"rewrites":[{"source":"/u/:id","destination":"/"}],"crons":[{"path":"/api/cleanup","schedule":"0 3 * * *"}]}
+{"cleanUrls":true,"rewrites":[{"source":"/u/:id","destination":"/"}],"crons":[{"path":"/api/cleanup","schedule":"0 20 * * *"}]}
 ```
-`api/*`: `create.js` (POST + Blob `prewed/` + `invites/` + `expiresAt +7 hari`), `invite.js` (GET + 410), `cleanup.js` (cron 03:00).
+`api/*`: `create.js` (POST + Blob `prewed/` + `invites/` + `expiresAt +7 hari`), `invite.js` (GET + 410), `cleanup.js` (cron `0 20 * * *` UTC = 03:00 WIB).
 
 ---
 
