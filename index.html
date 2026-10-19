@@ -85,11 +85,7 @@ iframe{border:0}
 .btn-inv:hover{background:#2b241d;transform:translateY(-1px)}
 .btn-primary:focus-visible,.btn-secondary:focus-visible,.btn-inv:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
-/* ---------- announcement + nav ---------- */
-#announcement{background:var(--dark);color:#fff;font-size:13.5px}
-.ann-inner{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;justify-content:center;padding:9px 24px;text-align:center}
-.ann-inner b{font-weight:600}
-.ann-link{border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:1px;cursor:pointer;font-weight:500;white-space:nowrap}
+/* ---------- nav ---------- */
 nav.site{position:sticky;top:0;z-index:40;background:rgba(251,250,248,.88);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--hair)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:64px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;letter-spacing:-.01em}
@@ -106,17 +102,12 @@ nav.site{position:sticky;top:0;z-index:40;background:rgba(251,250,248,.88);backd
 
 /* ---------- hero + landing ---------- */
 #beranda{padding:72px 0 84px;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);gap:56px;align-items:start}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:0;align-items:start}
 h1.display{margin:14px 0 0;font-size:clamp(42px,7.2vw,76px);line-height:.94;font-weight:700;letter-spacing:-.035em;text-wrap:balance}
-.hero-copy{padding-top:26px}
-.hero-copy p{font-size:17px;color:var(--muted);margin:0 0 26px;max-width:42ch;line-height:1.55}
-.hero-actions{display:flex;flex-wrap:wrap;gap:10px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
 .specimen{margin-top:64px;border:1px solid var(--hair);border-radius:var(--r-rect);background:var(--surface);overflow:hidden}
-.specimen-bar{display:flex;align-items:center;gap:10px;padding:11px 18px;border-bottom:1px solid var(--hair);background:var(--tint)}
-.specimen-bar .dot{width:8px;height:8px;border-radius:50%;background:var(--hair-strong)}
-.specimen-bar .addr{margin-left:6px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .pill-tag{margin-left:auto;font-size:10.5px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent-soft);border-radius:var(--r-rect);padding:4px 9px}
-.specimen-body{padding:34px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0;align-items:stretch}
+.specimen-body{padding:38px 34px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0;align-items:stretch}
 .specimen-cta{display:grid;place-items:center;border-left:1px solid var(--hair);padding-left:38px;margin-left:38px}
 .specimen-body h3{margin:0;font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.05}
 .specimen-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:20px;border-top:1px solid var(--hair)}
@@ -131,18 +122,19 @@ section.band{padding:80px 0;border-top:1px solid var(--hair);scroll-margin-top:6
 .sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:end;margin-bottom:44px}
 h2.sec{margin:12px 0 0;font-size:clamp(30px,4.4vw,52px);line-height:1;font-weight:600;letter-spacing:-.03em}
 .sec-lead{margin:0;color:var(--muted);font-size:16px;max-width:46ch;line-height:1.6}
-.steps{border-top:1px solid var(--hair)}
-.step{display:grid;grid-template-columns:76px minmax(0,1fr) minmax(0,1.1fr) 120px;gap:28px;align-items:start;padding:28px 0;border-bottom:1px solid var(--hair);transition:background .3s}
+.steps{max-width:820px;border-top:1px solid var(--hair)}
+.step{display:grid;grid-template-columns:76px minmax(0,1fr);gap:28px;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--hair);transition:background .3s}
 .step:hover{background:var(--tint)}
 .step .n{font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--faint);padding-top:6px;font-variant-numeric:tabular-nums}
 .step h3{margin:0;font-size:23px;font-weight:600;letter-spacing:-.02em;line-height:1.15}
-.step p{margin:0;color:var(--muted);font-size:15px;line-height:1.55}
-.step .go{justify-self:end;font-size:13.5px;color:var(--muted);padding-top:6px;white-space:nowrap}
-.step .go:hover{color:var(--ink)}
 .demo-frame{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
 .demo-card{max-width:440px;border:1px solid var(--hair);border-radius:var(--r-rect);background:var(--surface);overflow:hidden;box-shadow:0 24px 60px -28px rgba(20,16,12,.28)}
-.demo-card .top{height:186px;background:radial-gradient(120% 90% at 78% 10%,var(--accent-soft) 0%,transparent 60%),linear-gradient(160deg,var(--accent) 0%,var(--accent-deep) 100%);display:grid;place-items:center}
-.demo-card .top span{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.demo-card .top{position:relative;overflow:hidden;height:186px;background:radial-gradient(120% 90% at 78% 10%,var(--accent-soft) 0%,transparent 60%),linear-gradient(160deg,var(--accent) 0%,var(--accent-deep) 100%);display:grid;place-items:center}
+.demo-card .top .sheen{position:absolute;top:-60%;left:-40%;width:60%;height:220%;
+  background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.42) 45%,rgba(255,255,255,0) 100%);
+  transform:rotate(8deg);animation:sheenSweep 6.5s cubic-bezier(.45,.05,.55,.95) infinite;pointer-events:none}
+@keyframes sheenSweep{0%{left:-60%}55%{left:110%}100%{left:110%}}
+.demo-card .top span:not(.sheen){position:relative;z-index:1;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.75)}
 .demo-card .body{padding:26px 24px 28px;text-align:center}
 .demo-names{margin:12px 0 4px;font-size:30px;font-weight:600;letter-spacing:-.025em;line-height:1.06}
 .demo-date{font-size:13px;color:var(--muted)}
@@ -182,7 +174,6 @@ textarea.input-field{min-height:104px;resize:vertical;line-height:1.6}
 .status-note.ok{color:#3d6b2f}
 .status-note.err{color:#b3261e}
 .recent-empty{margin:0;font-size:12.5px;color:var(--faint)}
-.group-note{margin:0 0 20px;font-size:12.5px;color:var(--faint);letter-spacing:.01em}
 .input-row{display:flex;align-items:stretch}
 .input-row .pre{border:1px solid var(--hair);border-right:0;border-radius:var(--r-rect) 0 0 var(--r-rect);padding:12px;font-size:14px;color:var(--muted);background:var(--tint);font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;flex-shrink:0}
 .input-row .input-field{border-radius:0 var(--r-rect) var(--r-rect) 0}
@@ -213,13 +204,13 @@ textarea.input-field{min-height:104px;resize:vertical;line-height:1.6}
 
 /* ---------- footer ---------- */
 footer.site{background:var(--dark);color:#fff}
-footer.site .wrap{padding-top:52px;padding-bottom:38px}
-.f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px}
+footer.site .wrap{padding-top:64px;padding-bottom:60px}
+.f-grid{display:grid;grid-template-columns:1fr;gap:0}
 .f-grid h4{margin:0 0 14px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5)}
 .f-grid a{display:block;font-size:14px;color:rgba(255,255,255,.82);padding:5px 0}
 .f-grid a:hover{color:#fff}
 .f-brand p{color:rgba(255,255,255,.6);font-size:13.5px;max-width:30ch;margin:12px 0 0}
-.f-bottom{margin-top:42px;padding-top:20px;border-top:1px solid rgba(255,255,255,.16);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:12.5px;color:rgba(255,255,255,.55)}
+/* .f-bottom dihapus bersama copyright */
 .f-brand .brand{color:#fff}
 .f-brand .mark{background:#fff;color:var(--dark)}
 
@@ -249,7 +240,7 @@ footer.site .wrap{padding-top:52px;padding-bottom:38px}
 .inv-sheet{max-width:600px;margin:0 auto;padding:56px 20px 96px}
 .inv-card{border:1px solid var(--hair);border-radius:var(--r-rect);background:var(--surface);padding:28px}
 .inv-card + .inv-card{margin-top:18px}
-.inv-card .inv-title{margin:0;font-size:19px;font-weight:600;letter-spacing:-.02em;color:var(--inv)}
+.inv-card .inv-title{margin:0;font-size:19px;font-weight:600;letter-spacing:-.02em;color:var(--inv);text-align:center}
 .inv-card .inv-sub{margin:4px 0 0;font-size:13px;color:var(--muted)}
 .inv-quote{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:21px;line-height:1.5;margin:0;color:var(--inv)}
 .inv-hero{position:relative;height:340px;background-size:cover;background-position:center}
@@ -326,6 +317,7 @@ footer.site .wrap{padding-top:52px;padding-bottom:38px}
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
   .reveal{opacity:1 !important;transform:none !important}
   .cover-bleed-bg.kenburns{animation:none}
+  .demo-card .top .sheen{animation:none;opacity:0}
 }
 .float-card{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 .float-card:hover{transform:translateY(-4px)}
@@ -337,9 +329,7 @@ footer.site .wrap{padding-top:52px;padding-bottom:38px}
   .split{grid-template-columns:1fr}
   .split > div + div{border-left:0;border-top:1px solid var(--hair)}
   .step{grid-template-columns:44px minmax(0,1fr);gap:14px}
-  .step p,.step .go{grid-column:2}
-  .step .go{justify-self:start}
-  .f-grid{grid-template-columns:1fr 1fr}
+  .f-grid{grid-template-columns:1fr}
   .nav-links{display:none}
 }
 @media (max-width:640px){
@@ -366,12 +356,6 @@ footer.site .wrap{padding-top:52px;padding-bottom:38px}
 
 <!-- ===== LANDING ===== -->
 <div id="landing" class="hidden">
-<div id="announcement">
-  <div class="ann-inner">
-    <p style="margin:0">Gratis, tanpa daftar · tautan aktif 7 hari</p>
-  </div>
-</div>
-
 <nav class="site">
   <div class="wrap nav-inner">
     <a class="brand" href="#beranda"><span class="mark">RR</span> Ruang Resepsi</a>
@@ -390,20 +374,11 @@ footer.site .wrap{padding-top:52px;padding-bottom:38px}
       <div>
         <span class="eyebrow reveal">Undangan Digital Pernikahan</span>
         <h1 class="display reveal d1">Satu tautan untuk hari yang <em class="serif">bahagia.</em></h1>
-      </div>
-      <div class="hero-copy reveal d2">
-        <p>Kirim lewat WhatsApp, tanpa aplikasi. Nama tamu otomatis masuk.</p>
-        <div class="hero-actions">
-          <button class="btn-primary" onclick="scrollToSetup()">Buat Undangan</button>
-        </div>
+        <div class="hero-actions reveal d2"><button class="btn-primary" onclick="scrollToSetup()">Buat Undangan</button></div>
       </div>
     </div>
 
     <div class="specimen reveal">
-      <div class="specimen-bar">
-        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-        <span class="addr">ruang-resepsi.vercel.app/u/Contoh7</span>
-      </div>
       <div class="specimen-body">
         <div>
           <h3>Andi &amp; Sinta</h3>
@@ -426,17 +401,14 @@ footer.site .wrap{padding-top:52px;padding-bottom:38px}
       <div class="step">
         <span class="n">01</span>
         <h3>Isi detail mempelai</h3>
-        <p>Nama, tanggal, jam, tempat, dan link Maps. Foto opsional.</p>
       </div>
       <div class="step">
         <span class="n">02</span>
         <h3>Dapat tautan pendek</h3>
-        <p>Kode 6 karakter, misal <b>/u/Contoh7</b>.</p>
       </div>
       <div class="step">
         <span class="n">03</span>
         <h3>Kirim per tamu</h3>
-        <p>Nama dan nomor WhatsApp — tautan personalnya jadi sendiri.</p>
       </div>
     </div>
   </div>
@@ -453,7 +425,7 @@ footer.site .wrap{padding-top:52px;padding-bottom:38px}
       </div>
       <div class="demo-card float-card reveal d1">
         <div class="shimmer" style="height:3px;width:100%"></div>
-        <div class="top"><span>Foto prewed</span></div>
+        <div class="top"><span>Foto prewed</span><span class="sheen" aria-hidden="true"></span></div>
         <div class="body">
           <p class="demo-names">Andi <span class="serif">&amp;</span> Sinta</p>
           <p class="demo-date">Sabtu, 20 September 2026 · 19:00</p>
@@ -631,11 +603,11 @@ footer.site .wrap{padding-top:52px;padding-bottom:38px}
           </div>
           <div class="field">
             <label class="field-label" for="setup-lokasi">Nama tempat</label>
-            <input id="setup-lokasi" class="input-field" placeholder="Gedung Melati, Jakarta Selatan" required>
+            <input id="setup-lokasi" class="input-field" required>
           </div>
           <div class="field">
             <label class="field-label" for="setup-maps">Link Google Maps</label>
-            <input id="setup-maps" class="input-field" placeholder="https://maps.app.goo.gl/xxxx" required inputmode="url">
+            <input id="setup-maps" class="input-field" required inputmode="url">
             <p class="hint">Bagikan → Salin tautan.</p>
           </div>
         </div>
@@ -643,14 +615,13 @@ footer.site .wrap{padding-top:52px;padding-bottom:38px}
         <div class="divider"></div>
 
         <div class="panel-b">
-          <p class="group-note">Bagian ini opsional — boleh dikosongkan.</p>
           <div class="field">
             <label class="field-label" for="setup-acara">Susunan acara</label>
-            <textarea id="setup-acara" class="input-field" placeholder="Akad Nikah | 09:00&#10;Resepsi | 11:00"></textarea>
+            <textarea id="setup-acara" class="input-field"></textarea>
           </div>
           <div class="field">
             <label class="field-label" for="setup-kisah">Kisah cinta</label>
-            <textarea id="setup-kisah" class="input-field" placeholder="Pertemuan Pertama | 2019&#10;Kami bertemu saat organisasi kampus..."></textarea>
+            <textarea id="setup-kisah" class="input-field"></textarea>
           </div>
           <div class="field" style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:start">
             <div>
@@ -756,13 +727,6 @@ footer.site .wrap{padding-top:52px;padding-bottom:38px}
         <a class="brand" href="#beranda"><span class="mark">RR</span> Ruang Resepsi</a>
         <p>Undangan pernikahan digital.</p>
       </div>
-      <div>
-        <h4>Undangan</h4>
-        <a href="#beranda">Buat baru</a><a href="#contoh-undangan">Contoh live</a><a href="#cara-kerja">Cara kerja</a>
-      </div>
-    </div>
-    <div class="f-bottom">
-      <span>© Ruang Resepsi</span>
     </div>
   </div>
 </footer>
